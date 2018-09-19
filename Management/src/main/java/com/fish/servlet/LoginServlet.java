@@ -20,8 +20,6 @@ public class LoginServlet extends HttpServlet {
 //         后台默认用户名和密码（设定为死）
             if ("root".equals(username) && "root".equals(password)) {
                 req.getSession().setAttribute("username", username);//把登录的后台管理员储存在回话里（为了进行是否登录状态的判断）
-
-                System.out.printf("**************************************************************");
 //                req.getRequestDispatcher("/WEB-INF/views/test.jsp").forward(req,resp);//重定向到后台主页面
             } else {
                 req.getRequestDispatcher("/notLogin.do").forward(req, resp);

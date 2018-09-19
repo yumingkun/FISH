@@ -19,9 +19,13 @@ public class UserFiler implements Filter {
         //登录的时候已经把信息放在会话里，如果会话里没有，表示没有登录，跳转到 LoginServlet
         if (null != ((HttpServletRequest) servletRequest).getSession().getAttribute("username")) {
             filterChain.doFilter(servletRequest, servletResponse);
+        } else if ("/login.do".equals(((HttpServletRequest)servletRequest).getServletPath()) ||
+                "/notLogin.do".equals(((HttpServletRequest)servletRequest).getServletPath())) {
+            filterChain.doFilter(servletRequest,servletResponse);
         } else {
             servletRequest.getRequestDispatcher("/notLogin.do").forward(servletRequest, servletResponse);
         }
+
     }
 
     @Override
