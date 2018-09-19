@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
- * 登录过滤器
+ * 后台登录过滤器
  */
 public class UserFiler implements Filter {
     @Override
