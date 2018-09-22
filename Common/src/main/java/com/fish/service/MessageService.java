@@ -3,6 +3,7 @@ package com.fish.service;
 import com.fish.dao.MessageDao;
 import com.fish.entity.Message;
 
+import java.util.Date;
 import java.util.List;
 
 public class MessageService {
@@ -35,4 +36,13 @@ public class MessageService {
 
 
 
+    /**
+     * 新建留言
+     * @param message
+     * @return
+     */
+    public boolean addMessage(Message message){
+        message.setCreateTime(new Date());
+        return messageDao.save(message);
+    }
 }

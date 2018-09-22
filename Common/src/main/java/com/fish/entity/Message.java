@@ -13,6 +13,13 @@ public class Message {
     public Message() {
     }
 
+    public Message(int userId, String userName, String title, String content) {
+        this.userId = userId;
+        this.userName = userName;
+        this.title = title;
+        this.content = content;
+    }
+
     public Message(int id, int userId, String userName, String title, String content, Date createTime) {
         this.id = id;
         this.userId = userId;
@@ -21,6 +28,7 @@ public class Message {
         this.content = content;
         this.createTime = createTime;
     }
+
 
     public int getId() {
         return id;

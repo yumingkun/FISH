@@ -7,6 +7,7 @@ import com.fish.utils.ConnectUtil;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -78,5 +79,35 @@ public class MessageDao {
         return 0;
     }
 
+
+    /**
+     * 添加新建的留言
+     * @return
+     */
+    public  boolean save(Message message){
+        Connection conn = ConnectUtil.getConnection();
+        String sql = "insert into message(user_id,username,title,content,create_time) values(?,?,?,?,?)";
+        PreparedStatement stmt = null;
+
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setLong(1, message.getUserId());
+            stmt.setString(2, message.getUserName());
+            stmt.setString(3, message.getTitle());
+            stmt.setString(4, message.getContent());
+            stmt.setTimestamp(5, new Timestamp(message.getCreateTime().getTime()));
+            stmt.execute();
+            System.out.println(message.getTitle()+"---------------");
+        } catch (Exception e) {
+            System.out.println("保存留言信息失败");
+            e.printStackTrace();
+            return false;
+        }finally {
+            ConnectUtil.release(null,stmt,conn);
+        }
+
+
+        return true;
+    }
 
 }

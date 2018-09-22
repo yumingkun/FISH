@@ -33,7 +33,7 @@ public class LoginRegisterServlet extends HttpServlet {
             User user=userService.login(username,password);//成功则返回一个用户实体
             if (null!=user){
                 System.out.printf("doPost成功------------------------");
-                req.getSession().setAttribute("username",username);//登录成功，把用户信息放在会话里
+                req.getSession().setAttribute("user",user);//登录成功，把用户信息放到会话里
                 req.getRequestDispatcher("/show/message.do").forward(req,resp);
             }else {
                 System.out.printf("登录失败");//继续登录
