@@ -18,70 +18,110 @@
 </head>
 
 <body>
+    <%--实现记住我--%>
+    <%
+        String username = "";
+        String password = "";
+        Cookie [] cookies = request.getCookies();
+        for (int i = 0; i <cookies.length ; i++) {
+            if ("username".equals(cookies[i].getName())){
+                username=cookies[i].getValue();
+            }else if("password".equals(cookies[i].getName())){
+                password=cookies[i].getValue();
+            }
+        }
 
-<div class="form">
 
-    <ul class="tab-group">
-        <li class="tab active"><a href="#signup">Sign Up</a></li>
-        <li class="tab"><a href="#login">Log In</a></li>
-    </ul>
+    %>
 
-    <div class="tab-content">
-        <div id="signup">
-            <h1>Sign Up for Free</h1>
+    <div class="form">
+        <!--1：切换登录注册按钮-->
+        <ul class="tab-group">
+            <li class="tab active"><a href="#">REGISTER</a></li>
+            <li class="tab"><a href="#">LOGIN</a></li>
+        </ul>
+        <!--1：需要切换的面板-->
+        <div class="tab-content">
+            <!--2：注册面板-->
+            <div id="register">
+                <h1>Register <%=(request.getAttribute("msg_r")==null) ? ("") : (request.getAttribute("msg_r")) %></h1>
 
-            <form action="/show/register.do" method="post">
+                <form action="/show/register.do" method="post">
 
-                <div class="field-wrap">
-                        <label>UserName</label>
-                        <input type="text" name="username" required autocomplete="off" />
-                </div>
+                    <div class="top-row">
+                        <div class="field-wrap">
+                            <label>Name</label>
+                            <input type="text" required autocomplete="off" name="username" />
+                        </div>
+                    </div>
 
-                <div class="field-wrap">
-                    <label>Email</label>
-                    <input type="email"required name="email" autocomplete="off"/>
-                </div>
+                    <div class="field-wrap">
+                        <label>Email Address</label>
+                        <input type="email"required autocomplete="off" name="email"/>
+                    </div>
 
-                <div class="field-wrap">
-                    <label>Password</label>
-                    <input type="password"required  name="password" autocomplete="off"/>
-                </div>
+                    <div class="field-wrap">
+                        <label>Set A Password</label>
+                        <input type="password"required autocomplete="off" name="password"/>
+                    </div>
 
-                <button type="submit" class="button button-block"/>Get Started</button>
+                    <button type="submit" class="button button-block"/>Get Started</button>
 
-            </form>
+                </form>
+
+            </div>
+            <!--2：登录面板-->
+            <div id="login">
+                <h1>Login <%=(request.getAttribute("msg_l")==null) ? ("") : (request.getAttribute("msg_l")) %></h1>
+
+                <form action="/show/login.do" method="post">
+
+                    <div class="field-wrap">
+                        <label>Name</label>
+                        <input  type="text"required autocomplete="off" name="username" value="<%=username%>"/>
+                    </div>
+
+                    <div class="field-wrap">
+                        <label>Password</label>
+                        <input type="password"required autocomplete="off" name="password" value="<%=password%>"/>
+                    </div>
+
+                    <p>
+                        <input type="checkbox" value="" name="ok" >
+                        <label>Remember Me</label>
+                    </p>
+
+                    <button type="submit" class="button button-block"/>Log In</button>
+
+                </form>
+
+            </div>
 
         </div>
-
-        <div id="login">
-            <h1>Welcome Back!</h1>
-
-            <form action="/show/login.do" method="post">
-
-                <div class="field-wrap">
-                    <label>UserName</label>
-                    <input type="text" name="username" required autocomplete="off" />
-                </div>
-
-                <div class="field-wrap">
-                    <label>Password</label>
-                    <input type="password" name="password" required autocomplete="off"/>
-                </div>
-
-                <p class="forgot"><a href="#">Forgot Password?</a></p>
-
-                <button type="submit" class="button button-block"/>Log In</button>
-
-            </form>
-
-        </div>
-
-    </div><!-- tab-content -->
-
-</div> <!-- /form -->
-<script src='../../js/jquery.min.js'></script>
-
-<script  src="../../js/login_register.js"></script>
+    </div>
 
 </body>
+<script src='../../js/jquery.min.js'></script>
+
+<%--实现登录注册面板的切换--%>
+<script type="text/javascript">
+    //获取切换面板
+    var tabs=document.getElementsByClassName("tab");
+    //获取显示和隐藏的div
+    var register=document.getElementById("register");
+    var login=document.getElementById("login");
+    //显示注册
+    tabs[0].onclick=function () {
+        register.style.display="block";
+        login.style.display="none";
+    };
+    //显示登录
+    tabs[1].onclick=function () {
+        register.style.display="none";
+        login.style.display="block";
+    }
+
+
+</script>
+
 </html>

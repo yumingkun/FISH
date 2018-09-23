@@ -1,158 +1,85 @@
-*, *:before, *:after {
-    box-sizing: border-box;
-}
-
-html {
-    overflow-y: scroll;
-}
-
-body {
-    background-color: whitesmoke;
-    opacity: 0.1%;
-    font-family: 'Titillium Web', sans-serif;
-}
-
-a {
+*{
+    margin: 0;
+    padding: 0;
+    list-style: none;
     text-decoration: none;
-    color: #7274d2;
-    -webkit-transition: .5s ease;
-    transition: .5s ease;
 }
-a:hover {
-    color: #3a3c6f;
+body{
+    background: #c1bdba;
 }
-
-.form {
-    background: rgba(19, 35, 47, 0.9);
+.form{
+    background: rgba(57, 71, 97, 0.9);
     padding: 40px;
     max-width: 600px;
-    margin: 40px auto;
+    margin: 60px auto;
     border-radius: 4px;
     box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
-}
-.form input{
-    height: 5%;
-}
 
-.tab-group {
-    list-style: none;
-    padding: 0;
+}
+ul{
     margin: 0 0 40px 0;
 }
-.tab-group:after {
-    content: "";
-    display: table;
-    clear: both;
+ul li{
+    list-style: none;
+    display: inline-block;
+    width: 49%;
+
 }
-.tab-group li a {
+li a:hover{
+    background-color: #9ecaff;
+}
+
+ul li a {
     display: block;
-    text-decoration: none;
     padding: 15px;
-    background: rgba(160, 179, 176, 0.25);
-    color: #a0b3b0;
+    background: #5c83b7;
+    color: #d8f2ee;
     font-size: 20px;
     float: left;
-    width: 50%;
+    width: 90%;
+    overflow: hidden;
     text-align: center;
     cursor: pointer;
     -webkit-transition: .5s ease;
     transition: .5s ease;
 }
-.tab-group li a:hover {
-    background: #3a3c6f;
-    color: #ffffff;
+.field-wrap{
+    margin-bottom: 20px;
 }
-.tab-group .active a {
-    background: #7274d2;
-    color: #ffffff;
-}
+.field-wrap  input {
+    font-size: 22px;
 
-.tab-content > div:last-child {
-    display: none;
+    background: none;
+    /*去除输入框白色底*/
+    display: block;
+    width: 100%;
+    height: 5%;
+    padding: 6px 0px;
+    /*控制输入框大小*/
+    border: 2px solid #a0b3b0;
+    color: #ffffff;
+    border-radius: 3px;
+}
+.field-wrap input:focus {
+    outline: 0;
+    /*阻止输入框自带的聚焦颜色*/
+    border-color: #9ecaff;
 }
 
 h1 {
     text-align: center;
     color: #ffffff;
     font-weight: 300;
-    margin: 0 0 40px;
-}
 
-label {
-    position: absolute;
-    -webkit-transform: translateY(6px);
-    transform: translateY(6px);
-    left: 13px;
-    color: rgba(255, 255, 255, 0.5);
-    -webkit-transition: all 0.25s ease;
-    transition: all 0.25s ease;
-    -webkit-backface-visibility: hidden;
-    pointer-events: none;
-    font-size: 22px;
 }
-label .req {
-    margin: 2px;
-    color: #4b4c71;
-}
-
-label.active {
-    -webkit-transform: translateY(50px);
-    transform: translateY(50px);
-    left: 2px;
-    font-size: 14px;
-}
-label.active .req {
-    opacity: 0;
-}
-
-label.highlight {
-    color: #ffffff;
-}
-
-input, textarea {
-    font-size: 22px;
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 5px 10px;
-    background: none;
-    background-image: none;
-    border: 1px solid #a0b3b0;
-    color: #ffffff;
-    border-radius: 0;
-    -webkit-transition: border-color .25s ease, box-shadow .25s ease;
-    transition: border-color .25s ease, box-shadow .25s ease;
-}
-input:focus, textarea:focus {
-    outline: 0;
-    border-color: #3c3d5a;
-}
-
-textarea {
-    border: 2px solid #a0b3b0;
-    resize: vertical;
-}
-
-.field-wrap {
-    position: relative;
-    margin-bottom: 40px;
-}
-
-.top-row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-.top-row > div {
-    float: left;
-    width: 48%;
-    margin-right: 4%;
-}
-.top-row > div:last-child {
-    margin: 0;
+label{
+    color: #d8f2ee;
 }
 
 .button {
+    width: 100%;
+    margin: 20px auto;
+    display: block;
     border: 0;
     outline: none;
     border-radius: 0;
@@ -161,22 +88,19 @@ textarea {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .1em;
-    background: #3a3c6f;
+    background: #5c83b7;
     color: #ffffff;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;
     -webkit-appearance: none;
 }
-.button:hover, .button:focus {
-    background: #20204a;
+.button:hover {
+    background-color: #9ecaff;
 }
 
-.button-block {
+#register{
+    display: none;
+}
+#login{
     display: block;
-    width: 100%;
-}
-
-.forgot {
-    margin-top: -20px;
-    text-align: right;
 }

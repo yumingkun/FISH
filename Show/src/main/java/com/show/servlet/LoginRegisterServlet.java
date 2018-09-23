@@ -5,6 +5,7 @@ import com.fish.service.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,14 +31,34 @@ public class LoginRegisterServlet extends HttpServlet {
         if ("/show/login.do".equals(req.getServletPath())){
             String username=req.getParameter("username");
             String password=req.getParameter("password");
+
+            String remember=req.getParameter("ok");
+            //创建一个cookie，存放制定值
+            Cookie nameCookie = new Cookie("username", username);
+            Cookie passwordCookie = new Cookie("password", password);
+            //设置失效时间
+            if (null!=remember && "ok".equals(remember)){
+                nameCookie.setMaxAge(7*24*60*60);
+                passwordCookie.setMaxAge(7*24*60*60);
+            }else {
+                nameCookie.setMaxAge(0);
+                passwordCookie.setMaxAge(0);
+            }
+            //将Cookie存放到response中
+            resp.addCookie(nameCookie);
+            resp.addCookie(passwordCookie);
+
+
             User user=userService.login(username,password);//成功则返回一个用户实体
-            if (null!=user){
+//            System.out.printf(user.toString());
+            if (user!=null){
                 System.out.printf("doPost成功------------------------");
                 req.getSession().setAttribute("user",user);//登录成功，把用户信息放到会话里
                 req.getRequestDispatcher("/show/message.do").forward(req,resp);
             }else {
-                System.out.printf("登录失败");//继续登录
-                req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req,resp);
+                System.out.printf("登录失败-------------------------------------");//继续登录
+                req.setAttribute("msg_l","Fail");
+                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
             }
         //注册处理
         }else if("/show/register.do".equals(req.getServletPath())){
@@ -59,7 +80,8 @@ public class LoginRegisterServlet extends HttpServlet {
                 }
             }else{
                 System.out.printf("注册失败======================================");
-                req.getRequestDispatcher("/WEB-INF/views/error.jsp").forward(req,resp);
+                req.setAttribute("msg_r","Fail");
+                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
             }
 
         }

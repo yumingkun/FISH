@@ -26,30 +26,11 @@
 <body>
 <%--1：标签锚点--%>
 <a name="top"></a>
-<!-- 导航 -->
-<div class="navbar navbar-default header" id="headerAnimate"  >
-    <div class="container">
-        <div class="navbar-header">
-            <a href="index.html" class="navbar-brand"></a>
-        </div>
-        <label id="toggle-label" class="visible-xs-inline-block  " for="toggle-checkbox">MENU</label>
-        <input id="toggle-checkbox" class="hidden" type="checkbox" />
-        <div class="hidden-xs">
-            <ul class="nav navbar-nav">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">国内</a></li>
-                <li><a href="#">国际</a></li>
-                <li><a href="#">数读</a></li>
-                <li><a href="#">社会</a></li>
-            </ul>
-            <ul class="navbar-right nav navbar-nav">
-                <li><a href=""><% if (request.getSession().getAttribute("user")==null){%>请登录<%};%></a></li>
-                <li><a href="/show/write.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
-            </ul>
-        </div>
-    </div>
-</div>
+
+<%--导航--%>
+<jsp:include page="../common/header.jsp" />
 <!-- 导航END -->
+
 <!-- 主内容 -->
 <div class="container">
     <div class="row">
@@ -72,149 +53,24 @@
         <!-- 中间内容 -->
         <div class="col-sm-7">
             <div class="new-list">
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="news.html" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
+                <c:forEach items="${messages}" var="message">
+                    <div class="new-list-item clearfix">
+                        <div class="col-xs-4">
+                            <img src="../../img/timg.jpeg" alt="">
+                        </div>
+                        <div class="col-xs-7">
+                            <a href="/show/detail.do" class="title">${message.title}</a>
+                            <div class="content">
+                                <p>${message.content}</p>
+                            </div>
+                            <div class="info">
+                                <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
+                                <span>25k</span> ⋅
+                                <span>${message.title}</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/003.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/004.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="new-list-item clearfix">
-                    <div class="col-xs-4">
-                        <img src="img/002.jpg" alt="">
-                    </div>
-                    <div class="col-xs-7">
-                        <a href="#" class="title">2年前他为教育事业和高圆圆分手，今成这般，高圆圆：我有一句MMP如鲠在喉</a>
-                        <div class="info">
-                            <span> <span class="avatar"><img src="img/yuanmeng.png"></span>猿梦</span> ⋅
-                            <span>25k</span> ⋅
-                            <span>8分钟前</span>
-                        </div>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
         <!-- 中间内容END -->
@@ -269,24 +125,9 @@
 </div>
 
 
-
-<%--1：页脚--%>
-<div class="footer">
-    <a href="">关于小蓝书</a> ·
-    <a href="">联系我们</a> ·
-    <a href="">加入我们</a>
-    <a href="">帮助中心</a> ·
-    <a href="">合作伙伴</a>
-    <!-- 备案信息 -->
-    <div class="icp">
-        <span>©2018-2019 刹那芳华科技有限公司 / 小蓝书 / 沪ICP备11018329号-5  </span>
-         <br>
-        <a href="">举报电话：021-349970013 </a>
-
-    </div>
-</div>
-<!-- 页脚END -->
-
+<%--页脚--%>
+<jsp:include page="../common/footer.jsp" />
+<%--页脚end--%>
 
 <%--1：回到顶部--%>
 <a href="#top" title="返回顶部"  id="btn"></a>
