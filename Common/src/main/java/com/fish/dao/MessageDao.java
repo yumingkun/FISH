@@ -110,4 +110,40 @@ public class MessageDao {
         return true;
     }
 
+
+    /**
+     * 通过文章id查询文章详情
+     * @param id 文章id
+     * @return 一个文章
+     */
+    public Message getMessageById(int id)  {
+
+        Connection conn=null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Message message=null;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select * from message where id=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                message=new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return message;
+    }
+
 }

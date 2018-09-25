@@ -10,6 +10,8 @@ public class Message {
     private String content;
     private Date createTime;
 
+    private String src;
+
     public Message() {
     }
 
@@ -76,5 +78,13 @@ public class Message {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getSrc() {
+        return src;
+    }
+
+    public void setSrc(String src) {
+        this.src = src;
     }
 }

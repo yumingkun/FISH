@@ -75,24 +75,19 @@
                 <h1>Login <%=(request.getAttribute("msg_l")==null) ? ("") : (request.getAttribute("msg_l")) %></h1>
 
                 <form action="/show/login.do" method="post">
-
                     <div class="field-wrap">
                         <label>Name</label>
                         <input  type="text"required autocomplete="off" name="username" value="<%=username%>"/>
                     </div>
-
                     <div class="field-wrap">
                         <label>Password</label>
                         <input type="password"required autocomplete="off" name="password" value="<%=password%>"/>
                     </div>
-
                     <p>
                         <input type="checkbox" value="" name="ok" >
                         <label>Remember Me</label>
                     </p>
-
                     <button type="submit" class="button button-block"/>Log In</button>
-
                 </form>
 
             </div>

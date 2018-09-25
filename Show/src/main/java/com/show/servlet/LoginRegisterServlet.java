@@ -32,6 +32,7 @@ public class LoginRegisterServlet extends HttpServlet {
             String username=req.getParameter("username");
             String password=req.getParameter("password");
 
+            //接收form传来的记住我
             String remember=req.getParameter("ok");
             //创建一个cookie，存放制定值
             Cookie nameCookie = new Cookie("username", username);

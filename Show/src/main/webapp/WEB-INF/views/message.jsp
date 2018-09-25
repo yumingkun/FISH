@@ -52,22 +52,26 @@
         <!-- 左边分类END -->
         <!-- 中间内容 -->
         <div class="col-sm-7">
+
+
             <div class="new-list">
                 <c:forEach items="${messages}" var="message">
                     <div class="new-list-item clearfix">
                         <div class="col-xs-4">
-                            <img src="../../img/timg.jpeg" alt="">
+                            <img src="${message.src}" alt="">
                         </div>
                         <div class="col-xs-7">
-                            <a href="/show/detail.do" class="title">${message.title}</a>
+
+                            <a href="/show/detail.do?id=${message.id}" class="title">${message.title}</a>
                             <div class="content">
-                                <p>${message.content}</p>
+                                <%--<p>${message.content}</p>--%>
                             </div>
                             <div class="info">
                                 <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
                                 <span>25k</span> ⋅
                                 <span>${message.title}</span>
                             </div>
+
                         </div>
                     </div>
                 </c:forEach>

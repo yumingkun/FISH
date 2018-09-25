@@ -45,4 +45,13 @@ public class MessageService {
         message.setCreateTime(new Date());
         return messageDao.save(message);
     }
+
+    /**
+     * 通过文章id查询文章详情
+     * @param id 文章id
+     * @return 一个文章
+     */
+    public Message getMessageById(int id){
+        return messageDao.getMessageById(id);
+    }
 }
