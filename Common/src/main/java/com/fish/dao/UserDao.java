@@ -1,17 +1,17 @@
 package com.fish.dao;
 
-import com.fish.entity.User;
+import com.fish.bean.User;
 import com.fish.utils.ConnectUtil;
+import com.fish.utils.SQLUtil;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class UserDao {
     /**
-     * 用户登录
+     * 前台用户登录
      * @param username 用户名
      * @param password 密码
      * @return 成功返回数据库用户实体 失败返回null
@@ -36,6 +36,7 @@ public class UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
+                user.setHead(rs.getString("head"));
             }
         } catch (SQLException e) {
             System.out.println("UserDao-----------------------------登录失败");
@@ -49,6 +50,11 @@ public class UserDao {
         return  user;
     }
 
+    /**
+     * 前台增加用户
+     * @param user
+     * @return
+     */
     public boolean addUser(User user){
         Connection conn=ConnectUtil.getConnection();
         String sql="insert into users(username,password,email) values(?,?,?)";
@@ -73,4 +79,120 @@ public class UserDao {
         }
 
     }
+
+
+    /**
+     * 前台添加用户头像的文件名
+     * @param url 上传头像的文件名
+     * @return
+     */
+    public boolean addHead(String url,int id){
+        Connection conn=ConnectUtil.getConnection();
+        String sql="update users set head=? where id=? ";
+        PreparedStatement stmt=null;
+        ResultSet rs=null;
+
+        try {
+            stmt=conn.prepareStatement(sql);
+            stmt.setString(1,url);
+            stmt.setInt(2,id);
+            stmt.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
+            System.out.println("addUser-----------------------------添加用户头像失败");
+            e.printStackTrace();
+            return false;
+        }finally {
+            ConnectUtil.release(rs,stmt,conn);
+        }
+    }
+
+
+
+    /**
+     * 后台查询所有的用户信息
+     * @return
+     */
+    public List<User> getAllUsers() {
+        Connection conn = ConnectUtil.getConnection();
+        String sql = "select * from users";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<User> users = new ArrayList<User>();
+        try {
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                users.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email")));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return users;
+    }
+
+    /**
+     * 后台计算所有用户数量
+     * @return 用户总数
+     * @throws Exception
+     */
+    public  int countUsers() {
+        Connection conn =null;
+        String sql = "select count(*) total from users";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        try {
+            conn=ConnectUtil.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("total");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return 0;
+    }
+
+    /**
+     * 分页查询用户
+     * @param page 当前页
+     * @param recordPage 一次查询多少用户
+     * @return 返回一页查询的用户数量
+     */
+    public List<User> searchUsers(int page,int recordPage){
+        Connection conn =null;
+        List<User> users=new ArrayList<User>();
+        String sql = "select id,username,password,email  from users "+SQLUtil.getLimit(page,recordPage);
+        // select id,username,password,email  from users limit 0,5
+        PreparedStatement stmt=null;
+        ResultSet rs=null;
+        try {
+            conn=ConnectUtil.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user=new User();
+               user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setEmail(rs.getString("email"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return users;
+
+    }
+
 }

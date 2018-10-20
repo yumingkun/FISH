@@ -1,7 +1,7 @@
 package com.fish.service;
 
 import com.fish.dao.MessageDao;
-import com.fish.entity.Message;
+import com.fish.bean.Message;
 
 import java.util.Date;
 import java.util.List;

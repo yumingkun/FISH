@@ -44,6 +44,15 @@
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
+
+        <!--上传头像组件-->
+        <!--引入自己用maven引入的外部上传文件jar-->
+        <dependency>
+            <groupId>com.yu</groupId>
+            <artifactId>jspSmartUpload</artifactId>
+            <version>1.0.0.RELEASE</version>
+        </dependency>
+
     </dependencies>
 
     <build>

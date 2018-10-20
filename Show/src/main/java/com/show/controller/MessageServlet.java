@@ -1,6 +1,6 @@
-package com.show.servlet;
+package com.show.controller;
 
-import com.fish.entity.Message;
+import com.fish.bean.Message;
 import com.fish.service.MessageService;
 import com.fish.utils.GetImgStr;
 

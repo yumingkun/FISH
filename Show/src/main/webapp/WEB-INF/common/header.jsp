@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.fish.bean.User" %><%--
   Created by IntelliJ IDEA.
   User: mingkunyu
   Date: 2018/9/23
@@ -20,9 +20,32 @@
     <%--整体css js--%>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+    <style type="text/css">
+        .file_icon{
+            width: 34px;
+            height: 34px;
+            display: flex;
+            border-radius: 50%;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+    </style>
 </head>
 <body>
 <!-- 导航 -->
+<%
+    User user =(User) request.getSession().getAttribute("user");
+
+%>
+
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
+
+
 <div class="navbar navbar-default header" id="headerAnimate"  >
     <div class="container">
         <div class="navbar-header">
@@ -36,10 +59,16 @@
                 <li><a href="#">国内</a></li>
                 <li><a href="#">国际</a></li>
                 <li><a href="#">数读</a></li>
-                <li><a href="#">社会</a></li>
+
             </ul>
             <ul class="navbar-right nav navbar-nav">
-                <li><a href=""><% if (request.getSession().getAttribute("user")==null){%>请登录<%};%></a></li>
+                <% if (user!=null){%>
+                    <li><img alt="" src="<%=basePath+user.getHead()%>" class="file_icon"></li>
+                     <%=basePath+user.getHead()%>
+                    <li><a href="/show/myself.do">个人中心</a></li>
+                <%}else{%>
+                <li><img alt="" src="../../img/notlogin.jpg" class="file_icon"></li>
+                <%};%>
                 <li><a href="/show/write.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
             </ul>
         </div>

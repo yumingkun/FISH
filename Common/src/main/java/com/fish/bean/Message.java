@@ -1,4 +1,4 @@
-package com.fish.entity;
+package com.fish.bean;
 
 import java.util.Date;
 

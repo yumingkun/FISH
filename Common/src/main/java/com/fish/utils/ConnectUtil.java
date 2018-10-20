@@ -38,7 +38,7 @@ public class ConnectUtil {
 
 
     //       3：释放资源
-    public static void  release(ResultSet rs, Statement stmt ,Connection conn){
+    public static void  release(ResultSet rs, PreparedStatement stmt ,Connection conn){
 
             try {
                 if(rs!=null) {

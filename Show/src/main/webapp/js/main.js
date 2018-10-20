@@ -2,14 +2,11 @@ window.onscroll=function(){
     // 导航栏动画---------------------------------------------------
     var top=document.documentElement.scrollTop||document.body.scrollTop;
     var header=document.getElementById("headerAnimate");
-    var aColor=document.getElementsByClassName("aColor");
     // 导航条黑色动画
     if(top>70){//加上动画样式
         header.classList.add("header_status_black");
-        aColor.style.color="red";
     }else{//清除样式
         header.classList.remove("header_status_black");
-        aColor.style.color="black";
     }
 
 

@@ -1,7 +1,7 @@
-package com.show.servlet;
+package com.show.controller;
 
-import com.fish.entity.Message;
-import com.fish.entity.User;
+import com.fish.bean.Message;
+import com.fish.bean.User;
 import com.fish.service.MessageService;
 
 import javax.servlet.ServletException;

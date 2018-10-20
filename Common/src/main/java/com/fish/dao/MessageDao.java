@@ -1,7 +1,7 @@
 package com.fish.dao;
 
 
-import com.fish.entity.Message;
+import com.fish.bean.Message;
 import com.fish.utils.ConnectUtil;
 
 import java.sql.Connection;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MessageDao {
     /**
-     * 分页查询全部留言
+     * 前台分页查询全部留言
      * @param page page当前页码
      * @param pageSize 每页记录数
      * @return
@@ -55,7 +55,7 @@ public class MessageDao {
 
 
     /**
-     * 计算所有留言数量
+     * 前台计算所有留言数量
      * @return
      * @throws Exception
      */
@@ -81,7 +81,7 @@ public class MessageDao {
 
 
     /**
-     * 添加新建的留言
+     * 前台添加新建的留言
      * @return
      */
     public  boolean save(Message message){
@@ -112,7 +112,7 @@ public class MessageDao {
 
 
     /**
-     * 通过文章id查询文章详情
+     * 前台通过文章id查询文章详情
      * @param id 文章id
      * @return 一个文章
      */

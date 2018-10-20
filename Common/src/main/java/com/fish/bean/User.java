@@ -1,13 +1,14 @@
-package com.fish.entity;
+package com.fish.bean;
 
-
-import java.util.Date;
 
 public class User {
     private int id;
     private String username;
     private String password;
     private String email;
+    private String head;
+
+
 
     public User() {
     }
@@ -16,6 +17,12 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
+        this.email = email;
+    }
+
+    public User(int id, String username, String email) {
+        this.id = id;
+        this.username = username;
         this.email = email;
     }
 
@@ -49,5 +56,12 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getHead() {
+        return head;
+    }
+
+    public void setHead(String head) {
+        this.head = head;
     }
 }

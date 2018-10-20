@@ -24,10 +24,11 @@
         String password = "";
         Cookie [] cookies = request.getCookies();
         for (int i = 0; i <cookies.length ; i++) {
-            if ("username".equals(cookies[i].getName())){
-                username=cookies[i].getValue();
-            }else if("password".equals(cookies[i].getName())){
-                password=cookies[i].getValue();
+            Cookie cookie = cookies[i];
+            if ("username".equals(cookie.getName())){
+                username=cookie.getValue();
+            }else if("password".equals(cookie.getName())){
+                password=cookie.getValue();
             }
         }
 
@@ -84,7 +85,7 @@
                         <input type="password"required autocomplete="off" name="password" value="<%=password%>"/>
                     </div>
                     <p>
-                        <input type="checkbox" value="" name="ok" >
+                        <input type="checkbox" value="ok" name="ok" >
                         <label>Remember Me</label>
                     </p>
                     <button type="submit" class="button button-block"/>Log In</button>
