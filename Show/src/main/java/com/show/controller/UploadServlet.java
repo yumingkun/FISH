@@ -87,13 +87,14 @@ public class UploadServlet extends HttpServlet {
         String name=mainFile+"."+extFile;
         if ( userService.addHead(name,id)){
             System.out.printf("上传头像成功====================");
+//            request.getSession().setAttribute("src",mainFile+"."+extFile);
         }else{
-            System.out.printf("上传头像成功=======================");
+            System.out.printf("上传头像失败=======================");
         }
 
 
-//       request.getSession().setAttribute("src",mainFile+"."+extFile);
-        request.getRequestDispatcher("/show/message.do").forward(request,response);
+
+        request.getRequestDispatcher("/show/myself.do").forward(request,response);
     }
 
 }

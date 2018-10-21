@@ -10,11 +10,13 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
+
     <title>FISH</title>
     <%--清除浏览器默认样式--%>
     <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
     <%--引入--%>
-
+    <script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
     <%--整体css js--%>
@@ -137,5 +139,7 @@
 <a href="#top" title="返回顶部"  id="btn"></a>
 
 </body>
+
+
 
 </html>

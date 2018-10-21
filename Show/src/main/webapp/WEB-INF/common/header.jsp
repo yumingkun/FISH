@@ -8,38 +8,27 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<html>
-<head>
-    <title>Title</title>
-    <%--清除浏览器默认样式--%>
-    <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
-    <%--引入--%>
 
-    <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
-    <%--整体css js--%>
-    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
-    <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
-    <style type="text/css">
-        .file_icon{
-            width: 34px;
-            height: 34px;
-            display: flex;
-            border-radius: 50%;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-    </style>
-</head>
-<body>
+<style type="text/css">
+    .file_icon{
+        width: 34px;
+        height: 34px;
+        line-height: 34px;
+        display: flex;
+        border-radius: 50%;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        margin-top: 8px;
+        border: 2px solid #5c83b7;
+    }
+</style>
+
 <!-- 导航 -->
 <%
     User user =(User) request.getSession().getAttribute("user");
 
-%>
-
-<%
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -64,8 +53,26 @@
             <ul class="navbar-right nav navbar-nav">
                 <% if (user!=null){%>
                     <li><img alt="" src="<%=basePath+user.getHead()%>" class="file_icon"></li>
-                     <%=basePath+user.getHead()%>
-                    <li><a href="/show/myself.do">个人中心</a></li>
+                    <li>
+                        <%--下拉菜单--%>
+                        <ul class="nav navbar-nav">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <%=user.getUsername()%>
+                                    <b class="caret"></b>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="/show/myself.do">个人中心</a></li>
+                                    <li><a href="#">EJB</a></li>
+                                    <li><a href="#">Jasper Report</a></li>
+                                    <li class="divider"></li>
+                                    <li><a href="#">退出</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <%--end下拉菜单--%>
+                    </li>
+
                 <%}else{%>
                 <li><img alt="" src="../../img/notlogin.jpg" class="file_icon"></li>
                 <%};%>
@@ -74,5 +81,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+
