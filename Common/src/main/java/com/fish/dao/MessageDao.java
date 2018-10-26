@@ -55,6 +55,43 @@ public class MessageDao {
 
 
     /**
+     * 前台用户查询自己的全部文章
+     * @param id 当前用户id
+     * @return
+     */
+    public List<Message> getUserMessageList(int id)  {
+
+        Connection conn=null;
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Message> messages = new ArrayList<Message>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select * from message  where user_id=? order by create_time desc ";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                messages.add(new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time")));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return messages;
+    }
+
+    /**
      * 前台计算所有留言数量
      * @return
      * @throws Exception

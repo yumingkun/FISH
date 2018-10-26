@@ -185,14 +185,14 @@ a:hover {
 
 /* 页脚声明 */
 
-.footer {
-    border: 1px solid red;
-    color: #999;
-    margin-top: 20px;
-    padding: 50px 0;
-    text-align: center;
-    line-height: 20px;
-}
+/*.footer {*/
+    /*border: 1px solid red;*/
+    /*color: #999;*/
+    /*margin-top: 20px;*/
+    /*padding: 50px 0;*/
+    /*text-align: center;*/
+    /*line-height: 20px;*/
+/*}*/
 
 
 /* 页脚声明END */

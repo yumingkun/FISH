@@ -45,6 +45,27 @@ public class UserService {
 
 
     /**
+     * 前台查询指定用户
+     * @param id
+     * @return
+     */
+    public User getUser(int id){
+        return userDao.getUser(id);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
      * 后台查询所有的用户信息
      * @return 所有的用户信息 id username email
      */

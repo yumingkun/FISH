@@ -14,7 +14,7 @@ public class MessageService {
 
 
     /**
-     * 分页查询所有留言
+     * 分页查询所有文章
      * @param page 当前页码
      * @param pageSize 每页数量
      * @return
@@ -22,6 +22,15 @@ public class MessageService {
     public List<Message> getMessages(int page, int pageSize)   {
         // 得到messages
         return messageDao.getMessageList(page,pageSize);
+    }
+
+    /**
+     * 查询用户所有的文章
+     * @param id
+     * @return
+     */
+    public List<Message> getUserMessageList(int id){
+        return  messageDao.getUserMessageList(id);
     }
 
     /**

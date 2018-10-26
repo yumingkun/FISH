@@ -108,6 +108,34 @@ public class UserDao {
         }
     }
 
+    /**
+     * 前台查询指定用户
+     * @param id
+     * @return
+     */
+    public User getUser(int id){
+        Connection conn = ConnectUtil.getConnection();
+        String sql = "select * from users where id=?";
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        User user=null;
+        try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1,id);
+            rs = stmt.executeQuery();
+
+            while (rs.next()) {
+               user=new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("head"));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return user;
+    }
 
 
     /**

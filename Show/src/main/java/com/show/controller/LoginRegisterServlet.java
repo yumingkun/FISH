@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/show/login.do","/show/register.do"})
+@WebServlet({"/show/login.do","/show/register.do","/show/quit.do"})
 public class LoginRegisterServlet extends HttpServlet {
     private UserService userService;
     @Override
@@ -85,6 +85,9 @@ public class LoginRegisterServlet extends HttpServlet {
                 req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
             }
 
+        }else if ("/show/quit.do".equals(req.getServletPath())){
+            req.getSession().setAttribute("user","");
+            req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
         }
     }
 }

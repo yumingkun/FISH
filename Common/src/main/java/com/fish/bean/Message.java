@@ -7,6 +7,9 @@ public class Message {
     private int userId;
     private String userName;
     private  String title;
+
+
+
     private String content;
     private Date createTime;
 
@@ -29,6 +32,19 @@ public class Message {
         this.title = title;
         this.content = content;
         this.createTime = createTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "id=" + id +
+                ", userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", title='" + title + '\'' +
+                ", content='" + content + '\'' +
+                ", createTime=" + createTime +
+                ", src='" + src + '\'' +
+                '}';
     }
 
 

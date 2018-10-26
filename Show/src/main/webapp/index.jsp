@@ -14,9 +14,9 @@
     <meta http-equiv="refresh" content="0;url=<%request.getContextPath();%>/show/message.do">
 </head>
 
-<form action="upload.do" method="post" enctype="multipart/form-data">
-    选择头像<input type="file" name="myFile">
-    <input type="submit" value="上传">
-</form>
+<%--<form action="upload.do" method="post" enctype="multipart/form-data">--%>
+    <%--选择头像<input type="file" name="myFile">--%>
+    <%--<input type="submit" value="上传">--%>
+<%--</form>--%>
 
 </html>

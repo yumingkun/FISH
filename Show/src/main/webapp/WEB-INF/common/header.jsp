@@ -28,7 +28,6 @@
 <!-- 导航 -->
 <%
     User user =(User) request.getSession().getAttribute("user");
-
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -63,10 +62,10 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/show/myself.do">个人中心</a></li>
-                                    <li><a href="#">EJB</a></li>
-                                    <li><a href="#">Jasper Report</a></li>
+                                    <li><a href="#">暂无</a></li>
+                                    <li><a href="#">暂无</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="#">退出</a></li>
+                                    <li><a href="/show/quit.do">退出</a></li>
                                 </ul>
                             </li>
                         </ul>

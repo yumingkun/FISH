@@ -20,6 +20,25 @@ public class User {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", head='" + head + '\'' +
+                '}';
+    }
+
+    public User(int id, String username, String password, String email, String head) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.head = head;
+    }
+
     public User(int id, String username, String email) {
         this.id = id;
         this.username = username;
