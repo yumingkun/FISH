@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/show/login.do","/show/register.do","/show/quit.do"})
-public class LoginRegisterServlet extends HttpServlet {
+@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editMyself.do"})
+public class UserServlet extends HttpServlet {
     private UserService userService;
     @Override
     public void init() throws ServletException {
@@ -88,6 +88,9 @@ public class LoginRegisterServlet extends HttpServlet {
         }else if ("/show/quit.do".equals(req.getServletPath())){
             req.getSession().setAttribute("user","");
             req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+        //点击修改文章按钮
+        }else if ("editUser".equals(req.getParameter("edit"))){
+            req.getRequestDispatcher("/WEB-INF/views/editMyself.jsp").forward(req,resp);
         }
     }
 }

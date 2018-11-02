@@ -158,11 +158,14 @@
 
                     </div>
 
+
                 </div>
                 <div id="right-right-1" class="col-md-9" style="padding: 15px;">
                     <div>
-                        <p class="text-muted">ID:${user.id}</p>
+                        <%--修改用户信息--%>
+                        <p class="text-muted">ID:${user.id}<a  href="/show/editMyself.do?edit=editUser" style="float: right"><span class="glyphicon glyphicon-edit" style="font-size: 20px"></span></a></p>
                         <p>关注</p><p>粉丝</p>
+
                     </div>
                     <hr>
                     <div>
@@ -176,6 +179,8 @@
                         <p>职位：</p>
                     </div>
                 </div>
+            </div>
+
             </div>
             <div id="right-row-2">我的收藏</div>
             <div id="right-row-3">我的关注</div>

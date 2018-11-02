@@ -11,6 +11,7 @@
 
 
 <style type="text/css">
+    /*头像*/
     .file_icon{
         width: 34px;
         height: 34px;
@@ -23,6 +24,14 @@
         margin-top: 8px;
         border: 2px solid #5c83b7;
     }
+
+    /*logo*/
+    .navbar-brand img{
+        width: 40px;
+        height: 40px;
+        margin-top: -10px;
+    }
+
 </style>
 
 <!-- 导航 -->
@@ -37,17 +46,15 @@
 <div class="navbar navbar-default header" id="headerAnimate"  >
     <div class="container">
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand"></a>
+            <%--logo--%>
+            <a href="<%=request.getContextPath()%>/show/message.do" class="navbar-brand"><img src="../../img/logo.png"></a>
         </div>
         <label id="toggle-label" class="visible-xs-inline-block  " for="toggle-checkbox">MENU</label>
         <input id="toggle-checkbox" class="hidden" type="checkbox" />
         <div class="hidden-xs">
-            <ul class="nav navbar-nav">
-                <li><a href="#">首页</a></li>
-                <li><a href="#">国内</a></li>
-                <li><a href="#">国际</a></li>
-                <li><a href="#">数读</a></li>
-
+            <ul class="nav navbar-nav " style="position: relative;height: 60px">
+                <%--引入搜索--%>
+                <li><a href="#"><jsp:include page="search.jsp"></jsp:include></a></li>
             </ul>
             <ul class="navbar-right nav navbar-nav">
                 <% if (user!=null){%>
@@ -65,7 +72,7 @@
                                     <li><a href="#">暂无</a></li>
                                     <li><a href="#">暂无</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="/show/quit.do">退出</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/show/quit.do">退出</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -75,7 +82,7 @@
                 <%}else{%>
                 <li><img alt="" src="../../img/notlogin.jpg" class="file_icon"></li>
                 <%};%>
-                <li><a href="/show/write.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
+                <li><a href="<%=request.getContextPath()%>/show/write.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
             </ul>
         </div>
     </div>

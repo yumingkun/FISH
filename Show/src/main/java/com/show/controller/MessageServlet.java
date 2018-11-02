@@ -39,7 +39,6 @@ public class MessageServlet extends HttpServlet {
             //根据获取前端传过来的page进行分页查询
             List<Message> messages =messageService.getMessages(page,5);//分页查询全部留言
             //提取每篇文章的第一个src
-//        List<String> srcs=new ArrayList<>();
             List<Message> messageSrcs=new ArrayList<>();
             for (Message message:messages) {
                 message.setSrc(GetImgStr.getImgStr(message.getContent()));
@@ -66,11 +65,21 @@ public class MessageServlet extends HttpServlet {
         }else if ("/show/myMessage.do".equals(request.getServletPath())){//前台获取当前用户所有的文章
 //          获取当前用户的id
             User user=(User)request.getSession().getAttribute("user");
+
             int id=user.getId();
 
             List<Message> myMessages=messageService.getUserMessageList(id);
+
+
+            //提取每篇文章的第一个src
+            List<Message> messageSrcs=new ArrayList<>();
+            for (Message message:myMessages) {
+                message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                messageSrcs.add(message);
+            }
+
             if (myMessages!=null){
-                request.setAttribute("myMessages",myMessages);
+                request.setAttribute("myMessages",messageSrcs);
                 request.setAttribute("id",id);
 //                request.setAttribute("user",user.toString());
                 System.out.println(myMessages);

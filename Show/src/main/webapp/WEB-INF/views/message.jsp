@@ -14,7 +14,7 @@
     <title>FISH</title>
     <%--清除浏览器默认样式--%>
     <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
-    <%--引入--%>
+    <%--引入bootstrap--%>
     <script src="../../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
     <script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -22,6 +22,22 @@
     <%--整体css js--%>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+    <style >
+        /*加载更多*/
+        .more{
+            margin-top: 100px;
+            height: 40px;
+            line-height: 40px;
+            border-radius: 20px;
+            background-color: #b0b8d2;
+            text-align: center;
+            color: white;
+            font-size: 16px;
+            font-weight:bold;
+
+        }
+
+    </style>
 
 
 </head>
@@ -64,9 +80,10 @@
                         </div>
                         <div class="col-xs-7">
 
-                            <a href="/show/detail.do?id=${message.id}" class="title">${message.title}</a>
+                            <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
                             <div class="content">
                                 <%--<p>${message.content}</p>--%>
+
                             </div>
                             <div class="info">
                                 <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
@@ -78,20 +95,21 @@
                     </div>
                 </c:forEach>
             </div>
+            <!-- 加载更多 -->
+            <div class="more" onclick="page()">
+                加载更多
+            </div>
         </div>
         <!-- 中间内容END -->
         <!-- 右边内容 -->
         <div class="col-sm-3">
-            <div class="search-bar">
-                <input class="form-control" placeholder="搜一下" type="search">
-            </div>
             <div class="side-bar-card flag clearfix">
                 <div class="col-xs-5">
-                    <img src="img/1-1.png">
+                    <img src="../../img/tel.jpeg">
                 </div>
                 <div class="col-cs-7">
                     <div class="text-lg">有害信息举报专区</div>
-                    <div>举报电话：12377</div>
+                    <div>举报电话：110</div>
                 </div>
             </div>
             <div class="side-bar-card">
@@ -140,6 +158,36 @@
 
 </body>
 
+<script type="text/javascript">
+    // 实现加载更多
+    var clickNum = 0;//点击次数
+    function page(){
+        clickNum++;
+        $.ajax({
+            type:"post",
+            url:"<%=request.getContextPath()%>/show/more.do",
+            data:{"clickNum":clickNum},
+            dataType:"json",
+            success:function(data){
+                alert("成功返回")
+                //解析data，users数组信息
+                // for(var i=0;i<data.length;i++){
+                //     var id = data[i].userId;
+                //     var name = data[i].userName;
+                //     //创建一个li元素
+                //     var sli = "<li>"+id+" "+name+"</li>";
+                //     //添加到ul中
+                //     $("#users").append(sli);
+                // }
+                // // 当查询结果数量少于每夜固定数量，加载更多功能隐藏，并提示用户没有更多数据
+                // if(data.length < 10){
+                //     $("#page").hide();
+                //     $("#info").show();
+                // }
+            }
+        });
+    }
+</script>
 
 
 </html>

@@ -92,7 +92,7 @@ public class MessageDao {
     }
 
     /**
-     * 前台计算所有留言数量
+     * 前台计算所有文章数量
      * @return
      * @throws Exception
      */

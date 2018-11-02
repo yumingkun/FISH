@@ -55,15 +55,17 @@ a:hover {
 
 /*!* 导航 *!*/
 .header{
-    background-color: rgba(240, 244, 255, 0.97);
+    background-color:white;
+
 }
-.navbar-brand {
-    background: url("../img/logo.png");
-    width: 50px;
-    background-size: 75%;
-    background-repeat: no-repeat;
-    background-position: center center;
-}
+/*.navbar-brand {*/
+    /*background: url("../img/logo.png");*/
+    /*box-shadow:-1px 1px 1px ;*/
+    /*width: 50px;*/
+    /*background-size: 75%;*/
+    /*background-repeat: no-repeat;*/
+    /*background-position: center center;*/
+/*}*/
 
 #toggle-label {
     position: absolute;
@@ -99,12 +101,13 @@ a:hover {
 /* 左边分类END */
 
 
-/* 中间内容 */
+/* 中间文章内容 */
 
 .new-list-item {
     padding: 10px 0;
     border-bottom: 1px solid #eeeeee;
 }
+
 
 .new-list-item:first-child {
     padding-top: 0;
@@ -244,7 +247,8 @@ a:hover {
 
 /*导航条下拉之后的样式*/
 .header_status_black{
-    background-color: rgba(255, 255, 255, 1);
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 1px 1px 2px #b1b7f8;
     position: fixed;
     top: 0;
     left: -2px;
