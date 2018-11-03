@@ -71,8 +71,8 @@
         <!-- 中间内容 -->
         <div class="col-sm-7">
 
-
-            <div class="new-list">
+            <%--初始值--%>
+            <div class="new-list mylist">
                 <c:forEach items="${messages}" var="message">
                     <div class="new-list-item clearfix">
                         <div class="col-xs-4">
@@ -82,7 +82,7 @@
 
                             <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
                             <div class="content">
-                                <%--<p>${message.content}</p>--%>
+                                    <%--<p>${message.content}</p>--%>
 
                             </div>
                             <div class="info">
@@ -94,7 +94,10 @@
                         </div>
                     </div>
                 </c:forEach>
+                <%--加载更多数据显示位置   --%>
+
             </div>
+
             <!-- 加载更多 -->
             <div class="more" onclick="page()">
                 加载更多
@@ -165,25 +168,35 @@
         clickNum++;
         $.ajax({
             type:"post",
-            url:"<%=request.getContextPath()%>/show/more.do",
-            data:{"clickNum":clickNum},
+            url:"<%=request.getContextPath()%>/show/more.do?clickNum="+clickNum,
             dataType:"json",
             success:function(data){
-                alert("成功返回")
-                //解析data，users数组信息
-                // for(var i=0;i<data.length;i++){
-                //     var id = data[i].userId;
-                //     var name = data[i].userName;
-                //     //创建一个li元素
-                //     var sli = "<li>"+id+" "+name+"</li>";
-                //     //添加到ul中
-                //     $("#users").append(sli);
-                // }
-                // // 当查询结果数量少于每夜固定数量，加载更多功能隐藏，并提示用户没有更多数据
-                // if(data.length < 10){
-                //     $("#page").hide();
-                //     $("#info").show();
-                // }
+                var str="";
+                $.each(data,function(i,message){
+                    str+=`
+                         <div class="new-list-item clearfix">
+                            <div class="col-xs-4">
+                                <img src="`+message.src+`" alt="">
+                            </div>
+                            <div class="col-xs-7">
+
+                                <a href="/show/detail.do?id=`+message.id+`&userId=`+message.userId+`" class="title">`+message.title+`</a>
+                                <div class="content">
+                                        <%--<p>${message.content}</p>--%>
+                                </div>
+                                <div class="info">
+                                    <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
+                                    <span>25k</span> ⋅
+                                    <span>`+message.title+`</span>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    `;
+                });
+
+                $(".mylist").append(str);
             }
         });
     }

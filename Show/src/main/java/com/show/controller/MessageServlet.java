@@ -5,6 +5,7 @@ import com.fish.bean.User;
 import com.fish.service.MessageService;
 import com.fish.utils.GetImgStr;
 
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,8 +15,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/show/message.do","/show/myMessage.do"})
+
+import net.sf.json.JSONArray;
+import org.apache.log4j.Logger;
+
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do"})
 public class MessageServlet extends HttpServlet {
+    private static org.apache.log4j.Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
     @Override
     public void init() throws ServletException {
@@ -27,17 +33,41 @@ public class MessageServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        前台分页获取文章
+
+
+        //初始显示5条数据
         if ("/show/message.do".equals(request.getServletPath())){
 
-            String pageStr=request.getParameter("page");//获得请求的页码
-            int page=1;//页码默认为1
-            if(pageStr!=null && (!"".equals(pageStr))){
-                page=Integer.parseInt(pageStr);//获得数字页码
+
+            List<Message> messages =messageService.getMessages(0,3);//分页查询全部留言
+            //提取每篇文章的第一个src
+            List<Message> messageSrcs=new ArrayList<>();
+            for (Message message:messages) {
+                message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                messageSrcs.add(message);
+           }
+
+//            int count=messageService.countMessage();//获取全部消息数量
+//            int last=count%5 ==0? (count/ 5):((count/5)+1);//最后一页
+//            request.setAttribute("last",last);
+//            request.setAttribute("page",page);
+
+            if (messages!=null){
+                request.setAttribute("messages",messageSrcs);
+                request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request,response);
             }
 
+        // 前台加载更多
+        } else if("/show/more.do".equals(request.getServletPath())){
+
+            int clickNum=Integer.parseInt(request.getParameter("clickNum"));//获取点击加载更多次数;//点击加载更多次数
+//            logger.info(request.getParameter("clickNum"));//1 2 3
+
+            int start = clickNum*3;
+            logger.info(start+"========");// 3 6 9
+
             //根据获取前端传过来的page进行分页查询
-            List<Message> messages =messageService.getMessages(page,5);//分页查询全部留言
+            List<Message> messages =messageService.getMessages(start,3);//分页查询全部留言
             //提取每篇文章的第一个src
             List<Message> messageSrcs=new ArrayList<>();
             for (Message message:messages) {
@@ -45,22 +75,14 @@ public class MessageServlet extends HttpServlet {
                 messageSrcs.add(message);
             }
 
-//        for (String src:srcs) {
-//            System.out.printf(src+"===================|");
-//        }
 
+            // 结果返回
+            JSONArray json = JSONArray.fromObject(messageSrcs);
 
-            int count=messageService.countMessage();//获取全部消息数量
+            String str = json.toString();
+            logger.info(str);
+            response.getWriter().write(str);
 
-
-            int last=count%5 ==0? (count/ 5):((count/5)+1);//最后一页
-            request.setAttribute("last",last);
-            request.setAttribute("messages",messageSrcs);
-            request.setAttribute("page",page);
-
-
-
-            request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request,response);
 
         }else if ("/show/myMessage.do".equals(request.getServletPath())){//前台获取当前用户所有的文章
 //          获取当前用户的id

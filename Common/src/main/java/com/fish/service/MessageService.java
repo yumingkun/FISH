@@ -15,13 +15,13 @@ public class MessageService {
 
     /**
      * 分页查询所有文章
-     * @param page 当前页码
-     * @param pageSize 每页数量
+     * @param start 从第一个到点击数*10个
+     * @param count 每页数量
      * @return
      */
-    public List<Message> getMessages(int page, int pageSize)   {
+    public List<Message> getMessages(int start, int count)   {
         // 得到messages
-        return messageDao.getMessageList(page,pageSize);
+        return messageDao.getMessageList(start,count);
     }
 
     /**

@@ -14,13 +14,13 @@ import java.util.List;
 public class MessageDao {
     /**
      * 前台分页查询全部留言
-     * @param page page当前页码
-     * @param pageSize 每页记录数
+     * @param start 从第一个到点击数*10个
+     * @param count 每页记录数
      * @return
      * @throws Exception
      */
 
-    public List<Message> getMessageList(int page , int pageSize)  {
+    public List<Message> getMessageList(int start , int count)  {
 
         Connection conn=null;
 
@@ -31,8 +31,8 @@ public class MessageDao {
             conn=ConnectUtil.getConnection();
             String sql="select * from message order by create_time desc limit ?,?";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, (page - 1) * pageSize);
-            stmt.setInt(2, pageSize);
+            stmt.setInt(1, start );
+            stmt.setInt(2, count);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 messages.add(new Message(
