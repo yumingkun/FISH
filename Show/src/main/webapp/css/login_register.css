@@ -5,15 +5,15 @@
     text-decoration: none;
 }
 body{
-    background: #c1bdba;
+    background: #f0f4ff;
 }
 .form{
-    background: rgba(57, 71, 97, 0.9);
+    background: rgba(176, 184, 210, 0.9);
     padding: 40px;
     max-width: 600px;
     margin: 60px auto;
     border-radius: 4px;
-    box-shadow: 0 4px 10px 4px rgba(19, 35, 47, 0.3);
+    box-shadow: 0 1px 2px 1px rgba(19, 35, 47, 0.3);
 
 }
 ul{

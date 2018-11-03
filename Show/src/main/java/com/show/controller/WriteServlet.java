@@ -17,10 +17,10 @@ public class WriteServlet extends HttpServlet{
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getSession().getAttribute("user")!=null){//判断是否已经登录
-            req.getRequestDispatcher("/WEB-INF/views/addMessage.jsp").forward(req,resp);
-        }else {//没有登录，跳到登录页面
+        if (req.getSession().getAttribute("user")==null ||  ("".equals(req.getParameter("user")) )){//判断是否已经登录
             req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+        }else {//没有登录，跳到登录页面
+            req.getRequestDispatcher("/WEB-INF/views/addMessage.jsp").forward(req,resp);
         }
 
     }

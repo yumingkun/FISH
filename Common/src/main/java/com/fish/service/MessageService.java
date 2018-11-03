@@ -14,8 +14,8 @@ public class MessageService {
 
 
     /**
-     * 分页查询所有文章
-     * @param start 从第一个到点击数*10个
+     * 查询部分文章
+     * @param start （开始位置）从点击数*6个
      * @param count 每页数量
      * @return
      */
@@ -34,7 +34,7 @@ public class MessageService {
     }
 
     /**
-     * 计算所有留言数量
+     * 计算所有文章数量
      * @return
 
      */
@@ -42,6 +42,7 @@ public class MessageService {
 
         return messageDao.countMessages();
     }
+
 
 
 
@@ -62,5 +63,14 @@ public class MessageService {
      */
     public Message getMessageById(int id){
         return messageDao.getMessageById(id);
+    }
+
+    /**
+     * 根据关键词，查找文章
+     * @param search
+     * @return
+     */
+    public List<Message> searchMessages(String search){
+        return messageDao.searchMessages(search);
     }
 }

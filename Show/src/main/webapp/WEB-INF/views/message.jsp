@@ -37,6 +37,12 @@
 
         }
 
+
+         #nullImg{
+             width: 200px;
+             height: 140px;
+             border: 2px solid #b9def0;
+        }
     </style>
 
 
@@ -75,8 +81,13 @@
             <div class="new-list mylist">
                 <c:forEach items="${messages}" var="message">
                     <div class="new-list-item clearfix">
-                        <div class="col-xs-4">
-                            <img src="${message.src}" alt="">
+                        <div class="col-xs-4 .text-center" >
+                            <c:if test="${message.src==null or message.src==''}">
+                                <img src="../../img/nullsrc.png" id="nullImg" >
+                            </c:if>
+                            <c:if test="${message.src!=null}">
+                                <img src="${message.src}">
+                            </c:if>
                         </div>
                         <div class="col-xs-7">
 
@@ -157,7 +168,7 @@
 <%--页脚end--%>
 
 <%--1：回到顶部--%>
-<a href="#top" title="返回顶部"  id="btn"></a>
+<a href="#top" title="返回顶部"  id="btn" ></a>
 
 </body>
 
@@ -173,10 +184,12 @@
             success:function(data){
                 var str="";
                 $.each(data,function(i,message){
+                    var src=message.src?message.src:"../../img/nullsrc.png";
+                    var tyle=message.src?"":"style=\"width: 200px;height: 140px;border: 2px solid #b9def0\"";
                     str+=`
                          <div class="new-list-item clearfix">
                             <div class="col-xs-4">
-                                <img src="`+message.src+`" alt="">
+                                <img src='`+src+`' alt="" `+tyle+`>
                             </div>
                             <div class="col-xs-7">
 

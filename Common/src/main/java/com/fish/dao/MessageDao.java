@@ -4,10 +4,7 @@ package com.fish.dao;
 import com.fish.bean.Message;
 import com.fish.utils.ConnectUtil;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.Timestamp;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -181,6 +178,44 @@ public class MessageDao {
             ConnectUtil.release(rs, stmt, conn);
         }
         return message;
+    }
+    /**
+     * 前台根据关键词，查找文章
+     * @param search
+     * @return
+     */
+    public List<Message> searchMessages(String search){
+        Connection conn=null;
+        Statement stmt = null;
+        ResultSet rs = null;
+        List<Message> messages = new ArrayList<Message>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select * from message where 1=1";
+
+            if(search!= null){//按照游戏名称查询
+                sql+=" and title like '%"+search+"%' ";
+            }
+
+            stmt=conn.createStatement();
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                messages.add(new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time")));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return messages;
     }
 
 }

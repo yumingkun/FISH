@@ -242,13 +242,13 @@ a:hover {
 /*动画************************************/
 /*导航条样式动画*/
 .header{
-    transition: all 1s;
+    transition: all 3s;
 }
 
 /*导航条下拉之后的样式*/
 .header_status_black{
-    background-color: rgba(255, 255, 255, 0.9);
-    box-shadow: 1px 1px 2px #b1b7f8;
+    background-color: rgba(176, 184, 210, 0.9);
+    box-shadow: 1px 1px 2px #3a3c6f;
     position: fixed;
     top: 0;
     left: -2px;

@@ -19,9 +19,9 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do"})
 public class MessageServlet extends HttpServlet {
-    private static org.apache.log4j.Logger logger = Logger.getLogger(MessageServlet.class);
+    private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
     @Override
     public void init() throws ServletException {
@@ -35,11 +35,11 @@ public class MessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        //初始显示5条数据
+        //初始显示6条数据
         if ("/show/message.do".equals(request.getServletPath())){
 
 
-            List<Message> messages =messageService.getMessages(0,3);//分页查询全部留言
+            List<Message> messages =messageService.getMessages(0,6);//分页查询全部留言
             //提取每篇文章的第一个src
             List<Message> messageSrcs=new ArrayList<>();
             for (Message message:messages) {
@@ -60,14 +60,13 @@ public class MessageServlet extends HttpServlet {
         // 前台加载更多
         } else if("/show/more.do".equals(request.getServletPath())){
 
-            int clickNum=Integer.parseInt(request.getParameter("clickNum"));//获取点击加载更多次数;//点击加载更多次数
-//            logger.info(request.getParameter("clickNum"));//1 2 3
 
-            int start = clickNum*3;
-            logger.info(start+"========");// 3 6 9
+            int count=6;//每次从数据库取出的数量
+            int clickNum=Integer.parseInt(request.getParameter("clickNum"));//获取点击加载更多次数;// 1 2 3 4
+            int start = clickNum*count;//每次点加的查询位置
 
             //根据获取前端传过来的page进行分页查询
-            List<Message> messages =messageService.getMessages(start,3);//分页查询全部留言
+            List<Message> messages =messageService.getMessages(start,count);//分页查询全部留言
             //提取每篇文章的第一个src
             List<Message> messageSrcs=new ArrayList<>();
             for (Message message:messages) {
@@ -83,8 +82,8 @@ public class MessageServlet extends HttpServlet {
             logger.info(str);
             response.getWriter().write(str);
 
-
-        }else if ("/show/myMessage.do".equals(request.getServletPath())){//前台获取当前用户所有的文章
+        //前台获取当前用户所有的文章
+        }else if ("/show/myMessage.do".equals(request.getServletPath())){
 //          获取当前用户的id
             User user=(User)request.getSession().getAttribute("user");
 
@@ -108,8 +107,28 @@ public class MessageServlet extends HttpServlet {
                 request.getRequestDispatcher("/WEB-INF/views/myselfMessage.jsp").forward(request,response);
             }else {
                 System.out.println("当前用户文章查询失败============================");
-                request.getRequestDispatcher("/WEB-INF/error/404.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
             }
+        //模糊查询
+        }else if ("/show/search.do".equals(request.getServletPath())){
+//            获取前端关键词
+                String search=request.getParameter("search");
+                List<Message> messages=messageService.searchMessages(search);
+                logger.info(search);
+                logger.info(messages);
+                if (messages.size()!=0 ){//不为空
+                    //提取每篇文章的第一个图片rc
+                    List<Message> messageSrcs=new ArrayList<>();
+                    for (Message message:messages) {
+                        message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                        messageSrcs.add(message);
+                    }
+                    request.setAttribute("searchMessages",messageSrcs);
+                    request.getRequestDispatcher("/WEB-INF/views/searchResult.jsp").forward(request,response);
+                }else {
+                    request.getRequestDispatcher("/WEB-INF/views/error/nullMessage.jsp").forward(request,response);
+
+                }
         }
 
     }

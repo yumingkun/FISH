@@ -29,7 +29,7 @@
     .navbar-brand img{
         width: 40px;
         height: 40px;
-        margin-top: -10px;
+        margin-top: -6px;
     }
 
 </style>
@@ -68,11 +68,11 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/show/myself.do">个人中心</a></li>
+                                    <li><a href="/show/myself.do"><span class="glyphicon glyphicon-user"></span> 个人中心</a> </li>
                                     <li><a href="#">暂无</a></li>
                                     <li><a href="#">暂无</a></li>
                                     <li class="divider"></li>
-                                    <li><a href="<%=request.getContextPath()%>/show/quit.do">退出</a></li>
+                                    <li><a href="<%=request.getContextPath()%>/show/quit.do"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
                                 </ul>
                             </li>
                         </ul>

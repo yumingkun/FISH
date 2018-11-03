@@ -66,6 +66,34 @@ public class ConnectUtil {
 
     }
 
+    //       3：释放资源
+    public static void  release(ResultSet rs, Statement stmt ,Connection conn){
+
+        try {
+            if(rs!=null) {
+                rs.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }finally {
+            try {
+                if(stmt!=null) {
+                    stmt.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }finally {
+                try {
+                    if(conn!=null) {
+                        conn.close();
+                    }
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
 
 
 }
