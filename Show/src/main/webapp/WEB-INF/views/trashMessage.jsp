@@ -110,7 +110,7 @@
         <form action="<%=request.getContextPath()%>/show/myMessage.do" METHOD="post" id="refishTrash" style="display: none"></form>
         <div id="left" class="col-md-10     panel panel-group">
 
-            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">我的博客</h1>
+            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">回收站</h1>
 
 
             <form class="panel-body form-inline" style="background-color: #acb0d0;">
@@ -120,42 +120,35 @@
 
             <%--右边选项--%>
             <div id="article" class="panel-body"  >
-
-                <%--选项卡--%>
-                <div id="myTabContent" class="tab-content">
-
-
-                        <%--文章列表--%>
-                        <div class="new-list tab-pane fade in active"  id="thehome">
-                            <c:forEach items="${myMessages}" var="message">
-                                <%--标记jq要删除的节点--%>
-                                <div class="new-list-item clearfix row" id="${message.id}">
-                                    <div class="col-xs-3" >
-                                        <img src="${message.src}" alt="" style="height:80px;width: 120px">
-                                    </div>
-                                    <div class="col-xs-6">
-
-                                        <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
-                                        <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
-                                                <%--<p>${message.content}</p>--%>
-                                        <%--</div>--%>
-                                        <div class="info" style="margin-top: 30px">
-                                            <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
-                                            <span>25k</span> ⋅
-                                            <span>${message.title}</span>
-                                        </div>
-
-                                    </div>
-                                    <%--修改--%>
-                                    <div class="col-xs-1 "><span class="glyphicon glyphicon-edit"></span>  </div>
-                                   <%--放入回收站--%>
-                                    <div class="col-xs-1"><span class="glyphicon glyphicon-trash" style="color: firebrick" id="trash" onclick="trash(${message.id})"></span></div>
+                <%--回收站--%>
+                    <div class="new-list tab-pane fade in active"  id="thehome">
+                        <c:forEach items="${trashMessage}" var="message">
+                            <%--标记jq要删除的节点--%>
+                            <div class="new-list-item clearfix row" id="${message.id}">
+                                <div class="col-xs-3" >
+                                    <img src="${message.src}" alt="" style="height:80px;width: 120px">
                                 </div>
-                            </c:forEach>
-                            <a href="<%=request.getContextPath()%>/show/user.do"><button class="btn btn-default   btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-backward"></span></button></a>
-                        </div>
-                </div>
-                <%--选项卡end--%>
+                                <div class="col-xs-6">
+
+                                    <a href="#" class="title">${message.title}</a>
+                                        <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
+                                        <%--<p>${message.content}</p>--%>
+                                        <%--</div>--%>
+                                    <div class="info" style="margin-top: 30px">
+                                        <span> <span class="avatar"><img src="../../img/logo.png"></span>蓝莓味的鱼</span> ⋅
+                                        <span>25k</span> ⋅
+                                        <span>${message.title}</span>
+                                    </div>
+
+                                </div>
+                                    <%--修改--%>
+                                <div class="col-xs-1 "><span class=""></span>恢复</div>
+                                    <%--放入回收站--%>
+                                <div class="col-xs-1"><span class="" ></span>彻底删除</div>
+                            </div>
+                        </c:forEach>
+                        <a href="<%=request.getContextPath()%>/show/user.do"><button class="btn btn-default   btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-backward"></span></button></a>
+                    </div>
 
             </div>
         </div>
@@ -170,23 +163,6 @@
 </body>
 
 <script type="text/javascript">
-    // 点击把文章放入回收站
-    function trash(id){
-        // alert(id);
-        // alert("123");
-        $("#"+id).hide(1000);
-        $.ajax({
-            type:"get",
-            url:"<%=request.getContextPath()%>/show/trash.do?id="+id,
-            dataType:"text",
-            success:function(data){
-
-            }
-        });
-
-
-    }
-
 
 
 

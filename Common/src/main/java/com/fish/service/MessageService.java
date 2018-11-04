@@ -2,6 +2,7 @@ package com.fish.service;
 
 import com.fish.dao.MessageDao;
 import com.fish.bean.Message;
+import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.util.Date;
 import java.util.List;
@@ -31,6 +32,16 @@ public class MessageService {
      */
     public List<Message> getUserMessageList(int id){
         return  messageDao.getUserMessageList(id);
+    }
+
+
+    /**
+     * 查询当前用户在回收站的文章
+     * @param id
+     * @return
+     */
+    public List<Message> getTrash(int id){
+        return messageDao.getTrash(id);
     }
 
     /**
@@ -64,6 +75,7 @@ public class MessageService {
     public Message getMessageById(int id){
         return messageDao.getMessageById(id);
     }
+
 
     /**
      * 根据关键词，查找文章

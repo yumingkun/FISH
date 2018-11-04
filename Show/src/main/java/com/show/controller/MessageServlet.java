@@ -19,7 +19,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -83,33 +83,50 @@ public class MessageServlet extends HttpServlet {
             response.getWriter().write(str);
 
         //前台获取当前用户所有的文章
-        }else if ("/show/myMessage.do".equals(request.getServletPath())){
+        }else if ("/show/myMessage.do".equals(request.getServletPath())) {
 //          获取当前用户的id
-            User user=(User)request.getSession().getAttribute("user");
+            User user = (User) request.getSession().getAttribute("user");
+            int id = user.getId();
+            //查找文章不在回收站的
+            List<Message> myMessages = messageService.getUserMessageList(id);
 
-            int id=user.getId();
 
-            List<Message> myMessages=messageService.getUserMessageList(id);
-
-
-            //提取每篇文章的第一个src
-            List<Message> messageSrcs=new ArrayList<>();
-            for (Message message:myMessages) {
+            //当前用户文章列表提取每篇文章的第一个src
+            List<Message> messageSrcs = new ArrayList<>();
+            for (Message message : myMessages) {
                 message.setSrc(GetImgStr.getImgStr(message.getContent()));
                 messageSrcs.add(message);
             }
 
-            if (myMessages!=null){
-                request.setAttribute("myMessages",messageSrcs);
-                request.setAttribute("id",id);
-//                request.setAttribute("user",user.toString());
-                System.out.println(myMessages);
-                request.getRequestDispatcher("/WEB-INF/views/userMessage.jsp").forward(request,response);
-            }else {
+            if (myMessages.size()>= 0) {
+                request.setAttribute("myMessages", messageSrcs);
+                request.setAttribute("id", id);
+                request.getRequestDispatcher("/WEB-INF/views/userMessage.jsp").forward(request, response);//我的博客页面
+            } else {
                 System.out.println("当前用户文章查询失败============================");
-                request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request, response);
             }
-        //模糊查询
+        //查询回收站
+        }else if ("/show/showTrashMessage.do".equals(request.getServletPath())){
+//            获取当前用户的id
+            User user = (User) request.getSession().getAttribute("user");
+            int id = user.getId();
+            //查找当前用户文章在回收站的
+            List<Message> trashMessage = messageService.getTrash(id);
+
+            //回收站提取每篇文章的第一个src
+            List<Message> messageSrcsTrash = new ArrayList<>();
+            for (Message message : trashMessage) {
+                message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                messageSrcsTrash.add(message);
+            }
+            request.setAttribute("trashMessage", messageSrcsTrash);
+//            logger.info(messageSrcsTrash);
+            request.setAttribute("id", id);
+            request.getRequestDispatcher("/WEB-INF/views/trashMessage.jsp").forward(request, response);//回收站页面
+
+
+                //模糊查询
         }else if ("/show/search.do".equals(request.getServletPath())){
 //            获取前端关键词
                 String search=request.getParameter("search");

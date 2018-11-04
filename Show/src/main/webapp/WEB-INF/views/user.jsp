@@ -139,14 +139,14 @@
             <div id="right" class="myLeaf">
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
-                        <li class="list-group-item">个人信息</li>
+                        <li class="list-group-item">个人中心</li>
                         <li class="list-group-item">我的收藏</li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
                     </ul>
                     <ul class="list-group col-md-12 col-xs-6">
                         <a href="/show/myMessage.do" class="list-group-item">我的博客</a>
-                        <a href="#" class="list-group-item">我的评论</a>
+                        <a href="/show/showTrashMessage.do" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>回收站</a>
                         <%--<a href="#" class="list-group-item">我的论坛</a>--%>
                         <%--<a href="#" class="list-group-item">我的学院</a>--%>
                     </ul>
@@ -157,7 +157,7 @@
 
 
         <div id="left" class="container col-md-10 panel panel-default" style="max-height: 800px">
-            <h3 id="right-h3" class="panel-heading">个人信息</h3>
+            <h3 id="right-h3" class="panel-heading">个人中心</h3>
             <div id="right-row-1" class="row" style="margin: 0px;">
                 <div id="right-left" class="col-md-3">
                     <div class="thumbnail" style="margin: 5px;">
@@ -282,5 +282,8 @@
         alert("test");
         $("#myLeaf").css({ display:block});
     });
+
+
+
 </script>
 </html>

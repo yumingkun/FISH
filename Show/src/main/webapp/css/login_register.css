@@ -8,12 +8,12 @@ body{
     background: #f0f4ff;
 }
 .form{
-    background: rgba(176, 184, 210, 0.9);
+    background: rgba(113, 119, 159, 0.9);
     padding: 40px;
     max-width: 600px;
     margin: 60px auto;
     border-radius: 4px;
-    box-shadow: 0 1px 2px 1px rgba(19, 35, 47, 0.3);
+    box-shadow: 1px 1px 1px 1px rgba(19, 35, 47, 0.3);
 
 }
 ul{
@@ -26,13 +26,13 @@ ul li{
 
 }
 li a:hover{
-    background-color: #9ecaff;
+    background-color: #7c99ff;
 }
 
 ul li a {
     display: block;
     padding: 15px;
-    background: #5c83b7;
+    background: #b1b7f8;
     color: #d8f2ee;
     font-size: 20px;
     float: left;
@@ -88,7 +88,7 @@ label{
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: .1em;
-    background: #5c83b7;
+    background: #b1b7f8;
     color: #ffffff;
     -webkit-transition: all 0.5s ease;
     transition: all 0.5s ease;

@@ -89,6 +89,41 @@ public class MessageDao {
     }
 
     /**
+     * 查询当前用户回收站文章
+     * @param id
+     * @return
+     */
+    public List<Message> getTrash(int id){
+        Connection conn=null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Message> messages = new ArrayList<Message>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select * from message  where user_id=? and trash=1 order by create_time desc ";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                messages.add(new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time")));
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return messages;
+    }
+
+    /**
      * 前台计算所有文章数量
      * @return
      * @throws Exception
@@ -218,6 +253,11 @@ public class MessageDao {
         return messages;
     }
 
+    /**
+     * 把文章放入回收站
+     * @param id
+     * @return
+     */
     public  Boolean trash(int id){
 
         Connection conn=null;
