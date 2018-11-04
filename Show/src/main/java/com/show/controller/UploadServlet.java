@@ -90,7 +90,7 @@ public class UploadServlet extends HttpServlet {
 //          上传头像之后更新session中的头像地址
             user.setHead(mainFile+"."+extFile);
             request.getSession().setAttribute("user",user);
-            request.getRequestDispatcher("/show/myself.do").forward(request,response);
+            request.getRequestDispatcher("/show/user.do").forward(request,response);
 //            request.getSession().setAttribute("src",mainFile+"."+extFile);
         }else{
             System.out.printf("上传头像失败=======================");

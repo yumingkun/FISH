@@ -19,6 +19,11 @@
     <script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
+    <%--整体css js--%>
+    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
+    <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+
+
     <style type="text/css">
         *{
             margin: 0px;
@@ -27,24 +32,25 @@
         }
 
        #container ul{
-            padding: 0px !important;
-
+            padding: 0px ;
+            width: 90%;
             border: 1px solid #C4C4C4;
             border-radius: 5px;
-            box-shadow: 1px 2px 3px 0px #C4C4C4;
+
+            /*box-shadow: 1px 2px 3px 0px #C4C4C4;*/
         }
         #container ul a{
-            border: none !important;
+            border: none ;
             text-align: center;
         }
         #container  ul li{
             width: 100%;
-            border: none !important;
+            border: none ;
             text-align: center;
         }
         #container ul a:hover{
-            color: white !important;
-            background-color: #b0b8d2 !important;
+            color: white ;
+            background-color: #b0b8d2;
             /*box-shadow: 2px 2px 2px 0px #478EFF inset;*/
         }
         #container ul li:hover{
@@ -58,17 +64,18 @@
             border: 1px solid #C4C4C4;
             padding: 0px;
             border-radius: 10px;
-            box-shadow: 1px 2px 3px 0px #C4C4C4;
-            min-height: 450px;
+            /*box-shadow: 1px 2px 3px 0px #C4C4C4;*/
+            min-height: 300px;
         }
         #right-h3{
-            background-color: #b0b8d2;
-            margin: 1px;
+            font-family: "Wawati SC";
+            background-color: #f0f4ff;
+            font-weight: bold;
+            /*margin: 1px;*/
             margin-top: 0px;
             border-top-right-radius: 9px;
             border-top-left-radius: 9px;
             border: 0px;
-            box-shadow: 0px 2px 1px 1px gray;
         }
         #right-row-1{
             padding: 0px;
@@ -78,11 +85,11 @@
         #right-left{
             margin-top: 10px;
             padding: 0px;
-            height: 100%;
+            height: 60%;
         }
         #right-right-1{
             padding: 0px;
-            height: 100%;
+            height: 90%;
         }
 
         #right-row-2{
@@ -103,6 +110,13 @@
             height: 250px;
         }
 
+
+
+        /*左边选项默认为不显示*/
+        .myLeaf{
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -116,12 +130,13 @@
 <jsp:include page="../common/header.jsp" />
 
 
+
 <%--侧边栏--%>
 <div class="container" id="container">
     <div class="row">
-        <div class="container col-md-2">
-            <div id="right">
-
+        <div class="container col-md-2 "  >
+            <span class="glyphicon glyphicon-th-list" id="too" style="font-size: 40px;margin-bottom: 10px"></span>
+            <div id="right" class="myLeaf">
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
                         <li class="list-group-item">个人信息</li>
@@ -131,16 +146,17 @@
                     </ul>
                     <ul class="list-group col-md-12 col-xs-6">
                         <a href="/show/myMessage.do" class="list-group-item">我的博客</a>
-                        <a href="#" class="list-group-item">我的下载</a>
-                        <a href="#" class="list-group-item">我的论坛</a>
-                        <a href="#" class="list-group-item">我的学院</a>
+                        <a href="#" class="list-group-item">我的评论</a>
+                        <%--<a href="#" class="list-group-item">我的论坛</a>--%>
+                        <%--<a href="#" class="list-group-item">我的学院</a>--%>
                     </ul>
                 </div>
 
             </div>
         </div>
 
-        <div id="left" class="container col-md-10 panel panel-default">
+
+        <div id="left" class="container col-md-10 panel panel-default" style="max-height: 800px">
             <h3 id="right-h3" class="panel-heading">个人信息</h3>
             <div id="right-row-1" class="row" style="margin: 0px;">
                 <div id="right-left" class="col-md-3">
@@ -233,6 +249,7 @@
 
 
 
+
 <%--页脚--%>
 <jsp:include page="../common/footer.jsp" />
 <%--页脚end--%>
@@ -242,6 +259,11 @@
 
 
 <script type="text/javascript">
+
+    $("#too").click(function(){
+        $(".myLeaf").toggle(1000);
+    });
+
     // 点击提交按钮事件
     $("#btn").on("click", function () {
         $('#myForm').submit();
@@ -254,7 +276,11 @@
         var url=window.URL.createObjectURL(file);  // 得到bolb对象路径，可当成普通的文件路径一样使用，赋值给src;
 
         document.getElementById("myImg").innerHTML="<img src='"+url+"' class='img-circle'/>";
-    }
+    };
 
+    $("#test").click(function () {
+        alert("test");
+        $("#myLeaf").css({ display:block});
+    });
 </script>
 </html>

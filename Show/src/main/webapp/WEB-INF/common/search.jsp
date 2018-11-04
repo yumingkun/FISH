@@ -44,7 +44,7 @@
     </style>
 
 <div class="search">
-    <form action="<%=request.getContextPath()%>/show/search.do" method="post" accept-charset="utf-8" id="myForm">
+    <form action="<%=request.getContextPath()%>/show/search.do" method="post" accept-charset="utf-8" id="searchForm">
         <input type="text" placeholder="搜索" id="myInput" name="search">
         <a class="search-btn" href=""><i class="glyphicon  glyphicon-search"></i></a>
     </form>
@@ -72,7 +72,7 @@
     //回车提交表单
     $("#myInput").keyup(function(e){//当按下按键时，运行函数
         if(e.which=="13"){//e.which对应的输入字符, 13对应Enter键
-            $('#myForm').submit();
+            $('#searchForm').submit();
         }
     });
 

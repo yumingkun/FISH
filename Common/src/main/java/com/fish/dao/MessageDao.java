@@ -26,7 +26,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message order by create_time desc limit ?,?";
+            String sql="select * from message where trash=0 order by create_time desc limit ?,?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, start );
             stmt.setInt(2, count);
@@ -65,7 +65,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message  where user_id=? order by create_time desc ";
+            String sql="select * from message  where user_id=?  and trash=0 order by create_time desc ";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -115,7 +115,7 @@ public class MessageDao {
 
 
     /**
-     * 前台添加新建的留言
+     * 前台添加新建的文章
      * @return
      */
     public  boolean save(Message message){
@@ -158,7 +158,7 @@ public class MessageDao {
         Message message=null;
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message where id=?";
+            String sql="select * from message where id=?  and trash=0";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -191,7 +191,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message where 1=1";
+            String sql="select * from message where 1=1 and trash=0";
 
             if(search!= null){//按照游戏名称查询
                 sql+=" and title like '%"+search+"%' ";
@@ -216,6 +216,30 @@ public class MessageDao {
             ConnectUtil.release(rs, stmt, conn);
         }
         return messages;
+    }
+
+    public  Boolean trash(int id){
+
+        Connection conn=null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="update message set trash=1 where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            num=pstmt.executeUpdate();
+            if (num>0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs,pstmt, conn);
+        }
+        return false;
     }
 
 }

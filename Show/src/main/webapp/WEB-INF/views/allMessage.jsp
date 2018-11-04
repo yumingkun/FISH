@@ -105,6 +105,7 @@
                         </div>
                     </div>
                 </c:forEach>
+
                 <%--加载更多数据显示位置   --%>
 
             </div>
@@ -209,7 +210,8 @@
                     `;
                 });
 
-                $(".mylist").append(str);
+             $(".mylist").append(str);
+
             }
         });
     }

@@ -73,4 +73,13 @@ public class MessageService {
     public List<Message> searchMessages(String search){
         return messageDao.searchMessages(search);
     }
+
+    /**
+     * 通过指定文章id放入回收站
+     * @param id
+     * @return
+     */
+    public Boolean trash(int id){
+        return  messageDao.trash(id);
+    }
 }

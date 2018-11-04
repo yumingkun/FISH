@@ -32,6 +32,11 @@
         margin-top: -6px;
     }
 
+    .header{
+        height: 60px;
+    }
+
+
 </style>
 
 <!-- 导航 -->
@@ -52,7 +57,7 @@
         <label id="toggle-label" class="visible-xs-inline-block  " for="toggle-checkbox">MENU</label>
         <input id="toggle-checkbox" class="hidden" type="checkbox" />
         <div class="hidden-xs">
-            <ul class="nav navbar-nav " style="position: relative;height: 60px">
+            <ul class="nav navbar-nav " style="position: relative;height: 60px" id="showSearch">
                 <%--引入搜索--%>
                 <li><a href="#"><jsp:include page="search.jsp"></jsp:include></a></li>
             </ul>
@@ -68,7 +73,7 @@
                                     <b class="caret"></b>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="/show/myself.do"><span class="glyphicon glyphicon-user"></span> 个人中心</a> </li>
+                                    <li><a href="<%=request.getContextPath()%>/show/user.do"><span class="glyphicon glyphicon-user"></span> 个人中心</a> </li>
                                     <li><a href="#">暂无</a></li>
                                     <li><a href="#">暂无</a></li>
                                     <li class="divider"></li>

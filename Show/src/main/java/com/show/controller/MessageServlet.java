@@ -19,7 +19,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -54,7 +54,7 @@ public class MessageServlet extends HttpServlet {
 
             if (messages!=null){
                 request.setAttribute("messages",messageSrcs);
-                request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
             }
 
         // 前台加载更多
@@ -79,7 +79,7 @@ public class MessageServlet extends HttpServlet {
             JSONArray json = JSONArray.fromObject(messageSrcs);
 
             String str = json.toString();
-            logger.info(str);
+//            logger.info(str);
             response.getWriter().write(str);
 
         //前台获取当前用户所有的文章
@@ -104,7 +104,7 @@ public class MessageServlet extends HttpServlet {
                 request.setAttribute("id",id);
 //                request.setAttribute("user",user.toString());
                 System.out.println(myMessages);
-                request.getRequestDispatcher("/WEB-INF/views/myselfMessage.jsp").forward(request,response);
+                request.getRequestDispatcher("/WEB-INF/views/userMessage.jsp").forward(request,response);
             }else {
                 System.out.println("当前用户文章查询失败============================");
                 request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
@@ -114,8 +114,8 @@ public class MessageServlet extends HttpServlet {
 //            获取前端关键词
                 String search=request.getParameter("search");
                 List<Message> messages=messageService.searchMessages(search);
-                logger.info(search);
-                logger.info(messages);
+//                logger.info(search);
+//                logger.info(messages);
                 if (messages.size()!=0 ){//不为空
                     //提取每篇文章的第一个图片rc
                     List<Message> messageSrcs=new ArrayList<>();
@@ -129,6 +129,17 @@ public class MessageServlet extends HttpServlet {
                     request.getRequestDispatcher("/WEB-INF/views/error/nullMessage.jsp").forward(request,response);
 
                 }
+        //把指定文章放入回收站
+        }else if ("/show/trash.do".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("id"));//获取文章id
+            logger.info(messageId);
+            Boolean trash=messageService.trash(messageId);
+            logger.info(trash);
+            if (trash){
+                String result="已经放入回收站";
+                response.getWriter().write(result);
+            }
+
         }
 
     }

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 //个人中心
-@WebServlet("/show/myself.do")
+@WebServlet("/show/user.do")
 public class MyselfServlet extends HttpServlet {
     private UserService userService;
     @Override
@@ -34,7 +34,7 @@ public class MyselfServlet extends HttpServlet {
         User  myself=userService.getUser(id);
         if (myself!=null){
             request.setAttribute("user",myself);
-            request.getRequestDispatcher("/WEB-INF/views/myself.jsp").forward(request,response);
+            request.getRequestDispatcher("/WEB-INF/views/user.jsp").forward(request,response);
         }else {
             System.out.println("个人中心的servlet错误===============================================");
             request.getRequestDispatcher("/WEB-INF/error/404.jsp").forward(request,response);
