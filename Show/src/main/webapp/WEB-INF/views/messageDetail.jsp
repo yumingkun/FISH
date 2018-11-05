@@ -61,6 +61,7 @@
             list-style: none;
             padding: 0;
             margin: 0;
+            margin-top: 50px;
             /*border: 1px solid red;*/
         }
         .container ul.myself li{
@@ -133,6 +134,72 @@
         .like-active .share{
             float: right;
         }
+
+
+        /*评论样式*/
+        .commment{
+            width: 100%;
+        }
+
+        .commment .textarea{
+            height: 160px;
+            width: 450px;
+            border: 3px solid rgba(83, 85, 136, 0.1);
+        }
+        .commment  .textarea textarea{
+            width: 100%;
+            height: 100px;
+            /*去除默认样式*/
+            resize:none;
+            outline: none;
+            border-style:none;
+            border-bottom: 2px solid rgba(83, 85, 136, 0.1);
+
+        }
+        /*发表评论人的头像*/
+        .commment  .commment_img img{
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+
+        }
+
+        .commment .btn{
+            width: 120px;
+            background: #6c7fd1;
+            color: #fff;
+            float: right;
+            border-radius:20px;
+            margin-top: 10px;
+            margin-right: 5px;
+
+        }
+        .commment .btn:hover{
+            color: #fff;
+        }
+
+        /*网友评论部分*/
+        .commment .div{
+            font-family: "Wawati SC";
+            width: 100%;
+            height: 50px;
+            line-height: 50px;
+            margin-bottom: 20px;
+            /*border: 1px solid red;*/
+        }
+        .commment .div .span1{
+            font-weight: 800;
+            font-size: 25px;
+        }
+        .commment .div .span2{
+            font-size: 15px;
+            color: gray;
+        }
+        .commment .div .span3{
+            color: #6c7fd1;
+            font-weight: 800;
+            float: right;
+        }
     </style>
 
 </head>
@@ -176,6 +243,9 @@
         <div class="theEnd"><hr><span class="glyphicon glyphicon-menu-right"></span> THE END <span class="glyphicon glyphicon-menu-left"></span></div>
 
 
+
+
+
         <%--喜欢和分享--%>
         <div class="like-active">
 
@@ -193,6 +263,37 @@
             </div>
         </div>
 
+        <hr>
+
+        <%--写评论--%>
+
+        <section class="commment ">
+
+            <%--网友评论--%>
+            <div class="div"><span class="span1">网友评论</span><span class="span2">文明上网，理性发言，违者打死</span> 	<span class="span3">66条评论</span></div>
+
+
+
+            <%--评论头像以及评论框--%>
+            <div class="row" >
+                <div class="col-md-2 commment_img">
+                    <c:if test="${user!=null}">
+                        <img src="<%=basePath%>${user.head}" >
+                    </c:if>
+
+                    <c:if test="${user==null}">
+                        <img src="../../img/notlogin.jpg">
+                    </c:if>
+                </div>
+                <div class="col-md-10  textarea" >
+                    <textarea class="text_send" id="text_send"></textarea>
+                    <div class="btn btn_send">发布评论</div>
+                </div>
+            </div>
+
+        </section>
+
+
 
 
 
@@ -200,105 +301,7 @@
     </div>
 
     <div class="col-md-3"></div>
-    <!-- 左边文章END -->
 
-    <%--<!-- 右侧边栏 -->--%>
-    <%--<div class="col-md-4">--%>
-        <%--<div class="side-bar-card">--%>
-            <%--<div class="card-title">相关推荐</div>--%>
-            <%--<div class="card-body">--%>
-                <%--<div class="list">--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item clearfix">--%>
-                        <%--<div class="col-xs-5 no-padding-h">--%>
-                            <%--<img src="https://dummyimage.com/1000x700/666/000000" alt="666">--%>
-                        <%--</div>--%>
-                        <%--<div class="col-xs-7">--%>
-                            <%--<div class="title">Quam dolorem, accusamus autem suscipit dolor esse.</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-
-            <%--</div>--%>
-        <%--</div>--%>
-        <%--<div class="side-bar-card">--%>
-            <%--<div class="card-title">24小时热闻</div>--%>
-            <%--<div class="card-body">--%>
-                <%--<div class="list">--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                    <%--<div class="item">--%>
-                        <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                        <%--<div class="desc">15k阅读 1k评论</div>--%>
-                    <%--</div>--%>
-                <%--</div>--%>
-            <%--</div>--%>
-        <%--</div>--%>
-    <%--</div>--%>
-    <%--<!-- 右侧边栏END -->--%>
 
 
 </div>
