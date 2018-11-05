@@ -20,8 +20,8 @@
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
     <%--整体css js--%>
-    <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
-    <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+    <%--<link rel="stylesheet" type="text/css" href="../../css/main.css"/>--%>
+    <%--<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>--%>
 
 
     <style type="text/css">
@@ -114,7 +114,7 @@
 
         /*左边选项默认为不显示*/
         .myLeaf{
-            display: none;
+            display:block;
         }
 
     </style>
@@ -134,8 +134,8 @@
 <%--侧边栏--%>
 <div class="container" id="container">
     <div class="row">
-        <div class="container col-md-2 "  >
-            <span class="glyphicon glyphicon-th-list" id="too" style="font-size: 40px;margin-bottom: 10px"></span>
+        <div class="container col-md-2" >
+            <span class="glyphicon glyphicon-cog" id="too" style="font-size: 40px;margin-bottom: 10px"></span>
             <div id="right" class="myLeaf">
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
@@ -156,7 +156,7 @@
         </div>
 
 
-        <div id="left" class="container col-md-10 panel panel-default" style="max-height: 800px">
+        <div id="left" class="container col-md-8 panel panel-default" style="max-height: 800px"  >
             <h3 id="right-h3" class="panel-heading">个人中心</h3>
             <div id="right-row-1" class="row" style="margin: 0px;">
                 <div id="right-left" class="col-md-3">
@@ -262,6 +262,8 @@
 
     $("#too").click(function(){
         $(".myLeaf").toggle(1000);
+
+
     });
 
     // 点击提交按钮事件

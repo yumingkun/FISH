@@ -94,4 +94,23 @@ public class MessageService {
     public Boolean trash(int id){
         return  messageDao.trash(id);
     }
+
+
+    /**
+     * 通过指定文章id恢复文章
+     * @param id 文章ID
+     * @return
+     */
+    public Boolean restore(int id){
+        return messageDao.restore(id);
+    }
+
+    /**
+     *彻底删除指定文章
+     * @param id
+     * @return
+     */
+    public Boolean trashDelete(int id){
+        return messageDao.trashDelete(id);
+    }
 }

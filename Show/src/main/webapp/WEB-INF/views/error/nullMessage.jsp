@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>T空空如也</title>
+    <title>空空如也</title>
     <%--清除浏览器默认样式--%>
     <link rel="stylesheet" type="text/css" href="../../../css/reset.css"/>
     <%--引入bootstrap--%>
@@ -21,7 +21,15 @@
     <script src="../../../js/main.js" type="text/javascript" charset="utf-8"></script>
     <style type="text/css">
         .nullImg{
-           margin: 10px auto;
+            margin: 10px auto;
+            height:400px;
+        }
+
+        .null h1{
+            font-family: "Wawati SC";
+            color: gray;
+            font-weight: bold;
+            text-align: center;
         }
     </style>
 </head>
@@ -29,7 +37,10 @@
 <%--引入头--%>
 <jsp:include page="../../common/header.jsp"></jsp:include>
 
-<img src="../../../img/null.png" class="nullImg">
+<div class="null">
+    <h1>空空如也</h1>
+    <img src="../../../img/null.png" class="nullImg">
+</div>
 
 <%--引入尾--%>
 <jsp:include page="../../common/footer.jsp"></jsp:include>

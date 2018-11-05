@@ -19,7 +19,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -149,14 +149,33 @@ public class MessageServlet extends HttpServlet {
         //把指定文章放入回收站
         }else if ("/show/trash.do".equals(request.getServletPath())){
             int messageId=Integer.parseInt(request.getParameter("id"));//获取文章id
-            logger.info(messageId);
+//            logger.info(messageId);
             Boolean trash=messageService.trash(messageId);
-            logger.info(trash);
+//            logger.info(trash);
             if (trash){
                 String result="已经放入回收站";
                 response.getWriter().write(result);
             }
-
+        //恢复指定的文章
+        }else if ("/show/restore.do".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("id"));//获取文章id
+//            logger.info(messageId);
+            Boolean restore=messageService.restore(messageId);
+//            logger.info(restore);
+            if (restore){
+                String result="已经恢复";
+                response.getWriter().write(result);
+            }
+        //彻底删除
+        }else if ("/show/myDelete.do".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("id"));//获取文章id
+//            logger.info(messageId);
+            Boolean myDelete=messageService.trashDelete(messageId);
+//            logger.info(messageId);
+            if (myDelete){
+                String result="已经彻底删除";
+                response.getWriter().write(result);
+            }
         }
 
     }

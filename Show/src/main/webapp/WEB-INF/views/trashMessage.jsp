@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>我的博客</title>
+    <title>回收站</title>
     <%--清除浏览器默认样式--%>
     <link rel="stylesheet" type="text/css" href="../../css/reset.css"/>
     <%--引入bootstrap--%>
@@ -93,6 +93,25 @@
             display: none;
         }
 
+        /*文章图片大小*/
+        .theSize img{
+            height: 80px;
+            width: 120px;
+            border: 2px solid #f0a2b8;
+        }
+
+        /*提示信息*/
+        #tishi{
+            display: none;
+            width: 40%;
+
+            float: right;
+
+        }
+        #tishi .alert{
+            margin: 0;
+
+        }
     </style>
 </head>
 <body>
@@ -112,21 +131,36 @@
 
             <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">回收站</h1>
 
+            <%--中间地带--%>
+            <div class="panel-body form-inline" style="background-color: #f0bebd;height: 80px">
+                <form style="float: left;margin-top: 10px" >
+                    <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
+                    <input class="form-control" type="submit" value="搜索">
+                </form>
 
-            <form class="panel-body form-inline" style="background-color: #acb0d0;">
-                <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
-                <input class="form-control" type="submit" value="搜索">
-            </form>
+                <%--放入提示--%>
+                <div id="tishi">
+                    <div class="alert  alert-info" role="alert"  id="myColor">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong><span class="glyphicon   glyphicon-volume-up"></span></strong>  <span id="ti">操作提示</span>
+                    </div>
+                </div>
+            </div>
 
             <%--右边选项--%>
             <div id="article" class="panel-body"  >
                 <%--回收站--%>
                     <div class="new-list tab-pane fade in active"  id="thehome">
                         <c:forEach items="${trashMessage}" var="message">
-                            <%--标记jq要删除的节点--%>
+                            <%--标记jq要恢复的节点--%>
                             <div class="new-list-item clearfix row" id="${message.id}">
-                                <div class="col-xs-3" >
-                                    <img src="${message.src}" alt="" style="height:80px;width: 120px">
+                                <div class="col-xs-3 theSize" >
+                                    <c:if test="${message.src==null or message.src==''}">
+                                        <img src="../../img/nullsrc.png" id="nullImg" >
+                                    </c:if>
+                                    <c:if test="${message.src!=null and message.src!=''}">
+                                        <img src="${message.src}">
+                                    </c:if>
                                 </div>
                                 <div class="col-xs-6">
 
@@ -142,9 +176,9 @@
 
                                 </div>
                                     <%--修改--%>
-                                <div class="col-xs-1 "><span class=""></span>恢复</div>
+                                <div class="col-xs-1 "><span class="glyphicon glyphicon-repeat" style="color: green" onclick="restore(${message.id})"></span></div>
                                     <%--放入回收站--%>
-                                <div class="col-xs-1"><span class="" ></span>彻底删除</div>
+                                <div class="col-xs-1"><span class="glyphicon glyphicon-remove" style="color: brown" onclick="myDelete(${message.id})"></span></div>
                             </div>
                         </c:forEach>
                         <a href="<%=request.getContextPath()%>/show/user.do"><button class="btn btn-default   btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-backward"></span></button></a>
@@ -163,10 +197,38 @@
 </body>
 
 <script type="text/javascript">
+    // 点击恢复，文章
+    function restore(id){
+        $.ajax({
+            type:"get",
+            url:"<%=request.getContextPath()%>/show/restore.do?id="+id,
+            dataType:"text",
+            success:function(data){
+                $("#"+id).hide(1000);
+                $("#ti").text("恢复文章成功");
+                $("#tishi").show(1000).delay(2000).hide(3000);
+            }
+        });
+
+    }
+
+    //点击彻底删除
+    function myDelete(id){
+        // alert(id);
+        $.ajax({
+            type:"get",
+            url:"<%=request.getContextPath()%>/show/myDelete.do?id="+id,
+            dataType:"text",
+            success:function(data){
+                $("#"+id).hide(1000);
+                $("#ti").text("文章已经彻底删除");
+                $("#tishi").show(1000).delay(2000).hide(1000);
+            }
+        });
+    }
 
 
 
 
 </script>
-
 </html>

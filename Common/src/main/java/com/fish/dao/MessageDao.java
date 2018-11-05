@@ -282,4 +282,61 @@ public class MessageDao {
         return false;
     }
 
+    /**
+     * 恢复指定ID的文章
+     * @param id
+     * @return
+     */
+    public  Boolean restore(int id){
+
+        Connection conn=null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="update message set trash=0 where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            num=pstmt.executeUpdate();
+            if (num>0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs,pstmt, conn);
+        }
+        return false;
+    }
+
+    /**
+     * 彻底删除指定ID的文章
+     * @param id
+     * @return
+     */
+    public  Boolean trashDelete(int id){
+        Connection conn=null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="delete from  message  where  trash=1 and id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            num=pstmt.executeUpdate();
+            if (num>0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs,pstmt, conn);
+        }
+        return false;
+    }
+
 }

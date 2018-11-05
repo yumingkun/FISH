@@ -93,6 +93,26 @@
             display: none;
         }
 
+        /*文章图片大小控制*/
+        .theUserImg img{
+            height: 80px;
+            width: 120px;
+            border: 2px solid #b9def0;
+        }
+
+        /*提示信息*/
+        #tishi{
+            display: none;
+            width: 40%;
+
+            float: right;
+
+        }
+        #tishi .alert{
+            margin: 0;
+
+        }
+
     </style>
 </head>
 <body>
@@ -108,21 +128,36 @@
 
         <div class="col-md-1"></div>
         <form action="<%=request.getContextPath()%>/show/myMessage.do" METHOD="post" id="refishTrash" style="display: none"></form>
-        <div id="left" class="col-md-10     panel panel-group">
 
-            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">我的博客</h1>
+        <div class="col-md-10">
+
+            <div id="left" class="  panel panel-group">
+
+                <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">我的博客</h1>
 
 
-            <form class="panel-body form-inline" style="background-color: #acb0d0;">
-                <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
-                <input class="form-control" type="submit" value="搜索">
-            </form>
+                <%--中间地带--%>
+                <div class="panel-body form-inline" style="background-color: #acb0d0;height: 80px">
+                    <form style="float: left;margin-top: 10px" >
+                        <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
+                        <input class="form-control" type="submit" value="搜索">
+                    </form>
 
-            <%--右边选项--%>
-            <div id="article" class="panel-body"  >
+                    <%--放入提示--%>
+                    <div id="tishi">
+                        <div class="alert alert-info alert-dismissible" role="alert">
+                              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                              <strong><span class="glyphicon   glyphicon-volume-up"></span> </strong> 此文章已经成功放入回收站
+                        </div>
+                    </div>
+                </div>
 
-                <%--选项卡--%>
-                <div id="myTabContent" class="tab-content">
+
+                <%--右边选项--%>
+                <div id="article" class="panel-body"  >
+
+                    <%--选项卡--%>
+                    <div id="myTabContent" class="tab-content">
 
 
                         <%--文章列表--%>
@@ -130,15 +165,20 @@
                             <c:forEach items="${myMessages}" var="message">
                                 <%--标记jq要删除的节点--%>
                                 <div class="new-list-item clearfix row" id="${message.id}">
-                                    <div class="col-xs-3" >
-                                        <img src="${message.src}" alt="" style="height:80px;width: 120px">
+                                    <div class="col-xs-3 theUserImg" >
+                                        <c:if test="${message.src==null or message.src==''}">
+                                            <img src="../../img/nullsrc.png" id="nullImg" >
+                                        </c:if>
+                                        <c:if test="${message.src!=null and message.src!=''}">
+                                            <img src="${message.src}">
+                                        </c:if>
                                     </div>
                                     <div class="col-xs-6">
 
                                         <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
-                                        <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
-                                                <%--<p>${message.content}</p>--%>
-                                        <%--</div>--%>
+                                            <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
+                                            <%--<p>${message.content}</p>--%>
+                                            <%--</div>--%>
                                         <div class="info" style="margin-top: 30px">
                                             <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
                                             <span>25k</span> ⋅
@@ -146,19 +186,21 @@
                                         </div>
 
                                     </div>
-                                    <%--修改--%>
+                                        <%--修改--%>
                                     <div class="col-xs-1 "><span class="glyphicon glyphicon-edit"></span>  </div>
-                                   <%--放入回收站--%>
+                                        <%--放入回收站--%>
                                     <div class="col-xs-1"><span class="glyphicon glyphicon-trash" style="color: firebrick" id="trash" onclick="trash(${message.id})"></span></div>
                                 </div>
                             </c:forEach>
                             <a href="<%=request.getContextPath()%>/show/user.do"><button class="btn btn-default   btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-backward"></span></button></a>
                         </div>
-                </div>
-                <%--选项卡end--%>
+                    </div>
+                    <%--选项卡end--%>
 
+                </div>
             </div>
         </div>
+
         <div class="col-md-1"></div>
     </div>
 </div>
@@ -174,13 +216,15 @@
     function trash(id){
         // alert(id);
         // alert("123");
-        $("#"+id).hide(1000);
+
+
         $.ajax({
             type:"get",
             url:"<%=request.getContextPath()%>/show/trash.do?id="+id,
             dataType:"text",
             success:function(data){
-
+                $("#"+id).hide(1000);
+                $("#tishi").show(1000).delay(2000).hide(3000);
             }
         });
 
