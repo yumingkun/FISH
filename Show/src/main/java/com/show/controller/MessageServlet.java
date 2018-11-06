@@ -126,7 +126,7 @@ public class MessageServlet extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/trashMessage.jsp").forward(request, response);//回收站页面
 
 
-                //模糊查询
+        //导航条模糊查询
         }else if ("/show/search.do".equals(request.getServletPath())){
 //            获取前端关键词
                 String search=request.getParameter("search");
