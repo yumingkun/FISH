@@ -21,10 +21,22 @@
         .pagination{
             position: fixed;
             /*没有父元素的相对定位，则以浏览器为绝对定位*/
-            bottom: 20px;
 
+            bottom: 20px;
+        }
+        .theTitle{
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 50px;
+            font-weight: 800;
+            color: gray;
         }
     </style>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 </head>
 <body>
 
@@ -45,10 +57,10 @@
             </div>
         </div>
         <div class="col-lg-1" ></div>
-        <div class="col-lg-9" >
+        <div class="col-lg-7" >
             <%--右侧表格--%>
+            <p class="theTitle">用户管理</p>
             <table class="table">
-                <caption>用户的基本操作</caption>
                 <thead>
                 <tr>
                     <th>ID</th>
@@ -64,15 +76,16 @@
                         <td>${user.username}</td>
                         <td>${user.email}</td>
                         <td>
-                            <button  class="btn btn-danger btn-sm" onclick="sub(${user.id})">删除</button>
+                            <button  class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="确定删除吗？" onclick="sub(${user.id})">删除</button>
                         </td>
                     </tr>
                 </c:forEach>
                 </tbody>
             </table>
+
             <%--分页--%>
              <div class="row">
-                 <div class="col-lg-6 col-lg-offset-3" >
+                 <div class="col-lg-6 col-lg-offset-5" >
                      <ul class="pagination">
                          <c:choose>
                              <c:when test="${requestScope.pageVO.page eq 1}">

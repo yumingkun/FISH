@@ -1,7 +1,9 @@
 package com.show.controller;
 
+import com.fish.bean.Category;
 import com.fish.bean.Message;
 import com.fish.bean.User;
+import com.fish.service.CategoryService;
 import com.fish.service.MessageService;
 import com.fish.utils.GetImgStr;
 
@@ -23,10 +25,12 @@ import org.apache.log4j.Logger;
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
+    private CategoryService categoryService;
     @Override
     public void init() throws ServletException {
         super.init();
         messageService=new MessageService();
+        categoryService=new CategoryService();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -37,8 +41,6 @@ public class MessageServlet extends HttpServlet {
 
         //初始显示6条数据
         if ("/show/message.do".equals(request.getServletPath())){
-
-
             List<Message> messages =messageService.getMessages(0,6);//分页查询全部留言
             //提取每篇文章的第一个src
             List<Message> messageSrcs=new ArrayList<>();
@@ -47,13 +49,12 @@ public class MessageServlet extends HttpServlet {
                 messageSrcs.add(message);
            }
 
-//            int count=messageService.countMessage();//获取全部消息数量
-//            int last=count%5 ==0? (count/ 5):((count/5)+1);//最后一页
-//            request.setAttribute("last",last);
-//            request.setAttribute("page",page);
+            //获得所有的分类
+            List<Category> categories=categoryService.getCategoryList();
 
             if (messages!=null){
                 request.setAttribute("messages",messageSrcs);
+                request.setAttribute("categories",categories);
                 request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
             }
 

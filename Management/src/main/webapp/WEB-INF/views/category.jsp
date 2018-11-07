@@ -18,6 +18,15 @@
     <script src="../../js/jquery.js"></script>
     <script src="../../js/bootstrap.js"></script>
     <link rel="stylesheet" href="../..//css/bootstrap.css">
+    <style>
+        .theTitle{
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 50px;
+            font-weight: 800;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
 
@@ -40,6 +49,7 @@
         <div class="col-lg-1" ></div>
         <div class="col-lg-7">
 
+            <p class="theTitle">类别管理</p>
 
             <div >
                 <div class="panel panel-warning">

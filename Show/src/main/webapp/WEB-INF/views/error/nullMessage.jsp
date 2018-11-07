@@ -22,7 +22,8 @@
     <style type="text/css">
         .nullImg{
             margin: 10px auto;
-            height:400px;
+            height:300px;
+            margin-bottom: 100px;
         }
 
         .null h1{
@@ -30,6 +31,8 @@
             color: gray;
             font-weight: bold;
             text-align: center;
+            font-size: 100px;
+            margin-top: 80px;
         }
     </style>
 </head>

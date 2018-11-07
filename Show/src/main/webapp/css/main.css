@@ -92,13 +92,17 @@ a:hover {
     margin-bottom: 5px;
 }
 
-.side-bar a:first-child {
-    background: #ea0c3c;
-    color: #fff;
-}
+
 
 
 /* 左边分类END */
+.side-bar a:first-child{
+    font-family: "Wawati SC";
+    font-size: 20px;
+    font-weight: 600;
+    color: #2e3040;
+    background-color: rgba(235, 246, 255, 0.5);
+}
 
 
 /* 中间文章内容 */
@@ -151,7 +155,7 @@ a:hover {
 .side-bar-card {
     padding: 10px 0;
     margin-top: 15px;
-    background: rgba(0, 0, 0, .05);
+    background-color: rgba(235, 246, 255, 0.5);
 }
 
 .side-bar-card.flag {
@@ -208,34 +212,34 @@ a:hover {
 
 /* 左边文章 */
 
-.news-title {
-    line-height: 1.3;
-}
+/*.news-title {*/
+    /*line-height: 1.3;*/
+/*}*/
 
-.new-status {
-    color: #999;
-}
+/*.new-status {*/
+    /*color: #999;*/
+/*}*/
 
-.new-status .label {
-    opacity: .8;
-}
+/*.new-status .label {*/
+    /*opacity: .8;*/
+/*}*/
 
 
-.new-content {
-    margin-top: 20px;
-    font-size: 15px;
-    line-height: 1.5;
-}
+/*.new-content {*/
+    /*margin-top: 20px;*/
+    /*font-size: 15px;*/
+    /*line-height: 1.5;*/
+/*}*/
 
-.new-content img {
-    width: 100%;
-    margin: 10px 0;
-}
+/*.new-content img {*/
+    /*width: 100%;*/
+    /*margin: 10px 0;*/
+/*}*/
 
-.no-padding-h {
-    padding-left: 0;
-    padding-right: 0;
-}
+/*.no-padding-h {*/
+    /*padding-left: 0;*/
+    /*padding-right: 0;*/
+/*}*/
 
 
 
@@ -267,11 +271,13 @@ a:hover {
     position: fixed;
     right: 65px;
     bottom: 30px;
-    background: url("../img/top_bg.png") no-repeat left top;
+    background: url("../img/shang.png") no-repeat left top;
+    background-size: cover;
     /*默认影藏*/
 
 }
-/*背景图片移动位置*/
-#btn:hover{
-    background: url("../img/top_bg.png") no-repeat left -40px;
-}
+
+/*!*背景图片移动位置*!*/
+/*#btn:hover{*/
+    /*background: url("../img/top_bg.png") no-repeat left -40px;*/
+/*}*/

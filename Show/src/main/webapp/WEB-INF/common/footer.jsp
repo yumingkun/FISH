@@ -18,7 +18,10 @@
         margin-top: 80px;
         padding: 40px 0;
         text-align: center;
-        line-height: 20px;
+        line-height: 25px;
+        font-size: 15px;
+        font-weight: 500;
+        font-family: "Wawati SC";
     }
 </style>
 

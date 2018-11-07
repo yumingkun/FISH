@@ -40,10 +40,15 @@ public class CategoryServlet extends HttpServlet {
          }else if ("/manage/cddCategory.do".equals(request.getServletPath())){
 //          获取类名
              String gname=request.getParameter("gname");
-             logger.info(gname);
-             Boolean addResult=categoryService.addCategory(gname);
-             logger.info(addResult);
-             if (addResult){
+             if (!("".equals(gname) && gname.length()>0)){
+                 logger.info(gname);
+                 Boolean addResult=categoryService.addCategory(gname);
+                 logger.info(addResult);
+                 if (addResult){
+                     request.getRequestDispatcher("category.do").forward(request,response);
+                 }
+
+             }else {
                  request.getRequestDispatcher("category.do").forward(request,response);
              }
 

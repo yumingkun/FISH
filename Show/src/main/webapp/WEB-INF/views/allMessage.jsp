@@ -45,6 +45,7 @@
              height: 140px;
              border: 2px solid #b9def0;
         }
+
     </style>
 
 
@@ -63,16 +64,12 @@
         <!-- 左边分类 -->
         <div class="col-sm-2 hidden-xs">
             <div class="list-group side-bar">
-                <a href="" class="list-group-item">综合</a>
-                <a href="" class="list-group-item">电影</a>
-                <a href="" class="list-group-item">电视剧</a>
-                <a href="" class="list-group-item">明星</a>
-                <a href="" class="list-group-item">科技</a>
-                <a href="" class="list-group-item">社会</a>
-                <a href="" class="list-group-item">游戏</a>
-                <a href="" class="list-group-item">体育</a>
-                <a href="" class="list-group-item">财经</a>
-                <a href="" class="list-group-item">搞笑</a>
+                <a class="list-group-item"><span class="glyphicon glyphicon-fire"></span>  热门专题</a>
+                <c:forEach items="${categories}" var="category">
+                    <%--<td>${category.id}</td>--%>
+                    <a href="<%=request.getContextPath()%>/show/oneCategory.do?cid=${category.id}" class="list-group-item">${category.gname}</a>
+                </c:forEach>
+
             </div>
         </div>
         <!-- 左边分类END -->
@@ -171,7 +168,7 @@
 <%--页脚end--%>
 
 <%--1：回到顶部--%>
-<a href="#top" title="返回顶部"  id="btn" ></a>
+<a title="返回顶部"  id="btn" ></a>
 
 </body>
 
@@ -217,6 +214,27 @@
             }
         });
     }
+
+
+
+    //回到顶部
+    //1：jQuery.fn是jQuery的原型对象也可以写成 $.fn
+    //2：添加myScrollTo方法到jQuery原型($.fn)
+    jQuery.fn.myScrollTo = function(speed) {
+        var targetOffset = $(this).offset().top;
+        console.log(targetOffset);//去除默认样式后是 0
+        //$(this).offset()：获得位移对象（此时其实啥也没做）
+        //$(this).offset().top：获得位移高度
+        $('html,body').stop().animate({scrollTop: targetOffset}, speed);
+        return this;
+    };
+
+    // 使用自定义的方法
+    $("#btn").click(function(){
+        $("body").myScrollTo(500);//调用，并传入速度
+        return false;//阻止默认事件
+    });
+
 </script>
 
 

@@ -38,26 +38,32 @@ public class DetailServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        int id=Integer.valueOf(req.getParameter("id"));//获取前端传来的文章id
-        int userId=Integer.valueOf(req.getParameter("userId"));//获取每个文章的用户ID
+//        查看详情页的时候，需要登录，否则去登录
+        if (req.getSession().getAttribute("user")==null ||  ("".equals(req.getParameter("user")) )) {//判断是否已经登录
+            req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req, resp);
+        }else {
+            int id=Integer.valueOf(req.getParameter("id"));//获取前端传来的文章id
+            int userId=Integer.valueOf(req.getParameter("userId"));//获取每个文章的用户ID
 
-        Message message=messageService.getMessageById(id);
-        User user=userService.getUser(userId);
-        int countComment=commentService.countComment(id);//根据文章ID查询此文章的评论的个数
-        List<Comment> comments=commentService.getCommentByMessageId(id);//根据文章的id查询comment和user（评论人）表
+            Message message=messageService.getMessageById(id);
+            User user=userService.getUser(userId);
+            int countComment=commentService.countComment(id);//根据文章ID查询此文章的评论的个数
+            List<Comment> comments=commentService.getCommentByMessageId(id);//根据文章的id查询comment和user（评论人）表
 
 //        logger.info(comments);
 
-        if (message!=null && user!=null){
-            req.setAttribute("message",message);//文章详细信息
-            req.setAttribute("user",user);//此文章作者信息
-            req.setAttribute("countComment",countComment);//评论个数
-            req.setAttribute("allComment",comments);//所有的评论
-            System.out.printf("messageDetail-----------------------------------成功");
-            req.getRequestDispatcher("/WEB-INF/views/messageDetail.jsp").forward(req,resp);
-        }else {
-            System.out.printf("messageDetail-----------------------------------失败");
-            req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req,resp);
+            if (message!=null && user!=null){
+                req.setAttribute("message",message);//文章详细信息
+                req.setAttribute("user",user);//此文章作者信息
+                req.setAttribute("countComment",countComment);//评论个数
+                req.setAttribute("allComment",comments);//所有的评论
+                System.out.printf("messageDetail-----------------------------------成功");
+                req.getRequestDispatcher("/WEB-INF/views/messageDetail.jsp").forward(req,resp);
+            }else {
+                System.out.printf("messageDetail-----------------------------------失败");
+                req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req,resp);
+            }
+
         }
 
     }
