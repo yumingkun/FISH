@@ -1,4 +1,4 @@
-package com.fish.servlet;
+package com.fish.controller;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

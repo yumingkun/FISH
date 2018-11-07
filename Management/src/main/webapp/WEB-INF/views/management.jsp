@@ -8,7 +8,10 @@
 <head>
     <title>后台首页(欢迎页)</title>
     <%--引入需要的js css--%>
-    <jsp:include page="common/head.jsp"></jsp:include>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../..//css/bootstrap.css">
 </head>
 <body>
 

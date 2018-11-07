@@ -3,6 +3,7 @@ package com.show.controller;
 import com.fish.bean.Comment;
 import com.fish.bean.User;
 import com.fish.service.CommentService;
+import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
@@ -11,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet({"/show/addComment.do"})
 public class CommentsServlet extends HttpServlet {
@@ -52,10 +55,15 @@ public class CommentsServlet extends HttpServlet {
 
 //            把评论插入数据库获
             Boolean ment=commentService.addComment(comment);
+            resp.setContentType("application/json;charset=utf-8");
+
             if (ment){
+
+//                resp.getWriter().write("成功");
                 System.out.printf("添加评论成功");
             }else {
                 System.out.printf("添加评论失败");
+
             }
 
 

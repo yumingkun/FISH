@@ -55,12 +55,14 @@ public class UserService {
 
 
 
-
-
-
-
-
-
+    /**
+     * 后台根据用户ID删除用户
+     * @param id
+     * @return
+     */
+    public  Boolean deleteUserById(int id){
+        return userDao.deleteUserById(id);
+    }
 
 
 
@@ -102,5 +104,6 @@ public class UserService {
         System.out.printf(pageVO.toString()+"------------------pageVo");
         return pageVO;
     }
+
 
 }

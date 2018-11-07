@@ -10,15 +10,20 @@
 <style type="text/css">
     .navbar{
        box-shadow: 0px 2px 2px #cccccc;
+        /*border: 1px solid red;*/
+    }
+    .navbar .navbar-header img{
+        width: 50px;
+        height: 50px;
+        margin-top: 0px;
+        /*border: 1px solid red;*/
     }
 </style>
 
 <nav class="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
                 <img alt="Brand" src="../../../img/logo.png">
-            </a>
         </div>
     </div>
 </nav>

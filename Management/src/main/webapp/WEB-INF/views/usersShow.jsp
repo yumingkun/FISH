@@ -12,7 +12,10 @@
 <head>
     <title>用户管理</title>
     <%--引入所需js css--%>
-    <jsp:include page="common/head.jsp"></jsp:include>
+    <link rel="stylesheet" href="../../css/reset.css">
+    <script src="../../js/jquery.js"></script>
+    <script src="../../js/bootstrap.js"></script>
+    <link rel="stylesheet" href="../..//css/bootstrap.css">
     <style type="text/css">
         /*分页的位置*/
         .pagination{
@@ -60,7 +63,9 @@
                         <td>${user.id}</td>
                         <td>${user.username}</td>
                         <td>${user.email}</td>
-                        <td><button class="btn btn-danger btn-sm">删除</button></td>
+                        <td>
+                            <button  class="btn btn-danger btn-sm" onclick="sub(${user.id})">删除</button>
+                        </td>
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -116,7 +121,7 @@
                      </ul>
                  </div>
              </div>
-            <form action="/manage/getUsers.do" id="pageForm" method="post">
+            <form action="<%=request.getContextPath()%>/manage/getUsers.do" id="pageForm" method="post">
                 <input type="hidden" id="page" name="page" value="1">
             </form>
             <%--分页end--%>
@@ -124,10 +129,21 @@
     </div>
 </div>
 
+<form id="manForm" action="<%=request.getContextPath()%>/manage/delete.do" method="post" style="display: none">
+        <input type="hidden" id="userId" name="userId" value="">
+</form>
+
 <script type="text/javascript">
     function doPage(n){
         document.getElementById("page").value=n;
         document.getElementById("pageForm").submit();
+    }
+
+    // 提交删除
+    function sub(id) {
+        $("#manForm #userId").attr("value",id);
+        // $("#manForm #userId").attr(name,id);
+        $("#manForm").submit();
     }
 </script>
 

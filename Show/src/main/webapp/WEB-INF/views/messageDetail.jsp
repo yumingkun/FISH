@@ -1,4 +1,4 @@
-<%--
+<%@ page import="com.fish.bean.User" %><%--
   Created by IntelliJ IDEA.
   User: mingkunyu
   Date: 2018/9/25
@@ -20,18 +20,10 @@
     <%--引入富文本框js css--%>
     <link rel="stylesheet" href="../../css/wangEditor.min.css">
     <script type="text/javascript" src="../../js/wangEditor.min.js"></script>
-    <%--矢量图标--%>
-    <script src="../../icont/iconfont.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../icont/iconfont.css"/>
+
 
     <style type="text/css">
-        /*icon设置*/
-        .icon {
-            width: 3em; height: 3em;
-            vertical-align: -0.15em;
-            fill: currentColor;
-            overflow: hidden;
-        }
+
 
         /*所有的图片样式*/
         img{
@@ -214,7 +206,7 @@
 
         /*全部评论*/
 
-        .allComment .div2{
+        .div2{
             font-family: "Wawati SC";
             width: 100%;
             height: 50px;
@@ -222,12 +214,12 @@
             margin-top:20px;
         }
 
-        .allComment .div2 .span4{
+         .div2 .span4{
             font-weight: 800;
             font-size: 25px;
         }
 
-        .allComment .div2 .span5{
+         .div2 .span5{
             color: #6c7fd1;
             font-weight: 800;
             float: right;
@@ -271,6 +263,7 @@
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 
 //    通过会话获得当前用户的头像和信息
+    User user =(User) request.getSession().getAttribute("user");
 
 %>
 
@@ -317,7 +310,7 @@
             <div id="like">
                 <a href="">
                     <span class="glyphicon glyphicon-heart"></span>
-                    喜欢  |  66
+                    喜欢  |  6
                 </a>
             </div>
             <div class="share-active share">
@@ -337,6 +330,7 @@
             <div class="div1"><span class="span1">网友评论</span><span class="span2">文明上网，理性发言，违者打死</span> 	<span class="span3">${countComment}条评论</span></div>
 
             <%--评论头像以及评论框--%>
+
             <div class="row" >
                 <div class="col-md-2 commment_img">
                     <c:if test="${user!=null}">
@@ -347,46 +341,42 @@
                         <img src="../../img/notlogin.jpg">
                     </c:if>
                 </div>
-                 <%--写评论--%>
+                    <%--写评论--%>
                 <div class="col-md-10  textarea" >
-                    <textarea class="text_send" id="text_send"></textarea>
-                    <div class="btn btn_send">发布评论</div>
+                    <textarea  class="text_send" id="text_send"></textarea>
+                    <div class="btn" onclick="comment()" >发布评论</div>
                 </div>
             </div>
 
 
+
         </section>
 
+        <div class="div2"><span class="span4">全部评论</span>   <span class="span5">最新</span></div>
 
         <section class="allComment">
-            <%--全部评论--%>
-            <div class="div2"><span class="span4">全部评论</span>   <span class="span5">最新</span></div>
+              <%--添加节点--%>
+            <span class="insert"></span>
 
-
-          <%--全部评论展示   --%>
-           <c:if test="${allComment!=null}">
-               <c:forEach items="${allComment}" var="comment">
-                   <div class="containts">
-                       <div class="myHead">
-                           <img src="<%=basePath%>${comment.user.head}">
-                           <div><span>${comment.user.username}</span> <span class="time">${comment.create_time}</span></div>
+              <%--全部评论展示   --%>
+               <c:if test="${allComment!=null}">
+                   <c:forEach items="${allComment}" var="comment">
+                       <div class="containts">
+                           <div class="myHead">
+                               <img src="<%=basePath%>${comment.user.head}">
+                               <div><span>${comment.user.username}</span> <span class="time">${comment.create_time}</span></div>
+                           </div>
+                           <div class="myBody">
+                                   ${comment.contrent}
+                                   <%--Comment{id=0, userId=7, messageId=13, contrent='我是评论', laud=0, create_time=2018-11-06 16:23:06.0}]--%>
+                                   <%--这个我的实体类写错了，不想改了，应该为content--%>
+                           </div>
                        </div>
-                       <div class="myBody">
-                               ${comment.contrent}
-                               <%--Comment{id=0, userId=7, messageId=13, contrent='我是评论', laud=0, create_time=2018-11-06 16:23:06.0}]--%>
-                               <%--这个我的实体类写错了，不想改了，应该为content--%>
-                       </div>
-                   </div>
-               </c:forEach>
-           </c:if>
-           <%--<c:if test="${allComment==null}">   </c:if>--%>
-
-
-
-
+                   </c:forEach>
+               </c:if>
+               <%--<c:if test="${allComment==null}">   </c:if>--%>
 
         </section>
-
 
 
 
@@ -411,46 +401,6 @@
 
 
 
-    //点击发布评论增加节点
-    $(".btn_send").on('click',function(){
-        // alert("fabu");
-        var now = time();
-        //获取评论信息
-        var text_send = $(".text_send").val();
-        if(text_send ==""){
-            return false;
-        }
-
-        //发送，用户id(可以由会话获得)和内容，和当前时间
-        var html;
-        $.ajax({
-            url:'<%=request.getContextPath()%>/show/addComment.do?messageId='+${message.id},
-            type:'POST',
-            data:{"content":text_send},
-            dataType:'json',
-            success:function (data) {
-                html = `
-                    <div class="containts">
-                        <div class="myHead">
-                            <img src="../../img/notlogin.jpg">
-                            <div><span>用户名</span> <span class="time">`+now+`</span></div>
-                        </div>
-                        <div class="myBody">`
-                            +text_send+
-                            `</div>
-                    </div>
-                `;
-
-            }
-        });
-
-
-
-         $(".allComment").append(html);
-         $(".text_send").val("");
-    });
-
-
     function time(){
         function time(s) {
             return s < 10 ? '0' + s: s;
@@ -465,8 +415,57 @@
         var h=myDate.getHours();       //获取当前小时数(0-23)
         var m=myDate.getMinutes();     //获取当前分钟数(0-59)
         var s=myDate.getSeconds();
-        return year+'-'+time(month)+"-"+time(date)+" "+time(h)+':'+time(m)+":"+time(s);
+        return year+'-'+time(month)+"-"+time(date)+" "+time(h)+':'+time(m)+":"+time(s)+".0";
     }
+
+
+
+    // 这一部分有bug 即使插入成功，总是进入error
+    //点击发布评论增加节点(这一部分有bug 即使插入成功，总是进入error)
+    function comment(){
+        var now = time();
+        //获取评论信息
+        var text_send = $(".text_send").val();
+        if(text_send ==""){
+            return false;
+        }
+        var str=`
+               <div class="containts">
+                   <div class="myHead">
+                       <img src="<%=basePath+user.getHead()%>">
+                       <div><span><%=user.getUsername()%></span> <span class="time">`+now+`</span></div>
+                   </div>
+                   <div class="myBody">
+                            `+text_send+`
+                           <%--Comment{id=0, userId=7, messageId=13, contrent='我是评论', laud=0, create_time=2018-11-06 16:23:06.0}]--%>
+                           <%--这个我的实体类写错了，不想改了，应该为content--%>
+                   </div>
+               </div>
+
+        `;
+        $(".insert").before(str);
+        $.ajax({
+            type:"post",
+            async: true,//
+            url:"<%=request.getContextPath()%>/show/addComment.do?messageId="+${message.id},
+            data:{"content":text_send},
+            success:function(){
+                $(".insert").before(str);
+            },
+            error:function( XMLHttpRequest, textStatus, errorThrown){
+                // $(".allComment").append("失败");
+            },
+
+
+        });
+
+
+        $(".text_send").val("");
+    }
+
+    <%--<p>${message.content}</p>--%>
+
+
 
 </script>
 

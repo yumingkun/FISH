@@ -22,8 +22,8 @@
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
                     <p class="myTwo"><a href="/manage/getUsers.do">用户管理</a></p>
-                    <p class="myTwo">角色管理</p>
-                    <p class="myTwo">状态管理</p>
+                    <p class="myTwo"><a href="/manage/category.do">分类管理</a></p>
+                    <p class="myTwo">轮播管理</p>
                 </div>
             </div>
         </div>

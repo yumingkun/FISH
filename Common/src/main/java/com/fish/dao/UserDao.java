@@ -223,4 +223,33 @@ public class UserDao {
 
     }
 
+    /**
+     * 后台根据用户ID删除用户
+     * @param userid
+     * @return
+     */
+    public  Boolean deleteUserById(int userid) {
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "delete from  users  where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, userid);
+            num = pstmt.executeUpdate();
+            if (num > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return false;
+    }
+
 }
