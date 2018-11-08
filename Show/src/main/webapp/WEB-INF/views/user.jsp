@@ -179,7 +179,7 @@
                 <div id="right-right-1" class="col-md-9" style="padding: 15px;">
                     <div>
                         <%--修改用户信息--%>
-                        <p class="text-muted">ID:${user.id}<a  href="/show/editMyself.do?edit=editUser" style="float: right"><span class="glyphicon glyphicon-edit" style="font-size: 20px"></span></a></p>
+                        <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
                         <p>关注</p><p>粉丝</p>
 
                     </div>
@@ -208,7 +208,7 @@
 </form>
 
 
-<!-- 模态框（Modal） -->
+<!--修改头像 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -242,6 +242,43 @@
 </div>
 
 
+<!--修改用户信息模态框（Modal） -->
+<div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" style=";font-family:'Wawati SC'">
+        <div class="modal-content">
+            <div class="modal-header"  >
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    &times;
+                </button>
+                <h4 class="modal-title"  style="font-weight: 700;"> 修改用户信息</h4>
+            </div>
+
+            <div class="modal-body text-center" >
+                <!--修改用户信息表单-->
+                <form id="updateform" action="test.php" method="post" style="text-align: left;">
+                    <div class="form-group">
+                        <label for="username" class="control-label">用户名:</label>
+                        <input type="text" class="form-control" id="username" name="username" value="${user.username}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email" class="control-label">Email:</label>
+                        <input type="text" class="form-control" id="email" name="email" value="${user.email}">
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="control-label">密码:</label>
+                        <input type="password" class="form-control" id="password" name="password" value="${user.password}">
+                    </div>
+                </form>
+                <!--修改用户信息表单end-->
+            </div>
+
+            <div class="modal-footer" >
+                <!--点击提交表单-->
+                <button type="button" class="btn btn-default" onclick="update_info()">提交 </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <%--页脚--%>
@@ -278,6 +315,13 @@
         alert("test");
         $("#myLeaf").css({ display:block});
     });
+
+
+    //提交修改用户信息表单
+    function update_info(){
+        alert("我是表单");
+//   	$("#updateform").submit();
+    }
 
 
 
