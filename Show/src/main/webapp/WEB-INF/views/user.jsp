@@ -185,20 +185,14 @@
                     </div>
                     <hr>
                     <div>
-                        <p>昵称：</p>
-                        <p>实名：${user.username}</p>
+                        <p>用户名：${user.username}</p>
                         <p>邮箱：${user.email}</p>
-                        <p>性别：</p>
-                        <p>生日：</p>
-                        <p>地区：</p>
-                        <p>行业：</p>
-                        <p>职位：</p>
                     </div>
                 </div>
             </div>
 
             </div>
-            <div id="right-row-2">我的收藏</div>
+            <div id="right-row-2">我的评论</div>
             <div id="right-row-3">我的关注</div>
             <div id="right-row-4">我的粉丝</div>
         </div>

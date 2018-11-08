@@ -334,7 +334,7 @@
             <div class="row" >
                 <div class="col-md-2 commment_img">
                     <c:if test="${user!=null}">
-                        <img src="<%=basePath%>${user.head}" >
+                        <img src="<%=basePath+user.getHead()%>" >
                     </c:if>
 
                     <c:if test="${user==null}">

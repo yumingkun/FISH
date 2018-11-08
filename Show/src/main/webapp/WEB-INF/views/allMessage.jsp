@@ -46,6 +46,18 @@
              border: 2px solid #b9def0;
         }
 
+        /*总计数*/
+        .myAlert{
+            background-color: rgba(235, 246, 255, 0.5);
+            margin-top: 20px;
+            width: 100%;
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 17px;
+            font-weight: 800;
+            color: #26263d;
+        }
+
     </style>
 
 
@@ -91,28 +103,35 @@
                         <div class="col-xs-7">
 
                             <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
-                            <div class="content">
-                                    <%--<p>${message.content}</p>--%>
+                            <%--<div class="content">--%>
+                                    <%--&lt;%&ndash;<p>${message.content}</p>&ndash;%&gt;--%>
 
-                            </div>
+                            <%--</div>--%>
                             <div class="info">
-                                <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
-                                <span>25k</span> ⋅
+                                <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                <span>${message.category.gname}</span>
                                 <span>${message.title}</span>
                             </div>
+
 
                         </div>
                     </div>
                 </c:forEach>
 
                 <%--加载更多数据显示位置   --%>
-
             </div>
 
             <!-- 加载更多 -->
-            <div class="more" onclick="page()">
-                加载更多
-            </div>
+                <c:if test="${show==1}">
+                    <div class="alert myAlert" role="alert">${count}</div>
+                </c:if>
+
+                <c:if test="${show!=1}">
+                    <div class="more" onclick="page()">
+                        加载更多
+                    </div>
+                </c:if>
+
         </div>
         <!-- 中间内容END -->
         <!-- 右边内容 -->

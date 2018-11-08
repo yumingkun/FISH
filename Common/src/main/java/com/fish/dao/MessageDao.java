@@ -1,6 +1,7 @@
 package com.fish.dao;
 
 
+import com.fish.bean.Category;
 import com.fish.bean.Message;
 import com.fish.utils.ConnectUtil;
 
@@ -26,7 +27,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message where trash=0 order by create_time desc limit ?,?";
+            String sql="select message.id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by create_time desc limit ?,?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, start );
             stmt.setInt(2, count);
@@ -38,7 +39,9 @@ public class MessageDao {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("content"),
-                        rs.getTimestamp("create_time")));
+                        rs.getTimestamp("create_time"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")))
+                );
 
             }
 
@@ -205,6 +208,7 @@ public class MessageDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getTimestamp("create_time"));
+                        rs.getInt("category_id");
             }
 
         } catch (Exception e) {
@@ -337,6 +341,47 @@ public class MessageDao {
             ConnectUtil.release(rs,pstmt, conn);
         }
         return false;
+
+    }
+
+
+
+    /**
+     * 前台根据分类id查询相应的文章
+     * @param id
+     * @return
+     */
+    public List<Message> getMessagesByCategoryId(int id){
+        Connection conn=null;
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Message> messages = new ArrayList<Message>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select message.id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where trash=0 and   category_id=category.id  and  category.id =?  order by create_time desc ";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id );
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                messages.add(new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")))
+                );
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return messages;
     }
 
 }

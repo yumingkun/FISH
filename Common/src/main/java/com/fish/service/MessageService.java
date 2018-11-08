@@ -113,4 +113,15 @@ public class MessageService {
     public Boolean trashDelete(int id){
         return messageDao.trashDelete(id);
     }
+
+
+    /**
+     * 前台根据分类id查询相应的文章
+     * @param id
+     * @return
+     */
+    public List<Message> getMessagesByCategoryId(int id){
+        return messageDao.getMessagesByCategoryId(id);
+
+    }
 }

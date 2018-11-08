@@ -42,6 +42,8 @@ public class MessageServlet extends HttpServlet {
         //初始显示6条数据
         if ("/show/message.do".equals(request.getServletPath())){
             List<Message> messages =messageService.getMessages(0,6);//分页查询全部留言
+
+//            logger.info(messages.toString());
             //提取每篇文章的第一个src
             List<Message> messageSrcs=new ArrayList<>();
             for (Message message:messages) {

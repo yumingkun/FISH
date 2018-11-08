@@ -7,13 +7,26 @@ public class Message {
     private int userId;
     private String userName;
     private  String title;
-
-
-
     private String content;
     private Date createTime;
 
     private String src;
+
+//    分类
+    private Category category;
+
+    public Message(int id, int userId, String userName, String title, String content, Date createTime, Category category) {
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
+        this.title = title;
+        this.category = category;
+        this.content = content;
+        this.createTime = createTime;
+    }
+
+
+
 
     public Message() {
     }
@@ -34,19 +47,25 @@ public class Message {
         this.createTime = createTime;
     }
 
-    @Override
-    public String toString() {
-        return "Message{" +
-                "id=" + id +
-                ", userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", title='" + title + '\'' +
-                ", content='" + content + '\'' +
-                ", createTime=" + createTime +
-                ", src='" + src + '\'' +
-                '}';
+    public Message(int id, int userId, String userName, String title, String content, Date createTime, int category) {
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
+        this.title = title;
+
+        this.content = content;
+        this.createTime = createTime;
+
     }
 
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Category getCategory() {
+
+        return category;
+    }
 
     public int getId() {
         return id;
