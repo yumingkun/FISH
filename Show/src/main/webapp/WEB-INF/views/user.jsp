@@ -19,7 +19,7 @@
     <script src="../../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
 
-    <%--整体css js--%>
+    <%--&lt;%&ndash;整体css js&ndash;%&gt;--%>
     <%--<link rel="stylesheet" type="text/css" href="../../css/main.css"/>--%>
     <%--<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>--%>
 
@@ -28,7 +28,6 @@
         *{
             margin: 0px;
             padding: 0px;
-            font-family: 微软雅黑;
         }
 
        #container ul{
@@ -140,13 +139,13 @@
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
                         <li class="list-group-item">个人中心</li>
-                        <li class="list-group-item">我的收藏</li>
+                        <li class="list-group-item">我的评论</li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
                     </ul>
                     <ul class="list-group col-md-12 col-xs-6">
-                        <a href="/show/myMessage.do" class="list-group-item">我的博客</a>
-                        <a href="/show/showTrashMessage.do" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>回收站</a>
+                        <a href="<%=request.getContextPath()%>/show/myMessage.do" class="list-group-item">我的博客</a>
+                        <a href="<%=request.getContextPath()%>/show/showTrashMessage.do" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>回收站</a>
                         <%--<a href="#" class="list-group-item">我的论坛</a>--%>
                         <%--<a href="#" class="list-group-item">我的学院</a>--%>
                     </ul>
@@ -156,7 +155,7 @@
         </div>
 
 
-        <div id="left" class="container col-md-8 panel panel-default" style="max-height: 800px"  >
+        <div id="left" class="container col-md-8 panel panel-default" style="max-height: 550px"  >
             <h3 id="right-h3" class="panel-heading">个人中心</h3>
             <div id="right-row-1" class="row" style="margin: 0px;">
                 <div id="right-left" class="col-md-3">
@@ -210,13 +209,13 @@
 
 <!--修改头像 模态框（Modal） -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="font-family:'Wawati SC'">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                     &times;
                 </button>
-                <h4 class="modal-title" id="myModalLabel">
+                <h4 class="modal-title" id="myModalLabel" >
                     上传头像
                 </h4>
             </div>
@@ -244,7 +243,7 @@
 
 <!--修改用户信息模态框（Modal） -->
 <div class="modal fade" id="myModa2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style=";font-family:'Wawati SC'">
+    <div class="modal-dialog" style="font-family:'Wawati SC'">
         <div class="modal-content">
             <div class="modal-header"  >
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
@@ -255,7 +254,7 @@
 
             <div class="modal-body text-center" >
                 <!--修改用户信息表单-->
-                <form id="updateform" action="test.php" method="post" style="text-align: left;">
+                <form id="updateform" action="<%=request.getContextPath()%>/show/editUser.do?userId=${user.id}" method="post" style="text-align: left;">
                     <div class="form-group">
                         <label for="username" class="control-label">用户名:</label>
                         <input type="text" class="form-control" id="username" name="username" value="${user.username}">
@@ -319,8 +318,8 @@
 
     //提交修改用户信息表单
     function update_info(){
-        alert("我是表单");
-//   	$("#updateform").submit();
+        // alert("我是表单");
+  	 $("#updateform").submit();
     }
 
 

@@ -105,5 +105,13 @@ public class UserService {
         return pageVO;
     }
 
+    /**
+     * 前台更新指定ID的用户
+     */
+    public Boolean updateUser(User  user) {
+        return userDao.updateUser(user);
 
-}
+    }
+
+
+    }

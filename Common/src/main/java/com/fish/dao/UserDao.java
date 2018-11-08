@@ -252,4 +252,34 @@ public class UserDao {
         return false;
     }
 
+    /**
+     * 前台更新指定ID的用户
+     */
+    public Boolean updateUser(User  user){
+
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "update users set username=?,password=?,email=?  where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,user.getUsername());
+            pstmt.setString(2,user.getPassword());
+            pstmt.setString(3,user.getEmail());
+            pstmt.setInt(4, user.getId());
+            num = pstmt.executeUpdate();
+            if (num > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return false;
+    }
+
 }

@@ -2,6 +2,7 @@ package com.show.controller;
 
 import com.fish.bean.User;
 import com.fish.service.UserService;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editMyself.do"})
+@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editUser.do"})
 public class UserServlet extends HttpServlet {
+    private static Logger logger = Logger.getLogger(MessageServlet.class);
     private UserService userService;
     @Override
     public void init() throws ServletException {
@@ -88,9 +90,30 @@ public class UserServlet extends HttpServlet {
         }else if ("/show/quit.do".equals(req.getServletPath())){
             req.getSession().setAttribute("user","");
             req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
-        //点击修改文章按钮
-        }else if ("editUser".equals(req.getParameter("edit"))){
-            req.getRequestDispatcher("/WEB-INF/views/editMyself.jsp").forward(req,resp);
+        //修改用户信息
+        }else if ("/show/editUser.do".equals(req.getServletPath())){
+            int userid=Integer.parseInt(req.getParameter("userId"));
+            String username=req.getParameter("username");
+            String password=req.getParameter("password");
+            String email=req.getParameter("email");
+
+            User user=new User();
+            user.setId(userid);
+            user.setUsername(username);
+            user.setPassword(password);
+            user.setEmail(email);
+
+
+            Boolean updateUserResult=userService.updateUser(user);
+            logger.info(updateUserResult);
+            if (updateUserResult){//修改成功后条转到个人中心
+                // 更新会话信息
+//                User userSession=userService.login(username,password);//成功则返回一个用户实体
+//                req.getSession().setAttribute("user",userSession);//修改信息成功，更新会话
+                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+            }
+
+            req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req,resp);
         }
     }
 }
