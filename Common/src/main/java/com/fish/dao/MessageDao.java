@@ -185,10 +185,10 @@ public class MessageDao {
 
     /**
      * 前台通过文章id查询文章详情
-     * @param id 文章id
+     * @param messageid 文章id
      * @return 一个文章
      */
-    public Message getMessageById(int id)  {
+    public Message getMessageById(int messageid)  {
 
         Connection conn=null;
         PreparedStatement stmt = null;
@@ -196,9 +196,9 @@ public class MessageDao {
         Message message=null;
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message where id=?  and trash=0";
+            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where  category_id=category.id  and  message.id=? and trash=0";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id);
+            stmt.setInt(1, messageid);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 message=new Message(
@@ -207,8 +207,8 @@ public class MessageDao {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("content"),
-                        rs.getTimestamp("create_time"));
-                        rs.getInt("category_id");
+                        rs.getTimestamp("create_time"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")));
             }
 
         } catch (Exception e) {

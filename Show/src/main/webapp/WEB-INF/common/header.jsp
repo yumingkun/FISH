@@ -66,7 +66,7 @@
                     <li><img alt="" src="<%=basePath+user.getHead()%>" class="file_icon"></li>
                     <li>
                         <%--下拉菜单--%>
-                        <ul class="nav navbar-nav">
+                        <ul class="nav navbar-nav" style="z-index: 3">
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                     <%=user.getUsername()%>

@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Titsssssle</title>
 </head>
 <body>
 
-<%=request.getAttribute("messages")%>
+ <h1>ssss</h1>
 
 </body>
 </html>

@@ -21,7 +21,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -179,8 +179,28 @@ public class MessageServlet extends HttpServlet {
                 String result="已经彻底删除";
                 response.getWriter().write(result);
             }
-        }
+         //用ajax 查询指定文章
+        }else if ("/show/getMessageId.do".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("messageId"));
+            Message message=messageService.getMessageById(messageId);
 
+            List<Message> messages =new ArrayList<>();
+            messages.add(message);
+
+            //回收站提取每篇文章的第一个src
+            List<Message> messageSrcs = new ArrayList<>();
+            for (Message ms : messages) {
+                ms.setSrc(GetImgStr.getImgStr(ms.getContent()));
+                messageSrcs.add(message);
+            }
+            // 结果返回
+            JSONArray json = JSONArray.fromObject(messageSrcs);
+
+            String str = json.toString();
+//            logger.info(str);
+            response.getWriter().write(str);
+
+        }
     }
 
 }

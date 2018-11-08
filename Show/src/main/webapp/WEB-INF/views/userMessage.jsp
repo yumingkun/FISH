@@ -23,8 +23,13 @@
     <%--整体css js--%>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
-    <style type="text/css">
 
+    <%--引入富文本框js css--%>
+    <script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <link rel="stylesheet" href="../../css/wangEditor.min.css">
+    <script type="text/javascript" src="../../js/wangEditor.min.js"></script>
+
+    <style type="text/css">
 
         #ul-right{
             padding-right: 0px !important;
@@ -113,6 +118,16 @@
 
         }
 
+
+        /*富文本*/
+        .toolbar {
+            /*border: 1px solid #ccc;*/
+        }
+        .text {
+            /*border: 1px solid #ccc;*/
+            height: 700px;
+        }
+
     </style>
 </head>
 <body>
@@ -122,14 +137,11 @@
 <jsp:include page="../common/header.jsp" />
 
 
-<div class="container">
+<div class="container-fluid ">
     <div class="row">
-
-
-        <div class="col-md-1"></div>
         <form action="<%=request.getContextPath()%>/show/myMessage.do" METHOD="post" id="refishTrash" style="display: none"></form>
 
-        <div class="col-md-10">
+        <div class="col-md-5">
 
             <div id="left" class="  panel panel-group">
 
@@ -147,7 +159,7 @@
                     <div id="tishi">
                         <div class="alert alert-info alert-dismissible" role="alert">
                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                              <strong><span class="glyphicon   glyphicon-volume-up"></span> </strong> 此文章已经成功放入回收站
+                              <strong><span class="glyphicon   glyphicon-volume-up"></span> </strong>成功放入回收站
                         </div>
                     </div>
                 </div>
@@ -182,12 +194,12 @@
                                         <div class="info" style="margin-top: 30px">
                                             <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
                                             <span>25k</span> ⋅
-                                            <span>${message.title}</span>
+                                            <span id="getTitle">${message.title}</span>
                                         </div>
 
                                     </div>
                                         <%--修改--%>
-                                    <div class="col-xs-1 "><span class="glyphicon glyphicon-edit"></span>  </div>
+                                    <div class="col-xs-1 "> <span class="glyphicon glyphicon-edit" onclick="getTheMessage('${message.id}')"></span></div>
                                         <%--放入回收站--%>
                                     <div class="col-xs-1"><span class="glyphicon glyphicon-trash" style="color: firebrick" id="trash" onclick="trash(${message.id})"></span></div>
                                 </div>
@@ -201,7 +213,43 @@
             </div>
         </div>
 
-        <div class="col-md-1"></div>
+        <%--修改文章--%>
+        <div class="col-md-7" style="z-index: 1; border: 3px solid rgba(83, 85, 136, 0.1);padding: 0;margin: 0">
+            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">修改文章</h1>
+
+
+            <form class="form-horizontal" action="<%=request.getContextPath()%>/show/addMessage.do" method="post" style="width: 100%">
+                <div class="form-group">
+                    <%--<label for="inputTitle" class="col-sm-1 control-label">标题</label>--%>
+                    <div class="col-sm-12">
+                        <input name="title" class="form-control" id="inputTitle" placeholder="标题" value="" >
+                    </div>
+                </div>
+                <div class="form-group">
+                    <%--<label  class="col-sm-1 control-label">内容</label>--%>
+                    <%--使用富文本框------------------%>
+                    <div class="col-sm-12">
+
+                        <div id="div1" class="toolbar"></div>
+                        <div style="padding: 5px 0; color: #ccc"> &nbsp; &nbsp; &nbsp;文章详情如下</div>
+                        <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                            <%--<h1>点击文章修改按钮</h1>--%>
+                        </div>
+
+                        <%--<div id="editor"></div>--%>
+                        <%--<input type="hidden" name="content" id="txt"/>--%>
+                    </div>
+                    <%--使用富文本框end------------------%>
+                </div>
+                <div class="form-group">
+                    <div class=" col-sm-2 col-sm-offset-10">
+                        <a class="btn btn-default" href="<%=request.getContextPath()%>/show/message.do">保存修改</a>
+                    </div>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 </div>
 
@@ -232,8 +280,33 @@
     }
 
 
+    // 写文章的富文本框
+    var E = window.wangEditor;
+    var editor = new E('#div1', '#div2');
+    editor.create();
+    //创建编辑器之后，使用editor.txt.html(...)设置编辑器内容
+    $("button").click(function(){
+        var html= editor.txt.html();
+        var text=editor.txt.text();
+        $("#txt").val(html);
+        $("#form").submit();
+    });
 
 
+    function getTheMessage(messageId) {
+        $.ajax({
+            type:"post",
+            url:"<%=request.getContextPath()%>/show/getMessageId.do?messageId="+messageId,
+            dataType:"json",
+            success:function(data){
+                $.each(data,function(i,message){
+                     $("#inputTitle").attr("value",message.title);
+                     editor.txt.html(message.content);
+                });
+
+            }
+        });
+    }
 
 </script>
 
