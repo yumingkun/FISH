@@ -207,6 +207,8 @@ public class MessageServlet extends HttpServlet {
         }else if ("/show/updateMessage.do".equals(request.getServletPath())){
             int messageId=Integer.parseInt(request.getParameter("messageId"));//获取要更新文章的Id
             int categoryId=Integer.parseInt(request.getParameter("categoryId"));//获取文章修改之后的分类Id
+
+            logger.info(categoryId+"ewqeqweqweqwe");
             String title=request.getParameter("title");//获取文章修改之后的标题
             String content=request.getParameter("content");//获取文章修改之后内容
 

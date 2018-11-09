@@ -62,9 +62,9 @@ public class MessageService {
      * @param message
      * @return
      */
-    public boolean addMessage(Message message){
+    public int addMessage(Message message,int category_id){
         message.setCreateTime(new Date());
-        return messageDao.save(message);
+        return messageDao.addMessage(message,category_id);
     }
 
     /**

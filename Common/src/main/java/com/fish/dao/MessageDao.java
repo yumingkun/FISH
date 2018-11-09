@@ -156,30 +156,31 @@ public class MessageDao {
      * 前台添加新建的文章
      * @return
      */
-    public  boolean save(Message message){
+    public  int  addMessage(Message message,int category_id){
         Connection conn = ConnectUtil.getConnection();
-        String sql = "insert into message(user_id,username,title,content,create_time) values(?,?,?,?,?)";
-        PreparedStatement stmt = null;
 
+        PreparedStatement pstmt = null;
+        int result;
         try {
-            stmt = conn.prepareStatement(sql);
-            stmt.setLong(1, message.getUserId());
-            stmt.setString(2, message.getUserName());
-            stmt.setString(3, message.getTitle());
-            stmt.setString(4, message.getContent());
-            stmt.setTimestamp(5, new Timestamp(message.getCreateTime().getTime()));
-            stmt.execute();
-            System.out.println(message.getTitle()+"---------------");
+            String sql = "insert into message(user_id,category_id,username,title,content,create_time) values(?,?,?,?,?,?)";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setLong(1, message.getUserId());
+            pstmt.setInt(2,category_id);
+            pstmt.setString(3, message.getUserName());
+            pstmt.setString(4, message.getTitle());
+            pstmt.setString(5, message.getContent());
+            pstmt.setTimestamp(6, new Timestamp(message.getCreateTime().getTime()));
+            result =pstmt.executeUpdate();
+            return  result;
+
         } catch (Exception e) {
             System.out.println("保存留言信息失败");
             e.printStackTrace();
-            return false;
+            return 0;
         }finally {
-            ConnectUtil.release(null,stmt,conn);
+            ConnectUtil.release(null,pstmt,conn);
         }
 
-
-        return true;
     }
 
 

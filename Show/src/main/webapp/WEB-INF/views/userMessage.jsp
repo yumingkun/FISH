@@ -125,7 +125,7 @@
         }
         .text {
             /*border: 1px solid #ccc;*/
-            height: 700px;
+            height: 600px;
         }
 
     </style>
@@ -261,6 +261,8 @@
                     </div>
                     <%--使用富文本框end------------------%>
                 </div>
+
+
                 <div class="form-group">
                     <div class=" col-sm-2 col-sm-offset-10">
                         <a class="btn btn-default" href="<%=request.getContextPath()%>/show/message.do">保存修改</a>
@@ -327,6 +329,7 @@
             }
         });
     }
+
 
 </script>
 

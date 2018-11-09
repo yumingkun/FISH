@@ -57,6 +57,11 @@
             font-weight: 800;
             color: #26263d;
         }
+        .mylist .new-list-item img{
+            width: 200px;
+            height: 140px;
+            border: 2px solid #b9def0;
+        }
 
     </style>
 
@@ -93,12 +98,25 @@
                 <c:forEach items="${messages}" var="message">
                     <div class="new-list-item clearfix">
                         <div class="col-xs-4 .text-center" >
-                            <c:if test="${message.src==null or message.src==''}">
-                                <img src="../../img/nullsrc.png" id="nullImg" >
-                            </c:if>
-                            <c:if test="${message.src!=null}">
-                                <img src="${message.src}">
-                            </c:if>
+
+                            <c:choose>
+
+                                <c:when test="${not empty message.src}">
+                                    <img src="${message.src}" class="thumbnail">
+                                </c:when>
+
+                                <c:otherwise>  <!--否则 -->
+                                    <img src="../../img/nullsrc.png" id="nullImg" class="thumbnail">
+                                </c:otherwise>
+
+                            </c:choose>
+
+                            <%--<c:if test="${message.src==null or message.src==''}">--%>
+
+                            <%--</c:if>--%>
+                            <%--<c:if test="">--%>
+
+                            <%--</c:if>--%>
                         </div>
                         <div class="col-xs-7">
 
@@ -208,7 +226,7 @@
                     str+=`
                          <div class="new-list-item clearfix">
                             <div class="col-xs-4">
-                                <img src='`+src+`' alt="" `+tyle+`>
+                                <img src='`+src+`' alt="" `+tyle+` class="thumbnail">
                             </div>
                             <div class="col-xs-7">
 
