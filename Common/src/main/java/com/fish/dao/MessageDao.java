@@ -384,4 +384,34 @@ public class MessageDao {
         return messages;
     }
 
+    /**
+     * 前台更新文章内容
+     * @param message
+     * @return
+     */
+    public Boolean updateMessage(Message message,int category_id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "update message set title=?,content=?,category_id=?  where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,message.getTitle());
+            pstmt.setString(2,message.getContent());
+            pstmt.setInt(3,category_id);
+            pstmt.setInt(4, message.getId());
+            num = pstmt.executeUpdate();
+            if (num > 0) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return false;
+    }
 }

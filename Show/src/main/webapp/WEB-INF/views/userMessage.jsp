@@ -62,7 +62,7 @@
 
         }
         #left{
-            border: 1px solid #C4C4C4;
+            border: 3px solid rgba(83, 85, 136, 0.1);
             padding: 0px;
             border-radius: 4px;
             /*box-shadow: 1px 1px 1px 1px #C4C4C4;*/
@@ -192,8 +192,8 @@
                                             <%--<p>${message.content}</p>--%>
                                             <%--</div>--%>
                                         <div class="info" style="margin-top: 30px">
-                                            <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
-                                            <span>25k</span> ⋅
+                                            <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                            <span>${message.category.gname}</span>
                                             <span id="getTitle">${message.title}</span>
                                         </div>
 
@@ -218,13 +218,33 @@
             <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">修改文章</h1>
 
 
-            <form class="form-horizontal" action="<%=request.getContextPath()%>/show/addMessage.do" method="post" style="width: 100%">
+            <form class="form-horizontal" action="<%=request.getContextPath()%>/show/updateMessage.do" method="post" style="width: 100%">
                 <div class="form-group">
                     <%--<label for="inputTitle" class="col-sm-1 control-label">标题</label>--%>
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 ">
                         <input name="title" class="form-control" id="inputTitle" placeholder="标题" value="" >
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label style="color: gainsboro">   &nbsp; &nbsp; &nbsp;选择专题</label>
+                        <select class="form-control">
+                            <c:forEach items="${categories}" var="category">
+                                <option>${category.gname}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                    <%--<label for="name">可多选的选择列表</label>--%>
+                    <%--<select multiple class="form-control">--%>
+                        <%--<option>1</option>--%>
+                        <%--<option>2</option>--%>
+                        <%--<option>3</option>--%>
+                        <%--<option>4</option>--%>
+                        <%--<option>5</option>--%>
+                    <%--</select>--%>
+                </div>
+
                 <div class="form-group">
                     <%--<label  class="col-sm-1 control-label">内容</label>--%>
                     <%--使用富文本框------------------%>

@@ -217,8 +217,8 @@
                                         <%--<p>${message.content}</p>--%>
                                 </div>
                                 <div class="info">
-                                    <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
-                                    <span>25k</span> ⋅
+                                    <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                    <span>`+message.category.gname+`</span>
                                     <span>`+message.title+`</span>
                                 </div>
 

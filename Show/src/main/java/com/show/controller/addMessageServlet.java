@@ -17,15 +17,30 @@ import java.util.Objects;
 public class addMessageServlet extends HttpServlet {
     private MessageService messageService;
 
+
     @Override
     public void init() throws ServletException {
         super.init();
         messageService=new MessageService();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathName=request.getServletPath();//获取url
-        if(Objects.equals("/show/addMessage.do",pathName)){//点击添加post过来的数据
+
+        System.out.println("进入留言");
+        if (Objects.equals("/addMessagePrompt.do",pathName)){// 点击留言进入的页面
+            request.getRequestDispatcher("/WEB-INF/views/biz/add_message.jsp").forward(request,response);
+
+        }else {
+            request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
+        }
+
+
+
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if("/show/addMessage.do".equals(request.getServletPath())){//点击添加post过来的数据
             User user=(User)request.getSession().getAttribute("user");//根据用户是否登录，来做选择
             if (null==user){//如果没有登录，可以看留言但是不能写留言
                 request.getRequestDispatcher("/show/login.do").forward(request,response);
@@ -48,18 +63,5 @@ public class addMessageServlet extends HttpServlet {
 
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pathName=request.getServletPath();//获取url
 
-        System.out.println("进入留言");
-        if (Objects.equals("/addMessagePrompt.do",pathName)){// 点击留言进入的页面
-            request.getRequestDispatcher("/WEB-INF/views/biz/add_message.jsp").forward(request,response);
-
-        }else {
-            request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
-        }
-
-
-
-    }
 }

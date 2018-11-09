@@ -126,4 +126,14 @@ public class MessageService {
     }
 
 
+    /**
+     * 前台更新文章内容
+     * @param message
+     * @return
+     */
+    public Boolean updateMessage(Message message,int category_id){
+        return messageDao.updateMessage(message,category_id);
+    }
+
+
 }

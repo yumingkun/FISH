@@ -21,7 +21,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do","/show/updateMessage.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -85,13 +85,15 @@ public class MessageServlet extends HttpServlet {
 //            logger.info(str);
             response.getWriter().write(str);
 
-        //前台获取当前用户所有的文章
+        //前台获取当前用户所有的文章，以及获取所有的分类
         }else if ("/show/myMessage.do".equals(request.getServletPath())) {
 //          获取当前用户的id
             User user = (User) request.getSession().getAttribute("user");
             int id = user.getId();
             //查找文章不在回收站的
             List<Message> myMessages = messageService.getUserMessageList(id);
+            //得到所有的分类
+            List<Category> categories=categoryService.getCategoryList();
 
 
             //当前用户文章列表提取每篇文章的第一个src
@@ -104,6 +106,7 @@ public class MessageServlet extends HttpServlet {
             if (myMessages.size()>= 0) {
                 request.setAttribute("myMessages", messageSrcs);
                 request.setAttribute("id", id);
+                request.setAttribute("categories",categories);
                 request.getRequestDispatcher("/WEB-INF/views/userMessage.jsp").forward(request, response);//我的博客页面
             } else {
                 System.out.println("当前用户文章查询失败============================");
@@ -200,6 +203,25 @@ public class MessageServlet extends HttpServlet {
 //            logger.info(str);
             response.getWriter().write(str);
 
+        //更新文章
+        }else if ("/show/updateMessage.do".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("messageId"));//获取要更新文章的Id
+            int categoryId=Integer.parseInt(request.getParameter("categoryId"));//获取文章修改之后的分类Id
+            String title=request.getParameter("title");//获取文章修改之后的标题
+            String content=request.getParameter("content");//获取文章修改之后内容
+
+            Message  message=new Message();
+            message.setId(messageId);
+            message.setTitle(title);
+            message.setContent(content);
+
+            Boolean updateMessage=messageService.updateMessage(message,categoryId);
+            logger.info(updateMessage);
+
+//            更新成功之后的操作
+            if (updateMessage){
+                logger.info("成功");
+            }
         }
     }
 

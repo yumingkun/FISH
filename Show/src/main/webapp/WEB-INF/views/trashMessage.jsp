@@ -57,7 +57,8 @@
 
         }
         #left{
-            border: 1px solid #C4C4C4;
+            /*border: 1px solid #C4C4C4;*/
+            border: 3px solid rgba(83, 85, 136, 0.1);
             padding: 0px;
             border-radius: 4px;
             /*box-shadow: 1px 1px 1px 1px #C4C4C4;*/
