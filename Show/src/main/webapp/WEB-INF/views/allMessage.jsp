@@ -63,6 +63,20 @@
             border: 2px solid #b9def0;
         }
 
+
+
+        /*轮播图*/
+        #Caro{
+            width: 100%;
+            height: 270px;
+            margin-bottom: 20px;
+        }
+        .carousel-inner .item img{
+            display: block;
+            width: 100%;
+            height: 270px;
+        }
+
     </style>
 
 
@@ -92,6 +106,38 @@
         <!-- 左边分类END -->
         <!-- 中间内容 -->
         <div class="col-sm-7">
+            <%--轮播--%>
+                <div class="container" id="Caro">
+                    <div class="carousel slide" id="slidershow" data-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li class="active" data-target="#slidershow" data-slide-to="0"></li>
+                            <li data-target="#slidershow" data-slide-to="1"></li>
+                            <li data-target="#slidershow" data-slide-to="2"></li>
+                            <li data-target="#slidershow" data-slide-to="3"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <img src="../../img/1.jpg"/>
+                            </div>
+                            <div class="item">
+                                <img src="../../img/2.jpg"/>
+                            </div>
+                            <div class="item">
+                                <img src="../../img/3.jpg"/>
+                            </div>
+                            <div class="item">
+                                <img src="../../img/4.jpg"/>
+                            </div>
+                        </div>
+                        <a href="#slidershow" data-slide="prev" class="left carousel-control" role="button">
+                            <span class="glyphicon glyphicon-chevron-left"></span>
+                        </a>
+                        <a href="#slidershow" data-slide="next" class="right carousel-control" role="button">
+                            <span class="glyphicon glyphicon-chevron-right"></span>
+                        </a>
+                    </div>
+                </div>
+                <%--轮播end--%>
 
             <%--初始值--%>
             <div class="new-list mylist">
@@ -154,7 +200,7 @@
         <!-- 中间内容END -->
         <!-- 右边内容 -->
         <div class="col-sm-3">
-            <div class="side-bar-card flag clearfix">
+            <div class="side-bar-card flag clearfix" style="margin-top: 0">
                 <div class="col-xs-5">
                     <img src="../../img/tel.jpeg">
                 </div>

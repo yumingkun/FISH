@@ -23,7 +23,7 @@
 <nav class="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-                <img alt="Brand" src="../../../img/logo.png">
+                <a href="<%=request.getContextPath()%>/manage/toShowChart.do"><img alt="Brand" src="../../../img/logo.png"></a>
         </div>
     </div>
 </nav>

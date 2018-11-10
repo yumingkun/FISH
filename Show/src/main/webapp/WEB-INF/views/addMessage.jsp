@@ -33,7 +33,7 @@
 <%--1:引入头部--%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 
-<div class="container" style="background-color: #f0f4ff;padding-top: 20px;margin-bottom: 0px">
+<div class="container" style="background-color: #ebf6ff;padding-top: 20px;margin-bottom: 0px;border-radius: 10px">
     <%--<div class="page-header">--%>
         <%--<h3><small>新建留言</small></h3>--%>
     <%--</div>--%>
@@ -41,7 +41,7 @@
         <div class="form-group">
             <%--<label for="inputTitle" class="col-sm-2 control-label">标题 ：</label>--%>
             <div class="col-sm-12">
-                <input name="title" class="form-control" id="inputTitle" placeholder="标题" style="background-color: #f0f4ff">
+                <input name="title" class="form-control" id="inputTitle" placeholder="标题" style="background-color: #ebf6ff">
             </div>
 
             <div class="col-sm-12">
@@ -81,7 +81,7 @@
         <div class="form-group">
             <%--专题--%>
             <div class="col-sm-11">
-                <select class="form-control" name="categoryId" style="background-color: #f0f4ff">
+                <select class="form-control" name="categoryId" style="background-color: #ebf6ff">
                     <c:forEach items="${categories}" var="category">
                         <option value="${category.id}">${category.gname}</option>
                     </c:forEach>

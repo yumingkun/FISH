@@ -229,7 +229,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label style="color: gainsboro">   &nbsp; &nbsp; &nbsp;选择专题</label>
-                        <select class="form-control">
+                        <select class="form-control" name="categoryId">
                             <c:forEach items="${categories}" var="category">
                                 <option>${category.gname}</option>
                             </c:forEach>

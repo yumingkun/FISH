@@ -94,8 +94,6 @@ public class addMessageServlet extends HttpServlet {
                     request.setAttribute("result",0);
                     request.getRequestDispatcher("/WEB-INF/views/addMessage.jsp").forward(request,response);
 
-
-
                 }
 
 

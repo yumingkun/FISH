@@ -2,6 +2,7 @@ package com.fish.service;
 
 import com.fish.dao.MessageDao;
 import com.fish.bean.Message;
+import com.fish.vo.ChartVo;
 import com.sun.xml.internal.ws.api.model.MEP;
 
 import java.util.Date;
@@ -135,5 +136,12 @@ public class MessageService {
         return messageDao.updateMessage(message,category_id);
     }
 
+    /**
+     * 获取用户文章数量前6的用户名和数量
+     */
+    public List<ChartVo>  getMessageShowChart(){
+
+        return  messageDao.getMessageShowChart();
+    }
 
 }

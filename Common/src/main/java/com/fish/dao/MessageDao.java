@@ -4,6 +4,7 @@ package com.fish.dao;
 import com.fish.bean.Category;
 import com.fish.bean.Message;
 import com.fish.utils.ConnectUtil;
+import com.fish.vo.ChartVo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -414,5 +415,35 @@ public class MessageDao {
             ConnectUtil.release(rs, pstmt, conn);
         }
         return false;
+    }
+
+    /**
+     * 获取用户文章数量前6的用户名和数量
+     */
+    public List<ChartVo>  getMessageShowChart(){
+        Connection conn=null;
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<ChartVo> chartVos = new ArrayList<ChartVo>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select username,COUNT(*) as num from message GROUP BY username ORDER BY count(*) desc limit 0,6;";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                chartVos.add(new ChartVo(
+                        rs.getString("username"),
+                        rs.getInt("num")
+
+                ));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+         return chartVos;
     }
 }
