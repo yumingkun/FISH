@@ -23,6 +23,13 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
 
+    <script>
+        // 轮播图要求默认第一个
+        $(function(){
+            $(".carousel-inner .item:first-child").addClass("active")
+        })
+    </script>
+
 
     <style >
         /*加载更多*/
@@ -82,6 +89,12 @@
 
 </head>
 <body>
+
+<%
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 <%--1：标签锚点--%>
 <a name="top"></a>
 
@@ -106,7 +119,7 @@
         <!-- 左边分类END -->
         <!-- 中间内容 -->
         <div class="col-sm-7">
-            <%--轮播--%>
+            <%--轮播图====哇哈哈哈哈哈哈哈或或或或或或或或或或--%>
                 <div class="container" id="Caro">
                     <div class="carousel slide" id="slidershow" data-ride="carousel">
                         <ol class="carousel-indicators">
@@ -116,18 +129,21 @@
                             <li data-target="#slidershow" data-slide-to="3"></li>
                         </ol>
                         <div class="carousel-inner">
-                            <div class="item active">
-                                <img src="../../img/1.jpg"/>
-                            </div>
-                            <div class="item">
-                                <img src="../../img/2.jpg"/>
-                            </div>
-                            <div class="item">
-                                <img src="../../img/3.jpg"/>
-                            </div>
-                            <div class="item">
-                                <img src="../../img/4.jpg"/>
-                            </div>
+                            <%--<div class="item active">--%>
+                                <%--<img src="../../img/1.jpg"/>--%>
+                            <%--</div>--%>
+                            <c:forEach items="${carousels}" var="carousel">
+                                <div class="item">
+                                    <img src="<%=basePath%>${carousel.imgLoc}"/>
+                                </div>
+                            </c:forEach>
+
+                            <%--<div class="item">--%>
+                                <%--<img src="../../img/3.jpg"/>--%>
+                            <%--</div>--%>
+                            <%--<div class="item">--%>
+                                <%--<img src="../../img/4.jpg"/>--%>
+                            <%--</div>--%>
                         </div>
                         <a href="#slidershow" data-slide="prev" class="left carousel-control" role="button">
                             <span class="glyphicon glyphicon-chevron-left"></span>

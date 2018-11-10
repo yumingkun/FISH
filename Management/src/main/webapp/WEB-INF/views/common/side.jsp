@@ -23,7 +23,7 @@
                 <div class="panel-body">
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/getUsers.do">用户管理</a></p>
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/category.do">分类管理</a></p>
-                    <p class="myTwo">轮播管理</p>
+                    <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/toCarousel.do">轮播管理</a></p>
                 </div>
             </div>
         </div>

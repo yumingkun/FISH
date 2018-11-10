@@ -1,18 +1,17 @@
 <%--
   Created by IntelliJ IDEA.
   User: mingkunyu
-  Date: 2018/11/2
-  Time: 11:55 PM
+  Date: 2018/11/10
+  Time: 8:42 PM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Titsssssle</title>
+    <title>Title</title>
 </head>
 <body>
-
- <h1>前上传轮播图成功</h1>
+<h1>上传成功</h1>
 
 </body>
 </html>

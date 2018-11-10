@@ -1,8 +1,10 @@
 package com.show.controller;
 
+import com.fish.bean.Carousel;
 import com.fish.bean.Category;
 import com.fish.bean.Message;
 import com.fish.bean.User;
+import com.fish.service.CarouseService;
 import com.fish.service.CategoryService;
 import com.fish.service.MessageService;
 import com.fish.utils.GetImgStr;
@@ -26,11 +28,13 @@ public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
     private CategoryService categoryService;
+    private CarouseService carouseService;
     @Override
     public void init() throws ServletException {
         super.init();
         messageService=new MessageService();
         categoryService=new CategoryService();
+        carouseService=new CarouseService();
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doPost(request,response);
@@ -39,7 +43,7 @@ public class MessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
-        //初始显示6条数据
+        //初始显示6条数据,以及显示轮播图信息
         if ("/show/message.do".equals(request.getServletPath())){
             List<Message> messages =messageService.getMessages(0,6);//分页查询全部留言
 
@@ -54,11 +58,16 @@ public class MessageServlet extends HttpServlet {
             //获得所有的分类
             List<Category> categories=categoryService.getCategoryList();
 
+            //获得所有的轮播图
+            List<Carousel> carousels=carouseService.getCarouselList();
+
             if (messages!=null){
                 request.setAttribute("messages",messageSrcs);
                 request.setAttribute("categories",categories);
+                request.setAttribute("carousels",carousels);
                 request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
             }
+
 
         // 前台加载更多
         } else if("/show/more.do".equals(request.getServletPath())){

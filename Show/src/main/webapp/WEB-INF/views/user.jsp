@@ -39,6 +39,7 @@
             /*box-shadow: 1px 2px 3px 0px #C4C4C4;*/
         }
         #container ul a{
+            color: black;
             border: none ;
             text-align: center;
         }
@@ -47,6 +48,12 @@
             border: none ;
             text-align: center;
         }
+        /*#container ul .list-group-item a{*/
+            /*display: block;*/
+            /*height: 20px;*/
+            /*margin-top: -10px;*/
+            /*color:gray ;*/
+        /*}*/
         #container ul a:hover{
             color: white ;
             background-color: #b0b8d2;
@@ -91,15 +98,6 @@
             height: 90%;
         }
 
-        #right-row-2{
-            display: none;
-        }
-        #right-row-3{
-            display: none;
-        }
-        #right-row-4 {
-            display: none;
-        }
 
         #myImg{
             text-align: center;
@@ -114,6 +112,11 @@
         /*左边选项默认为不显示*/
         .myLeaf{
             display:block;
+        }
+
+        /*轮播图*/
+        .myCarousel h1{
+            display: none;
         }
 
     </style>
@@ -142,6 +145,8 @@
                         <li class="list-group-item">我的评论</li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
+                        <%--<li class="list-group-item" onclick="show()">轮播图</li>--%>
+                        <a href="<%=request.getContextPath()%>/show/toCarousel.do"><li class="list-group-item" onclick="show()">轮播图</li></a>
                     </ul>
                     <ul class="list-group col-md-12 col-xs-6">
                         <a href="<%=request.getContextPath()%>/show/myMessage.do" class="list-group-item">我的博客</a>
@@ -155,46 +160,50 @@
         </div>
 
 
-        <div id="left" class="container col-md-8 panel panel-default" style="max-height: 550px"  >
-            <h3 id="right-h3" class="panel-heading">个人中心</h3>
-            <div id="right-row-1" class="row" style="margin: 0px;">
-                <div id="right-left" class="col-md-3">
-                    <div class="thumbnail" style="margin: 5px;">
-                        <c:if test="${user!=null}">
-                            <img alt="" src="<%=basePath%>${user.head}">
-                        </c:if>
+            <div id="left" class="container col-md-8 panel panel-default" style="max-height: 600px"  >
+                <h3 id="right-h3" class="panel-heading">个人中心</h3>
+                <div id="right-row-1" class="row" style="margin: 0px;">
+                    <div id="right-left" class="col-md-3">
+                        <div class="thumbnail" style="margin: 5px;">
+                            <c:if test="${user!=null}">
+                                <img alt="" src="<%=basePath%>${user.head}">
+                            </c:if>
 
-                        <c:if test="${user==null}">
-                            <<img src="../../img/notlogin.jpg" class="img-circle">
-                        </c:if>
+                            <c:if test="${user==null}">
+                                <<img src="../../img/notlogin.jpg" class="img-circle">
+                            </c:if>
 
 
-                        <center><button style="margin: 0px;width: 100%;" class="btn btn-default"  data-toggle="modal" data-target="#myModal">修改头像</button></center>
+                            <center><button style="margin: 0px;width: 100%;" class="btn btn-default"  data-toggle="modal" data-target="#myModal">修改头像</button></center>
+                        </div>
+
+
 
                     </div>
+                    <div id="right-right-1" class="col-md-9" style="padding: 15px;">
+                        <div>
+                            <%--修改用户信息--%>
+                            <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
+                            <p>关注</p><p>粉丝</p>
 
+                        </div>
+                        <hr>
+                        <div>
+                            <p>用户名：${user.username}</p>
+                            <p>邮箱：${user.email}</p>
+                        </div>
+                    </div>
 
                 </div>
-                <div id="right-right-1" class="col-md-9" style="padding: 15px;">
-                    <div>
-                        <%--修改用户信息--%>
-                        <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
-                        <p>关注</p><p>粉丝</p>
 
-                    </div>
-                    <hr>
-                    <div>
-                        <p>用户名：${user.username}</p>
-                        <p>邮箱：${user.email}</p>
-                    </div>
-                </div>
-            </div>
 
             </div>
-            <div id="right-row-2">我的评论</div>
-            <div id="right-row-3">我的关注</div>
-            <div id="right-row-4">我的粉丝</div>
+            <%--右边整体end--%>
+
+
         </div>
+
+
 
     </div>
 </div>
@@ -202,7 +211,7 @@
 
 
 <%--表单--%>
-<form action="/show/upload.do" method="post" enctype="multipart/form-data" id="myForm" class="form">
+<form action="<%=request.getContextPath()%>/show/upload.do" method="post" enctype="multipart/form-data" id="myForm" class="form">
     <input type="file" id="myFile" name="myFile" style="display: none">
 </form>
 
@@ -296,7 +305,7 @@
 
     });
 
-    // 点击提交按钮事件
+    // 头像表单点击提交按钮事件
     $("#btn").on("click", function () {
         $('#myForm').submit();
     });
