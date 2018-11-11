@@ -32,6 +32,9 @@
 
 
     <style >
+        a{
+            color:gray;
+        }
         /*加载更多*/
         .more{
             margin-top: 100px;
@@ -48,8 +51,8 @@
 
 
          #nullImg{
-             width: 200px;
-             height: 140px;
+             width: 130px;
+             height: 90px;
              border: 2px solid #b9def0;
         }
 
@@ -65,14 +68,19 @@
             color: #26263d;
         }
         .mylist .new-list-item img{
-            width: 200px;
-            height: 140px;
+            width: 130px;
+            height: 90px;
             border: 2px solid #b9def0;
+            transition: all 0.5s;
+        }
+        .mylist .new-list-item img:hover{
+
+            box-shadow: 10px 10px 20px gainsboro ;
         }
 
 
 
-        /*轮播图*/
+            /*轮播图*/
         #Caro{
             width: 100%;
             height: 270px;
@@ -84,6 +92,11 @@
             height: 270px;
         }
 
+        /*中间内容*/
+
+        .info{
+            margin-top: 40px;
+        }
     </style>
 
 
@@ -134,7 +147,7 @@
                             <%--</div>--%>
                             <c:forEach items="${carousels}" var="carousel">
                                 <div class="item">
-                                    <img src="<%=basePath%>${carousel.imgLoc}"/>
+                                    <img src="<%=basePath%>/${carousel.imgLoc}"/>
                                 </div>
                             </c:forEach>
 
@@ -182,15 +195,19 @@
                         </div>
                         <div class="col-xs-7">
 
-                            <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
+                            <a href="<%=request.getContextPath()%>/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
                             <%--<div class="content">--%>
                                     <%--&lt;%&ndash;<p>${message.content}</p>&ndash;%&gt;--%>
 
                             <%--</div>--%>
                             <div class="info">
-                                <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                <span class="glyphicon glyphicon-tag" style="color: #a5d1a4"></span>
                                 <span>${message.category.gname}</span>
-                                <span>${message.title}</span>
+                                <span class="glyphicon glyphicon-user" style="color: #b6bfd9"></span>
+                                <span>${message.userName} </span>
+                                <span class="glyphicon glyphicon-heart" style="color: #d17687"></span>
+                                <span>${message.laud}</span>
+
                             </div>
 
 
@@ -226,33 +243,38 @@
                 </div>
             </div>
             <div class="side-bar-card">
-                <div class="card-title">24小时热闻</div>
+                <div class="card-title">推荐文章</div>
                 <div class="card-body">
                     <div class="list">
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
-                        <div class="item">
-                            <div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>
-                            <div class="desc">15k阅读 1k评论</div>
-                        </div>
+                        <c:forEach items="${messagesLauds}" var="messagesLaud">
+                            <a href="<%=request.getContextPath()%>/show/detail.do?id=${messagesLaud.id}&userId=${messagesLaud.userId}" >
+                                <div class="item" >
+                                    <div class="title">${messagesLaud.title}</div>
+                                    <div class="desc"><span class="glyphicon glyphicon-heart"></span>  ${messagesLaud.laud} </div>
+                                </div>
+                            </a>
+                        </c:forEach>
+
+                        <%--<div class="item">--%>
+                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
+                            <%--<div class="desc">15k阅读 1k评论</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="item">--%>
+                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
+                            <%--<div class="desc">15k阅读 1k评论</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="item">--%>
+                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
+                            <%--<div class="desc">15k阅读 1k评论</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="item">--%>
+                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
+                            <%--<div class="desc">15k阅读 1k评论</div>--%>
+                        <%--</div>--%>
+                        <%--<div class="item">--%>
+                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
+                            <%--<div class="desc">15k阅读 1k评论</div>--%>
+                        <%--</div>--%>
                     </div>
                 </div>
             </div>
@@ -284,7 +306,7 @@
                 var str="";
                 $.each(data,function(i,message){
                     var src=message.src?message.src:"../../img/nullsrc.png";
-                    var tyle=message.src?"":"style=\"width: 200px;height: 140px;border: 2px solid #b9def0\"";
+                    var tyle=message.src?"":"style=\"width: 130px;height: 90px;border: 2px solid #b9def0\"";
                     str+=`
                          <div class="new-list-item clearfix">
                             <div class="col-xs-4">
@@ -296,11 +318,15 @@
                                 <div class="content">
                                         <%--<p>${message.content}</p>--%>
                                 </div>
-                                <div class="info">
-                                    <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
-                                    <span>`+message.category.gname+`</span>
-                                    <span>`+message.title+`</span>
-                                </div>
+                                   <div class="info">
+                                <span class="glyphicon glyphicon-tag" style="color: #a5d1a4"></span>
+                                <span>`+message.category.gname+`</span>
+                                <span class="glyphicon glyphicon-user" style="color: #b6bfd9"></span>
+                                <span>`+message.userName+` </span>
+                                <span class="glyphicon glyphicon-heart" style="color: #d17687"></span>
+                                <span>`+message.laud+`</span>
+
+                            </div>
 
                             </div>
                         </div>

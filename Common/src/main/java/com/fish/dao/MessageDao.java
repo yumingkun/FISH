@@ -509,4 +509,41 @@ public class MessageDao {
         return result;
 
     }
+
+    /**
+     * 获取点赞数前六的文章
+     * @return
+     */
+    public List<Message> getMessageLaud(){
+        Connection conn=null;
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<Message> messages = new ArrayList<Message>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by laud desc limit 0,6";
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                messages.add(new Message(
+                        rs.getInt("id"),
+                        rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("title"),
+                        rs.getString("content"),
+                        rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")))
+                );
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return messages;
+    }
 }

@@ -144,4 +144,20 @@ public class MessageService {
         return  messageDao.getMessageShowChart();
     }
 
+    /**
+     * 给指定的文章点赞+1
+     * @param messageId
+     * @return
+     */
+    public int addLaud(int messageId){
+        return messageDao.addLaud(messageId);
+    }
+
+    /**
+     * 获取点赞数前六的文章
+     * @return
+     */
+    public List<Message> getMessageLaud(){
+        return messageDao.getMessageLaud();
+    }
 }

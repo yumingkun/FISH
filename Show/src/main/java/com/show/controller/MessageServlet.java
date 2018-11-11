@@ -23,7 +23,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do","/show/updateMessage.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do","/show/updateMessage.do","/show/addLaud.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -61,10 +61,14 @@ public class MessageServlet extends HttpServlet {
             //获得所有的轮播图
             List<Carousel> carousels=carouseService.getCarouselList();
 
+            //获取的点赞前6的文章
+            List<Message> messagesLauds=messageService.getMessageLaud();
+
             if (messages!=null){
                 request.setAttribute("messages",messageSrcs);
                 request.setAttribute("categories",categories);
                 request.setAttribute("carousels",carousels);
+                request.setAttribute("messagesLauds",messagesLauds);
                 request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
             }
 
@@ -245,7 +249,13 @@ public class MessageServlet extends HttpServlet {
                 request.setAttribute("result2",0);//修改文章错误提示
                 request.getRequestDispatcher("/show/myMessage.do").forward(request,response);
             }
-
+            //点赞
+        }else if ("/show/addLaud.do".equals(request.getServletPath())){
+             int messageId=Integer.parseInt(request.getParameter("messageId"));
+             int result=messageService.addLaud(messageId);
+             if (result>0){
+                 response.getWriter().write("成功");
+             }
         }
     }
 

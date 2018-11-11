@@ -2,8 +2,10 @@ package com.show.controller;
 /*
 分类
  */
+import com.fish.bean.Carousel;
 import com.fish.bean.Category;
 import com.fish.bean.Message;
+import com.fish.service.CarouseService;
 import com.fish.service.CategoryService;
 import com.fish.service.MessageService;
 import com.fish.utils.GetImgStr;
@@ -23,11 +25,13 @@ public class CategoryShowServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private CategoryService categoryService;
     private MessageService messageService;
+    private CarouseService carouseService;
     @Override
     public void init() throws ServletException {
         super.init();
-        categoryService=new CategoryService();
-        messageService=new MessageService();
+        categoryService = new CategoryService();
+        messageService = new MessageService();
+        carouseService=new CarouseService();
     }
 
     @Override
@@ -49,13 +53,20 @@ public class CategoryShowServlet extends HttpServlet {
                messageSrcs.add(message);
            }
 
+           //获得所有的轮播图
+           List<Carousel> carousels=carouseService.getCarouselList();
            //获得所有的分类
            List<Category> categories=categoryService.getCategoryList();
+
+           //获取的点赞前6的文章
+           List<Message> messagesLauds=messageService.getMessageLaud();
 
            if (messages!=null){
                request.setAttribute("messages",messageSrcs);
                request.setAttribute("categories",categories);
                request.setAttribute("count",messages.size());
+               request.setAttribute("carousels",carousels);
+               request.setAttribute("messagesLauds",messagesLauds);
                request.setAttribute("show",1);
                request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
            }

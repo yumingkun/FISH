@@ -23,7 +23,9 @@
 
 
     <style type="text/css">
-
+        a:hover,a:active{
+            text-decoration: none;
+        }
 
         /*所有的图片样式*/
         img{
@@ -311,10 +313,10 @@
         <%--喜欢和分享--%>
         <div class="like-active">
 
-            <div id="like">
-                <a href="">
+            <div id="like" onclick="addLuad()">
+                <a >
                     <span class="glyphicon glyphicon-heart"></span>
-                    喜欢  |  ${message.laud}
+                    <span id="myLaudNum"> ${message.laud}</span>
                 </a>
             </div>
             <div class="share-active share">
@@ -472,8 +474,23 @@
         $(".text_send").val("");
     }
 
+    var num=${message.laud};
     function addLuad() {
-        
+        $.ajax({
+            type:"post",
+            async: true,//
+            url:"<%=request.getContextPath()%>/show/addLaud.do?messageId="+${message.id},
+            success:function(){
+                num++;
+                $("#myLaudNum").text(num);
+
+            },
+            error:function( XMLHttpRequest, textStatus, errorThrown){
+                // $(".allComment").append("失败");
+            },
+
+
+        });
     }
 
 
