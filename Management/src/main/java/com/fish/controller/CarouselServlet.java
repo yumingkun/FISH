@@ -1,5 +1,6 @@
 package com.fish.controller;
 
+import com.fish.bean.Carousel;
 import com.fish.service.CarouseService;
 import com.fish.service.UserService;
 import com.jspsmart.upload.File;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 @WebServlet({"/manage/toCarousel.do","/manage/carousel.do"})
 public class CarouselServlet extends HttpServlet {
@@ -42,6 +44,8 @@ public class CarouselServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //去轮播图那个页面
         if ("/manage/toCarousel.do".equals(request.getServletPath())){
+            List<Carousel> carousels=carouseService.getCarouselList();
+            request.setAttribute("carousels",carousels);//展示所有轮播图
             request.getRequestDispatcher("/WEB-INF/views/carousel.jsp").forward(request,response);
 
         //上传轮播图片

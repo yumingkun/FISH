@@ -53,7 +53,7 @@ public class addMessageServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //添加文章
         if("/show/addMessage.do".equals(request.getServletPath())){//点击添加post过来的数据
-            User user=(User)request.getSession().getAttribute("user");//根据用户是否登录，来做选择
+             User user=(User)request.getSession().getAttribute("user");//根据用户是否登录，来做选择
 
             if (null==user){//如果没有登录，可以看留言但是不能写留言
                 request.getRequestDispatcher("/show/login.do").forward(request,response);
@@ -62,9 +62,9 @@ public class addMessageServlet extends HttpServlet {
                 String content=request.getParameter("content");
                 int categoryId=Integer.parseInt(request.getParameter("categoryId"));//获取文章修改之后的分类Id
 
-                logger.info(title.length()+"-----------");
-                logger.info(content.length());
-                logger.info(categoryId);
+//                logger.info(title.length()+"-----------");
+//                logger.info(content.length());
+//                logger.info(categoryId);
                 if (title.length()>3 && content.length()>50){
                     Message message=new Message();
                     message.setUserId(user.getId());
@@ -73,7 +73,7 @@ public class addMessageServlet extends HttpServlet {
                     message.setContent(content);
 
                     int  result=messageService.addMessage(message,categoryId);//进行数据保存数据库
-                    logger.info(result);
+//                    logger.info(result);
                     if (result>0){//用户添加文章 成功
                         //获取所有的分类专题
                         List<Category> categories=categoryService.getCategoryList();

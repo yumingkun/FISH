@@ -150,10 +150,10 @@
 
                 <%--中间地带--%>
                 <div class="panel-body form-inline" style="background-color: #acb0d0;height: 80px">
-                    <form style="float: left;margin-top: 10px" >
-                        <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
-                        <input class="form-control" type="submit" value="搜索">
-                    </form>
+                    <%--<form style="float: left;margin-top: 10px" >--%>
+                        <%--<input class="form-control" type="text" name="" placeholder="请输入搜索关键字">--%>
+                        <%--<input class="form-control" type="submit" value="搜索">--%>
+                    <%--</form>--%>
 
                     <%--放入提示--%>
                     <div id="tishi">
@@ -194,7 +194,6 @@
                                         <div class="info" style="margin-top: 30px">
                                             <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
                                             <span>${message.category.gname}</span>
-                                            <span id="getTitle">${message.title}</span>
                                         </div>
 
                                     </div>
@@ -213,11 +212,32 @@
             </div>
         </div>
 
-        <%--修改文章--%>
+        <%--右边修改文章--%>
         <div class="col-md-7" style="z-index: 1; border: 3px solid rgba(83, 85, 136, 0.1);padding: 0;margin: 0">
             <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">修改文章</h1>
 
 
+            <%--操作提示--%>
+            <div class="panel-body form-inline" style="background-color: #acb0d0;height: 80px">
+                <%--放入提示--%>
+               <c:choose>
+                   <c:when test="${result2==1}">
+                           <div class="alert alert-info alert-dismissible" role="alert">
+                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                               <strong><span class="glyphicon   glyphicon-volume-up"></span> </strong>修改成功
+                           </div>
+                   </c:when>
+                   <c:when test="${result2 ==0}">
+                           <div class="alert alert-danger alert-dismissible" role="alert">
+                               <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                               <strong><span class="glyphicon   glyphicon-volume-up"></span> </strong>修改失败
+                           </div>
+                   </c:when>
+               </c:choose>
+
+            </div>
+
+            <%--修改文章表单--%>
             <form class="form-horizontal" action="<%=request.getContextPath()%>/show/updateMessage.do" method="post" style="width: 100%">
                 <div class="form-group">
                     <%--<label for="inputTitle" class="col-sm-1 control-label">标题</label>--%>
@@ -231,33 +251,25 @@
                         <label style="color: gainsboro">   &nbsp; &nbsp; &nbsp;选择专题</label>
                         <select class="form-control" name="categoryId">
                             <c:forEach items="${categories}" var="category">
-                                <option>${category.gname}</option>
+                                <option value="${category.id}" >${category.gname}</option>
                             </c:forEach>
                         </select>
                     </div>
-                    <%--<label for="name">可多选的选择列表</label>--%>
-                    <%--<select multiple class="form-control">--%>
-                        <%--<option>1</option>--%>
-                        <%--<option>2</option>--%>
-                        <%--<option>3</option>--%>
-                        <%--<option>4</option>--%>
-                        <%--<option>5</option>--%>
-                    <%--</select>--%>
                 </div>
 
                 <div class="form-group">
-                    <%--<label  class="col-sm-1 control-label">内容</label>--%>
                     <%--使用富文本框------------------%>
                     <div class="col-sm-12">
 
                         <div id="div1" class="toolbar"></div>
                         <div style="padding: 5px 0; color: #ccc"> &nbsp; &nbsp; &nbsp;文章详情如下</div>
                         <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
-                            <%--<h1>点击文章修改按钮</h1>--%>
+                            <p>点击文章修改按钮</p>
                         </div>
-
                         <%--<div id="editor"></div>--%>
-                        <%--<input type="hidden" name="content" id="txt"/>--%>
+                        <input type="hidden" name="content" id="txt2"/>
+                        <input type="hidden" name="messageId" id="txt3">
+                        <%--修改的时候要取的文章的ID,点击修改的时候，用Ajax赋值文章ID--%>
                     </div>
                     <%--使用富文本框end------------------%>
                 </div>
@@ -265,7 +277,7 @@
 
                 <div class="form-group">
                     <div class=" col-sm-2 col-sm-offset-10">
-                        <a class="btn btn-default" href="<%=request.getContextPath()%>/show/message.do">保存修改</a>
+                       <button class="btn btn-default" onclick="return update()">保存修改</button>
                     </div>
                 </div>
 
@@ -282,6 +294,13 @@
 </body>
 
 <script type="text/javascript">
+
+    // 创建富文本
+    var E = window.wangEditor;
+    var editor = new E('#div1', '#div2');
+    editor.create();
+
+
     // 点击把文章放入回收站
     function trash(id){
         // alert(id);
@@ -302,20 +321,12 @@
     }
 
 
-    // 写文章的富文本框
-    var E = window.wangEditor;
-    var editor = new E('#div1', '#div2');
-    editor.create();
-    //创建编辑器之后，使用editor.txt.html(...)设置编辑器内容
-    $("button").click(function(){
-        var html= editor.txt.html();
-        var text=editor.txt.text();
-        $("#txt").val(html);
-        $("#form").submit();
-    });
 
+    var MyMessageId=0;
 
+    // 点击编辑，富文本框内显示文章内容
     function getTheMessage(messageId) {
+        MyMessageId=messageId;
         $.ajax({
             type:"post",
             url:"<%=request.getContextPath()%>/show/getMessageId.do?messageId="+messageId,
@@ -323,12 +334,24 @@
             success:function(data){
                 $.each(data,function(i,message){
                      $("#inputTitle").attr("value",message.title);
+                     // MyMessageId=message.id;//给修改文章表单，赋值文章Id,然后根据文章Id修改
                      editor.txt.html(message.content);
                 });
 
             }
         });
     }
+
+
+    //点击保存修改
+    function update() {
+        var html= editor.txt.html();//获取富文本框内容，赋值给一个隐藏的input
+        $("#txt2").val(html);
+        $("#txt3").attr("value",MyMessageId);
+        $("#form").submit();
+        // alert(MyMessageId);
+    }
+
 
 
 </script>

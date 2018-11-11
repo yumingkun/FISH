@@ -116,8 +116,18 @@
 
         /*轮播预览样式*/
         #myImg img{
+
             width: 300px;
             height:160px;
+        }
+
+        /*图片展示样式*/
+        #showImg img{
+            margin-top: 30px;
+            margin-bottom: 30px;
+            width: 280px;
+            height:170px;
+            display: inline-block;
         }
     </style>
 </head>
@@ -136,9 +146,7 @@
 <div class="container">
     <div class="row">
 
-
-        <div class="col-md-1"></div>
-        <div id="left" class="col-md-10     panel panel-group">
+        <div id="left" class="col-md-12  panel panel-group">
 
             <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">THE轮播图</h1>
 
@@ -156,12 +164,12 @@
 
             <%--右边选项--%>
             <div id="article" class="panel-body"  >
-                <%--回收站--%>
-                <div class="new-list tab-pane fade in active"  id="thehome">
+                <%--轮播--%>
+                <div class="new-list tab-pane fade in active" id="showImg">
 
                     <%--展示轮播--%>
                     <c:forEach items="${carousels}" var="carousel">
-                        <img src="<%=basePath%>${carousel.imgLoc}" style="width: 300px;height:180px" class="thumbnail">
+                        <img src="<%=basePath%>${carousel.imgLoc}"  class="thumbnail">
                     </c:forEach>
 
 
@@ -183,7 +191,7 @@
         </div>
 
         <%--这部分不显示，弹出--%>
-        <div class="col-md-1">
+        <div>
             <%--这是不显示的-------------------------%>
             <%--表单--%>
             <form action="<%=request.getContextPath()%>/show/carousel.do" method="post" enctype="multipart/form-data" id="myForm" class="form">

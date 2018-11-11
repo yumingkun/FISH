@@ -170,9 +170,8 @@
                                         <%--<p>${message.content}</p>--%>
                                         <%--</div>--%>
                                     <div class="info" style="margin-top: 30px">
-                                        <span> <span class="avatar"><img src="../../img/logo.png"></span>蓝莓味的鱼</span> ⋅
-                                        <span>25k</span> ⋅
-                                        <span>${message.title}</span>
+                                        <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                        <span>${message.category.gname}</span>
                                     </div>
 
                                 </div>

@@ -28,7 +28,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by create_time desc limit ?,?";
+            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by create_time desc limit ?,?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, start );
             stmt.setInt(2, count);
@@ -41,6 +41,7 @@ public class MessageDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
                         new Category(rs.getInt("cid"),rs.getString("gname")))
                 );
 
@@ -69,7 +70,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message  where user_id=?  and trash=0 order by create_time desc ";
+            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where user_id=? and trash=0 and message.category_id=category.id  order by create_time desc;";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -80,8 +81,10 @@ public class MessageDao {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("content"),
-                        rs.getTimestamp("create_time")));
-
+                        rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")))
+                );
             }
 
         } catch (Exception e) {
@@ -104,7 +107,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message  where user_id=? and trash=1 order by create_time desc ";
+            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where user_id=? and trash=1 and message.category_id=category.id  order by create_time desc ";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -115,8 +118,10 @@ public class MessageDao {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("content"),
-                        rs.getTimestamp("create_time")));
-
+                        rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
+                        new Category(rs.getInt("cid"),rs.getString("gname")))
+                );
             }
 
         } catch (Exception e) {
@@ -198,7 +203,7 @@ public class MessageDao {
         Message message=null;
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where  category_id=category.id  and  message.id=? and trash=0";
+            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where  category_id=category.id  and  message.id=? and trash=0";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, messageid);
             rs = stmt.executeQuery();
@@ -210,6 +215,7 @@ public class MessageDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
                         new Category(rs.getInt("cid"),rs.getString("gname")));
             }
 
@@ -361,7 +367,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,category.id cid,gname from message,category  where trash=0 and   category_id=category.id  and  category.id =?  order by create_time desc ";
+            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and   category_id=category.id  and  category.id =?  order by create_time desc ";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id );
             rs = stmt.executeQuery();
@@ -373,6 +379,7 @@ public class MessageDao {
                         rs.getString("title"),
                         rs.getString("content"),
                         rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
                         new Category(rs.getInt("cid"),rs.getString("gname")))
                 );
 
@@ -445,5 +452,61 @@ public class MessageDao {
             ConnectUtil.release(rs, stmt, conn);
         }
          return chartVos;
+    }
+
+
+    /**
+     * 根据文章ID获取该文章的点赞量
+     * @param messageId
+     * @return
+     */
+    public int getLaudById(int messageId){
+        Connection conn=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        int result=0;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql = "select laud from message where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,messageId);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                result=rs.getInt("laud");
+            }
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return result;
+
+    }
+
+    /**
+     * 给指定的文章点赞+1
+     * @param messageId
+     * @return
+     */
+    public int addLaud(int messageId){
+        Connection conn=null;
+        PreparedStatement pstmt=null;
+        ResultSet rs=null;
+        int result=0;
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql = "update message set laud=laud+1   where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,messageId);
+            result = pstmt.executeUpdate();
+            return result;
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return result;
+
     }
 }

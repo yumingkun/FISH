@@ -250,6 +250,10 @@
         .allComment .containts .myHead div .time{
             margin-left: 300px;
         }
+        .allComment .containts .myBody{
+            margin-left: 50px;
+        }
+
 
 
 
@@ -310,7 +314,7 @@
             <div id="like">
                 <a href="">
                     <span class="glyphicon glyphicon-heart"></span>
-                    喜欢  |  6
+                    喜欢  |  ${message.laud}
                 </a>
             </div>
             <div class="share-active share">
@@ -327,7 +331,7 @@
 
         <section class="commment ">
             <%--网友评论--%>
-            <div class="div1"><span class="span1">网友评论</span><span class="span2">文明上网，理性发言，违者打死</span> 	<span class="span3">${countComment}条评论</span></div>
+            <div class="div1"><span class="span1">网友评论</span><span class="span2">文明上网，理性发言，违者打死</span>   <span class="span3">条评论</span><span class="span3 mySpan3">${countComment}</span></div>
 
             <%--评论头像以及评论框--%>
 
@@ -422,7 +426,12 @@
 
     // 这一部分有bug 即使插入成功，总是进入error
     //点击发布评论增加节点(这一部分有bug 即使插入成功，总是进入error)
+    var num=${countComment};//获取当前评论数
     function comment(){
+        num++;//每次点击评论，评论总数+1
+        $(".mySpan3").text(num);//评论+1
+
+
         var now = time();
         //获取评论信息
         var text_send = $(".text_send").val();
@@ -463,7 +472,9 @@
         $(".text_send").val("");
     }
 
-    <%--<p>${message.content}</p>--%>
+    function addLuad() {
+        
+    }
 
 
 

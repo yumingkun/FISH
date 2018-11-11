@@ -84,7 +84,7 @@ public class CommentDao {
         List<Comment> comments = new ArrayList<Comment>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select user_id,message_id,content,create_time,laud,username,head from `comment`,users  where message_id=? and `comment`.user_id=users.id order by create_time desc; ";
+            String sql="select user_id,message_id,content,create_time,username,head from `comment`,users  where message_id=? and `comment`.user_id=users.id order by create_time desc; ";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, messageId);
@@ -96,7 +96,6 @@ public class CommentDao {
                 comment.setMessageId(rs.getInt("message_id"));
                 comment.setContrent(rs.getString("content"));
                 comment.setCreate_time(rs.getTimestamp("create_time"));
-                comment.setLaud(rs.getInt("laud"));
                 user.setUsername(rs.getString("username"));
                 user.setHead(rs.getString("head"));
                 comment.setUser(user);

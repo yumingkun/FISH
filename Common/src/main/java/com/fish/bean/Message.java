@@ -9,13 +9,16 @@ public class Message {
     private  String title;
     private String content;
     private Date createTime;
+    private int laud;//点赞数量
+
+
 
     private String src;
 
 //    分类
     private Category category;
 
-    public Message(int id, int userId, String userName, String title, String content, Date createTime, Category category) {
+    public Message(int id, int userId, String userName, String title, String content, Date createTime,int laud, Category category) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -23,6 +26,7 @@ public class Message {
         this.category = category;
         this.content = content;
         this.createTime = createTime;
+        this.laud=laud;
     }
 
 
@@ -121,5 +125,13 @@ public class Message {
 
     public void setSrc(String src) {
         this.src = src;
+    }
+    public void setLaud(int laud) {
+        this.laud = laud;
+    }
+
+    public int getLaud() {
+
+        return laud;
     }
 }

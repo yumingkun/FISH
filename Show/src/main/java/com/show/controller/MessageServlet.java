@@ -214,25 +214,38 @@ public class MessageServlet extends HttpServlet {
 
         //更新文章
         }else if ("/show/updateMessage.do".equals(request.getServletPath())){
+            User user=(User)request.getSession().getAttribute("user");//用户id
             int messageId=Integer.parseInt(request.getParameter("messageId"));//获取要更新文章的Id
             int categoryId=Integer.parseInt(request.getParameter("categoryId"));//获取文章修改之后的分类Id
-
-            logger.info(categoryId+"ewqeqweqweqwe");
             String title=request.getParameter("title");//获取文章修改之后的标题
             String content=request.getParameter("content");//获取文章修改之后内容
 
-            Message  message=new Message();
-            message.setId(messageId);
-            message.setTitle(title);
-            message.setContent(content);
+            logger.info(messageId);
+            logger.info(categoryId);
+            logger.info(title);
+            logger.info(content);
 
-            Boolean updateMessage=messageService.updateMessage(message,categoryId);
-            logger.info(updateMessage);
+            if (title.length()>3 && content.length()>50 && messageId!=0){
+                Message  message=new Message();
+                message.setId(messageId);
+                message.setUserId(user.getId());
+                message.setUserName(user.getUsername());
+                message.setTitle(title);
+                message.setContent(content);
 
-//            更新成功之后的操作
-            if (updateMessage){
-                logger.info("成功");
+                Boolean updateMessage=messageService.updateMessage(message,categoryId);
+                logger.info(updateMessage);
+
+                //更新成功之后的操作
+                if (updateMessage){
+                    request.setAttribute("result2",1);//修改文章成功提示
+                    request.getRequestDispatcher("/show/myMessage.do").forward(request,response);
+                }
+            }else {//文章修改不符合要求
+                request.setAttribute("result2",0);//修改文章错误提示
+                request.getRequestDispatcher("/show/myMessage.do").forward(request,response);
             }
+
         }
     }
 
