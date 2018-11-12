@@ -37,6 +37,7 @@ public class UserDao {
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
                 user.setHead(rs.getString("head"));
+                user.setPower(rs.getString("power"));
             }
         } catch (SQLException e) {
             System.out.println("UserDao-----------------------------登录失败");
@@ -125,7 +126,7 @@ public class UserDao {
             rs = stmt.executeQuery();
 
             while (rs.next()) {
-               user=new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("head"));
+               user=new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("head"),rs.getString("power"));
 
             }
 

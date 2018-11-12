@@ -153,7 +153,7 @@ public class MessageServlet extends HttpServlet {
                 String serachnum=String.valueOf(messages.size());
 //                logger.info(search);
 //                logger.info(messages);
-                if (messages.size()!=0 ){//不为空
+                if (messages.size()!=0 && search.length()>0){//不为空
                     //提取每篇文章的第一个图片rc
                     List<Message> messageSrcs=new ArrayList<>();
                     for (Message message:messages) {

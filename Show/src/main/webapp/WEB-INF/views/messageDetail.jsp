@@ -38,6 +38,11 @@
             font-weight: 800;
             color: gray;
         }
+
+        /*内容图片*/
+        .content img{
+            width: 100%;
+        }
         .container .content p{
             text-align: left;
             margin-top: 10px;
@@ -61,6 +66,7 @@
         .container ul.myself li{
             width: 60px;
             height: 60px;
+            line-height: 60px;
             /*border: 1px solid red;*/
             float: left;
             /*border: 1px solid red;*/
@@ -81,6 +87,7 @@
 
         .container ul.myself li .username{
             font-size: 15px;
+
             color: gray;
         }
 
@@ -287,7 +294,7 @@
                 <%--作者信息--%>
                 <c:if test="${user!=null}">
                     <li><img alt="" src="<%=basePath%>${user.head}"></li>
-                    <li><span class="username">${user.username}</span></li>
+                    <li><span class="username"><span class="glyphicon glyphicon-user" style="color: #b6bfd9"> </span> ${user.username}</span></li>
                 </c:if>
 
                 <c:if test="${user==null}">
