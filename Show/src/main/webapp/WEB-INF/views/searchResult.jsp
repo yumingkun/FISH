@@ -1,10 +1,4 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: mingkunyu
-  Date: 2018/9/19
-  Time: 下午10:47
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -23,18 +17,16 @@
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
     <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
     <style >
-        /*加载更多*/
-        .more{
-            margin-top: 100px;
-            height: 40px;
-            line-height: 40px;
-            border-radius: 20px;
-            background-color: #b0b8d2;
-            text-align: center;
-            color: white;
-            font-size: 16px;
-            font-weight:bold;
 
+        .mylist .new-list-item img{
+            width: 130px;
+            height: 90px;
+            border: 2px solid #b9def0;
+            transition: all 0.5s;
+        }
+        .mylist .new-list-item img:hover{
+
+            box-shadow: 10px 10px 20px gainsboro ;
         }
 
 
@@ -43,6 +35,45 @@
             height: 140px;
             border: 2px solid #b9def0;
         }
+        .info{
+            margin-top: 40px;
+        }
+        /*背景*/
+        .back{
+            text-align: center;
+            padding-top: 80px;
+            height: 200px;
+            width: 100%;
+            margin: 10px auto;
+            /*border: 1px solid red;*/
+            background: url("../../img/back.png") no-repeat center ;
+           background-size: contain;
+
+            /*background-size: cover;*/
+        }
+        .back span{
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 60px;
+            font-weight: bold;
+            color: #afb6ce;
+        }
+
+        /*结果*/
+        .theResult{
+            margin-top:10px;
+            width: 100%;
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 17px;
+            font-weight: 800;
+            color: #26263d;
+
+        }
+        .theResult span{
+            color: #b0b8d2;
+        }
+
     </style>
 
 
@@ -59,36 +90,47 @@
 <div class="container">
     <div class="row">
         <!-- 左边分类 -->
-        <div class="col-sm-2 hidden-xs">
+        <div class="col-sm-3 hidden-xs">
 
         </div>
         <!-- 左边分类END -->
         <!-- 中间内容 -->
-        <div class="col-sm-7">
+        <div class="col-sm-6">
 
-            <%--初始值--%>
+            <%--背景--%>
+            <div class="back"><span>${num}</span></div>
+
+            <%--结果--%>
+            <div class="theResult"><span class="glyphicon glyphicon-menu-right"></span> RESULT <span class="glyphicon glyphicon-menu-left"></span></div>
+            <hr/>
+                <%--初始值--%>
+            <%--<h1>${searchNum}</h1>--%>
             <div class="new-list mylist">
                 <c:forEach items="${searchMessages}" var="message">
                     <div class="new-list-item clearfix">
                         <div class="col-xs-4 .text-center" >
                             <c:if test="${message.src==null or message.src==''}">
-                                <img src="../../img/nullsrc.png" id="nullImg" >
+                                <img src="../../img/nullsrc.png" id="nullImg"  >
                             </c:if>
                             <c:if test="${message.src!=null}">
-                                <img src="${message.src}">
+                                <img src="${message.src}" class="thumbnail">
                             </c:if>
                         </div>
                         <div class="col-xs-7">
 
-                            <a href="/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
+                            <a href="<%=request.getContextPath()%>/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">${message.title}</a>
                             <div class="content">
                                     <%--<p>${message.content}</p>--%>
 
                             </div>
                             <div class="info">
-                                <span> <span class="avatar"><img src="../../img/logo.png"></span>猿梦</span> ⋅
-                                <span>25k</span> ⋅
-                                <span>${message.title}</span>
+                                <span class="glyphicon glyphicon-tag" style="color: #a5d1a4"></span>
+                                <span>${message.category.gname}</span>
+                                <span class="glyphicon glyphicon-user" style="color: #b6bfd9"></span>
+                                <span>${message.userName} </span>
+                                <span class="glyphicon glyphicon-heart" style="color: #d17687"></span>
+                                <span>${message.laud}</span>
+
                             </div>
 
                         </div>

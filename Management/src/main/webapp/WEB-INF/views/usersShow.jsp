@@ -76,7 +76,7 @@
                         <td>${user.username}</td>
                         <td>${user.email}</td>
                         <td>
-                            <button  class="btn btn-danger btn-sm" data-toggle="tooltip" data-placement="top" title="确定删除吗？" onclick="sub(${user.id})">删除</button>
+                            <button style="background-color: #d17660;color: white" class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="确定删除吗？" onclick="sub(${user.id})">删除</button>
                         </td>
                     </tr>
                 </c:forEach>

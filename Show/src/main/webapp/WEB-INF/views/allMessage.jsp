@@ -46,9 +46,14 @@
             color: white;
             font-size: 16px;
             font-weight:bold;
+            transition: all 1s;
 
         }
 
+        .more:hover{
+            color: #535588;
+            box-shadow: 10px 10px 20px gainsboro ;
+        }
 
          #nullImg{
              width: 130px;
@@ -85,11 +90,13 @@
             width: 100%;
             height: 270px;
             margin-bottom: 20px;
+
         }
         .carousel-inner .item img{
             display: block;
             width: 100%;
             height: 270px;
+
         }
 
         /*中间内容*/
@@ -214,6 +221,9 @@
                         </div>
                     </div>
                 </c:forEach>
+                <div class="showMore" style="margin-top: 10px">
+
+                </div>
 
                 <%--加载更多数据显示位置   --%>
             </div>
@@ -308,7 +318,7 @@
                     var src=message.src?message.src:"../../img/nullsrc.png";
                     var tyle=message.src?"":"style=\"width: 130px;height: 90px;border: 2px solid #b9def0\"";
                     str+=`
-                         <div class="new-list-item clearfix">
+                         <div class="new-list-item clearfix" >
                             <div class="col-xs-4">
                                 <img src='`+src+`' alt="" `+tyle+` class="thumbnail">
                             </div>
@@ -334,7 +344,9 @@
                     `;
                 });
 
-             $(".mylist").append(str);
+             $(".showMore").hide().append(str).show(1000);
+
+
 
             }
         });

@@ -150,6 +150,7 @@ public class MessageServlet extends HttpServlet {
 //            获取前端关键词
                 String search=request.getParameter("search");
                 List<Message> messages=messageService.searchMessages(search);
+                String serachnum=String.valueOf(messages.size());
 //                logger.info(search);
 //                logger.info(messages);
                 if (messages.size()!=0 ){//不为空
@@ -159,6 +160,8 @@ public class MessageServlet extends HttpServlet {
                         message.setSrc(GetImgStr.getImgStr(message.getContent()));
                         messageSrcs.add(message);
                     }
+                    request.setAttribute("num",serachnum);//搜索到文章数
+                    logger.info(serachnum);
                     request.setAttribute("searchMessages",messageSrcs);
                     request.getRequestDispatcher("/WEB-INF/views/searchResult.jsp").forward(request,response);
                 }else {
@@ -223,11 +226,11 @@ public class MessageServlet extends HttpServlet {
             int categoryId=Integer.parseInt(request.getParameter("categoryId"));//获取文章修改之后的分类Id
             String title=request.getParameter("title");//获取文章修改之后的标题
             String content=request.getParameter("content");//获取文章修改之后内容
-
-            logger.info(messageId);
-            logger.info(categoryId);
-            logger.info(title);
-            logger.info(content);
+//
+//            logger.info(messageId);
+//            logger.info(categoryId);
+//            logger.info(title);
+//            logger.info(content);
 
             if (title.length()>3 && content.length()>50 && messageId!=0){
                 Message  message=new Message();
@@ -238,7 +241,7 @@ public class MessageServlet extends HttpServlet {
                 message.setContent(content);
 
                 Boolean updateMessage=messageService.updateMessage(message,categoryId);
-                logger.info(updateMessage);
+//                logger.info(updateMessage);
 
                 //更新成功之后的操作
                 if (updateMessage){

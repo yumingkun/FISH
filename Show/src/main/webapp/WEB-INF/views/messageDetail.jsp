@@ -428,12 +428,10 @@
 
     // 这一部分有bug 即使插入成功，总是进入error
     //点击发布评论增加节点(这一部分有bug 即使插入成功，总是进入error)
-    var num=${countComment};//获取当前评论数
+    var cnum=${countComment};//获取当前评论数
     function comment(){
-        num++;//每次点击评论，评论总数+1
-        $(".mySpan3").text(num);//评论+1
-
-
+        cnum+=1;//每次点击评论，评论总数+1
+        $(".mySpan3").text(cnum);//评论+
         var now = time();
         //获取评论信息
         var text_send = $(".text_send").val();

@@ -115,17 +115,16 @@
 
         /*轮播预览样式*/
         #myImg img{
-
             width: 300px;
             height:160px;
         }
 
         /*图片展示样式*/
         #showImg img{
-            margin-top: 30px;
-            margin-bottom: 30px;
-            width: 280px;
-            height:170px;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            width: 320px;
+            height:200px;
             display: inline-block;
         }
     </style>
@@ -157,7 +156,7 @@
         <div class="col-lg-9" >
             <div class="row">
 
-                <div id="left" class="col-md-11  panel panel-group">
+                <div id="left" class="col-md-9  panel panel-group">
 
                     <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">THE轮播图</h1>
 
@@ -180,9 +179,13 @@
                         <div class="new-list tab-pane fade in active" id="showImg">
 
                             <%--展示轮播--%>
-                            <c:forEach items="${carousels}" var="carousel">
-                                <img src="<%=basePath%>${carousel.imgLoc}"  class="thumbnail">
-                            </c:forEach>
+                            <%--<c:forEach items="${carousels}" var="carousel">--%>
+                                <%--<img src="<%=basePath%>${carousel.imgLoc}"  class="thumbnail">--%>
+                            <%--</c:forEach>--%>
+                                <img src="../../img/1.jpg" class="thumbnail">
+                                <img src="../../img/2.jpg" class="thumbnail">
+                                <img src="../../img/3.jpg" class="thumbnail">
+                                <img src="../../img/4.jpg" class="thumbnail">
 
 
                             <%--返回按钮和提交按钮--%>

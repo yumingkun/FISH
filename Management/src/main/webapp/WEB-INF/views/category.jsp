@@ -12,7 +12,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>分类页</title>
+    <title>专题管理</title>
     <%--引入需要的js css--%>
     <link rel="stylesheet" href="../../css/reset.css">
     <script src="../../js/jquery.js"></script>
@@ -49,16 +49,16 @@
         <div class="col-lg-1" ></div>
         <div class="col-lg-7">
 
-            <p class="theTitle">类别管理</p>
+            <p class="theTitle">专题管理</p>
 
             <div >
                 <div class="panel panel-warning">
-                    <div class="panel-heading">添加分类</div>
+                    <div class="panel-heading">添加专题</div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="post" action="<%=request.getContextPath()%>/manage/cddCategory.do">
                             <div class="form-group">
                                 <div class="col-sm-8 ">
-                                    <input type="text" name="gname" class="form-control" placeholder="输入你想要的分类">
+                                    <input type="text" name="gname" class="form-control" placeholder="输入你想要的专题">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -74,15 +74,15 @@
 
             <div>
                 <div class="panel panel-info">
-                    <div class="panel-heading">分类列表</div>
+                    <div class="panel-heading">专题列表</div>
                     <div class="panel-body">
                         <%--响应式表格--%>
                         <div class="table-responsive">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th>类别编号</th>
-                                        <th>类别名称</th>
+                                        <th>专题编号</th>
+                                        <th>专题名称</th>
                                     </tr>
                                 </thead>
                                 <tbody>

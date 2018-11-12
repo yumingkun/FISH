@@ -77,9 +77,10 @@ public class UserServlet extends HttpServlet {
                 user.setUsername(username);
                 user.setPassword(password);
                 user.setEmail(email);
-                if(userService.addUser(user)){//添加用户成功后悔返回true
+                if(userService.addUser(user)){//添加用户成功后返回true
                     System.out.printf("注册成功--------");
-                    req.getRequestDispatcher("/WEB-INF/views/success.jsp").forward(req,resp);
+                    req.setAttribute("msg_r","Success");
+                    req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
                 }
             }else{
                 System.out.printf("注册失败======================================");

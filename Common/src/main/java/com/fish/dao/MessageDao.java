@@ -238,7 +238,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select * from message where 1=1 and trash=0";
+            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where 1=1 and category_id=category.id   and trash=0";
 
             if(search!= null){//按照游戏名称查询
                 sql+=" and title like '%"+search+"%' ";
@@ -253,7 +253,9 @@ public class MessageDao {
                         rs.getString("username"),
                         rs.getString("title"),
                         rs.getString("content"),
-                        rs.getTimestamp("create_time")));
+                        rs.getTimestamp("create_time"),
+                        rs.getInt("laud"),
+                        new Category(rs.getInt("cid"),rs.getString("gname"))));
 
             }
 

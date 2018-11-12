@@ -32,7 +32,7 @@
                 <jsp:include page="common/side.jsp"></jsp:include>
             </div>
          </div>
-        <div class="col-lg-1" ></div>
+
         <div class="col-lg-9" >
 
             <%--<button class="btn btn-default" onclick="getChart()">获取</button>--%>
@@ -41,6 +41,7 @@
 
             <%--<canvas id="c1" width="100px" height="60px"></canvas>--%>
         </div>
+        <div class="col-lg-1" ></div>
     </div>
 </div>
 
@@ -118,7 +119,7 @@
         data: {
             labels:${usernameList},
             datasets: [{
-                label: '# of Votes',
+                label: ' FISH',
                 data:${numList},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',

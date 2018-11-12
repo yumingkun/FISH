@@ -47,7 +47,7 @@
             <div id="register">
                 <h1>Register <%=(request.getAttribute("msg_r")==null) ? ("") : (request.getAttribute("msg_r")) %></h1>
 
-                <form action="/show/register.do" method="post">
+                <form action="<%=request.getContextPath()%>/show/register.do" method="post">
 
                     <div class="top-row">
                         <div class="field-wrap">

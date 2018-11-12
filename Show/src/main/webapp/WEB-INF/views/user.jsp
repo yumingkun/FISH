@@ -146,11 +146,13 @@
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
                         <%--<li class="list-group-item" onclick="show()">轮播图</li>--%>
-                        <a href="<%=request.getContextPath()%>/show/toCarousel.do"><li class="list-group-item" onclick="show()">轮播图</li></a>
+                        <a href="<%=request.getContextPath()%>/show/toCarousel.do"><li class="list-group-item" onclick="show()"><span class="glyphicon glyphicon-picture"></span> 轮播图</li></a>
                     </ul>
+
+
                     <ul class="list-group col-md-12 col-xs-6">
                         <a href="<%=request.getContextPath()%>/show/myMessage.do" class="list-group-item">我的博客</a>
-                        <a href="<%=request.getContextPath()%>/show/showTrashMessage.do" class="list-group-item"><span class="glyphicon glyphicon-trash"></span>回收站</a>
+                        <a href="<%=request.getContextPath()%>/show/showTrashMessage.do" class="list-group-item"><span class="glyphicon glyphicon-trash"></span> 回收站</a>
                         <%--<a href="#" class="list-group-item">我的论坛</a>--%>
                         <%--<a href="#" class="list-group-item">我的学院</a>--%>
                     </ul>

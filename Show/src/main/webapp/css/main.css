@@ -154,7 +154,7 @@ a:hover {
 
 .side-bar-card {
     padding: 10px 0;
-    background-color: rgba(235, 246, 255, 0.5);
+    background-color: rgba(235, 246, 255, 0.2);
 }
 
 .side-bar-card.flag {
@@ -168,6 +168,7 @@ a:hover {
 
 .card-body .list .item {
     padding: 15px;
+    transition: all 1.5s;
 }
 
 .side-bar-card .card-title {
@@ -182,7 +183,12 @@ a:hover {
 }
 
 .card-body .list .item:hover {
-    background: #e6e6e6;
+    /*transition: all 0.5s;*/
+    box-shadow: 2px 2px 4px #9096ad;
+
+    border-radius: 5px;
+    background-color: #f5f8ff;
+
 }
 
 
@@ -272,6 +278,7 @@ a:hover {
     bottom: 30px;
     background: url("../img/shang.png") no-repeat left top;
     background-size: cover;
+    transition: all 0.5s;
     /*默认影藏*/
 
 }

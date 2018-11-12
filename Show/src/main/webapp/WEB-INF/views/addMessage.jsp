@@ -14,8 +14,10 @@
     <link rel="stylesheet" href="../../css/wangEditor.min.css">
     <script type="text/javascript" src="../../js/wangEditor.min.js"></script>
     <style type="text/css">
+
         .toolbar {
             border: 1px solid #ccc;
+            border: none;
         }
         .text {
             border: 1px solid #ccc;
@@ -33,66 +35,69 @@
 <%--1:引入头部--%>
 <jsp:include page="../common/header.jsp"></jsp:include>
 
-<div class="container" style="background-color: #ebf6ff;padding-top: 20px;margin-bottom: 0px;border-radius: 10px">
+<div class="container" style="padding-top: 20px;margin-bottom: 0px;border-radius: 10px">
     <%--<div class="page-header">--%>
         <%--<h3><small>新建留言</small></h3>--%>
     <%--</div>--%>
-    <form class="form-horizontal" action="<%=request.getContextPath()%>/show/addMessage.do" method="post">
-        <div class="form-group">
-            <%--<label for="inputTitle" class="col-sm-2 control-label">标题 ：</label>--%>
-            <div class="col-sm-12">
-                <input name="title" class="form-control" id="inputTitle" placeholder="标题" style="background-color: #ebf6ff">
-            </div>
-
-            <div class="col-sm-12">
-                <c:choose>
-                    <c:when test="${result eq 1}">
-                        <div class="alert alert-success">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a><strong>成功</strong>已经创建文章
-                        </div>
-                    </c:when>
-                    <c:when test="${result eq 0}">
-                        <div class="alert alert-danger">
-                            <a href="#" class="close" data-dismiss="alert">&times;</a><strong>失败</strong>创建文章失败
-                        </div>
-                    </c:when>
-
-                </c:choose>
-
-            </div>
-
-
-        </div>
-
-        <div class="form-group">
-            <%--<label  class="col-sm-2 control-label">内容 ：</label>--%>
-            <%--使用富文本框------------------%>
-            <div class="col-sm-12" >
-
-                <div id="div1" class="toolbar"></div>
-                <div style="padding: 5px 0; color: #ccc"></div>
-                <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
-                    <p >开始你的创作</p>
+    <div class="col-sm-10 col-sm-offset-1">
+        <form class="form-horizontal" action="<%=request.getContextPath()%>/show/addMessage.do" method="post">
+            <div class="form-group">
+                <%--<label for="inputTitle" class="col-sm-2 control-label">标题 ：</label>--%>
+                <div class="col-sm-12">
+                    <input name="title" class="form-control" id="inputTitle" placeholder="标题" >
                 </div>
-                <input type="hidden" name="content" id="txt" />
-            </div>
-            <%--使用富文本框end------------------%>
-        </div>
-        <div class="form-group">
-            <%--专题--%>
-            <div class="col-sm-11">
-                <select class="form-control" name="categoryId" style="background-color: #ebf6ff">
-                    <c:forEach items="${categories}" var="category">
-                        <option value="${category.id}">${category.gname}</option>
-                    </c:forEach>
-                </select>
+
+                <div class="col-sm-12">
+                    <c:choose>
+                        <c:when test="${result eq 1}">
+                            <div class="alert alert-success">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a><strong>成功</strong>已经创建文章
+                            </div>
+                        </c:when>
+                        <c:when test="${result eq 0}">
+                            <div class="alert alert-danger">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a><strong>失败</strong>创建文章失败
+                            </div>
+                        </c:when>
+
+                    </c:choose>
+
+                </div>
+
+
             </div>
 
-            <div class="col-sm-1">
-                <button id="sub" class="btn btn-default">发布</button>
+            <div class="form-group" >
+                <%--<label  class="col-sm-2 control-label">内容 ：</label>--%>
+                <%--使用富文本框------------------%>
+                <div class="col-sm-12" >
+
+                    <div id="div1" class="toolbar"></div>
+                    <div style="padding: 5px 0; color: #ccc"></div>
+                    <div id="div2" class="text"> <!--可使用 min-height 实现编辑区域自动增加高度-->
+                        <p>开始你的创作</p>
+                    </div>
+                    <input type="hidden" name="content" id="txt" />
+                </div>
+                <%--使用富文本框end------------------%>
             </div>
-        </div>
-    </form>
+            <div class="form-group">
+                <%--专题--%>
+                <div class="col-sm-11">
+                    <select class="form-control" name="categoryId" >
+                        <c:forEach items="${categories}" var="category">
+                            <option value="${category.id}">${category.gname}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+
+                <div class="col-sm-1">
+                    <button id="sub" class="btn btn-default">发布</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
 
 </div>
 

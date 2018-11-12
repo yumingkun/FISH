@@ -1,6 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <style type="text/css">
 
+    a,a:hover,a:active{
+        text-decoration: none;
+    }
     /*小图标*/
     .glyphicon{
         float: right;
@@ -22,7 +25,7 @@
             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                 <div class="panel-body">
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/getUsers.do">用户管理</a></p>
-                    <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/category.do">分类管理</a></p>
+                    <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/category.do">专题管理</a></p>
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/toCarousel.do">轮播管理</a></p>
                 </div>
             </div>
