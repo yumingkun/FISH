@@ -1,0 +1,74 @@
+a,a:hover,a:active{
+    text-decoration: none;
+}
+body{
+    background:url("../img/b1.jpg");
+    background-size: cover;
+    transition: all 1s;
+    /*动画名称*/
+    animation-name:myfirst;
+    /*变换时间*/
+    animation-duration:12s;
+    /*动画开始时间*/
+    animation-delay:2s;
+    /*下一周期循环播放*/
+    animation-iteration-count:infinite;
+    /*动画开始运行*/
+    animation-play-state:running;
+}
+@keyframes myfirst
+{
+    0%   {  background:url("../img/b1.jpg");  background-size: cover;}
+    34%  {  background:url("../img/b2.jpg");   background-size: cover;}
+    67%  {  background:url("../img/b3.jpg");   background-size: cover;}
+    100% {  background:url("../img/b1.jpg");   background-size: cover;}
+}
+
+#loginform{
+
+    position: relative;
+    background: rgba(255,255,255,0.3);
+    width:600px;
+    margin:160px auto;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 10px #dae4ff;
+    opacity: 1;
+    /*动画名称*/
+    animation-name:YU;
+    /*变换时间*/
+    animation-duration:6s;
+    /*动画开始时间*/
+    /*animation-delay:1s;*/
+    /*下一周期循环播放*/
+    /*animation-iteration-count:infinite;*/
+    /*动画开始运行*/
+    animation-play-state:running;
+}
+
+
+@keyframes YU {
+    0%   {  opacity: 0}
+    100% {  opacity: 1}
+}
+
+#loginform h1{
+    text-align: center;
+}
+
+#canvas{
+    position: absolute;
+    top:-150px;
+    /*top: 160px;*/
+}
+
+#goRegister{
+    float: right;
+    display: block;
+    width: 100px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #e5efff;
+}
+
+

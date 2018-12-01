@@ -22,7 +22,7 @@
 
     <%--整体css js--%>
     <link rel="stylesheet" type="text/css" href="../../css/main.css"/>
-    <script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>
+    <%--<script src="../../js/main.js" type="text/javascript" charset="utf-8"></script>--%>
 
     <%--引入富文本框js css--%>
     <script type="text/javascript" src="../../js/jquery.min.js"></script>
@@ -37,6 +37,10 @@
             border-radius: 2px;
             box-shadow: 1px 1px 1px 0px #C4C4C4;
         }
+        .row .col-md-6{
+            padding: 0px;
+        }
+
         #ul-right a{
             border: none !important;
             text-align: center;
@@ -128,6 +132,14 @@
             height: 600px;
         }
 
+        .show .left {
+            left: -300px;
+        }
+
+        .show .right {
+            left: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -141,7 +153,7 @@
     <div class="row">
         <form action="<%=request.getContextPath()%>/show/myMessage.do" METHOD="post" id="refishTrash" style="display: none"></form>
 
-        <div class="col-md-5">
+        <div class="col-md-6" id="showLeft">
 
             <div id="left" class="  panel panel-group">
 
@@ -213,7 +225,7 @@
         </div>
 
         <%--右边修改文章--%>
-        <div class="col-md-7" style="z-index: 1; border: 3px solid rgba(83, 85, 136, 0.1);padding: 0;margin: 0">
+        <div class="col-md-6" id="showRight" style="z-index: 1; border: 3px solid rgba(83, 85, 136, 0.1);padding: 0;margin: 0">
             <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">修改文章</h1>
 
 
@@ -276,7 +288,10 @@
 
 
                 <div class="form-group">
-                    <div class=" col-sm-2 col-sm-offset-10">
+                    <div class=" col-sm-2">
+                        <a class="btn btn-default" id="myShowAllBtn" >全屏/半屏</a>
+                    </div>
+                    <div class=" col-sm-2 col-sm-offset-8">
                        <button class="btn btn-default" onclick="return update()">保存修改</button>
                     </div>
                 </div>
@@ -353,6 +368,18 @@
     }
 
 
+    // 切换侧边栏
+    $("#myShowAllBtn").click(function() {
+        if ($("#showLeft").hasClass("col-md-6")) {
+            $("#showLeft").removeClass("col-md-6").hide(0);
+            $("#showRight").addClass("col-md-12").removeClass("col-md-6");
+        }else {
+            $("#showLeft").addClass("col-md-6").show(0);
+            $("#showRight").addClass("col-md-6").removeClass("col-md-12");
+        }
+
+
+    });
 
 </script>
 

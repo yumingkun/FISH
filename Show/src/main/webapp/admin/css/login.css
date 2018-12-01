@@ -1,0 +1,39 @@
+ *{
+        margin:0px;
+        padding:0px;
+    }
+    a{
+        text-decoration: none;
+    }
+    ul{
+        list-style: none;
+    }
+    body{
+        position:relative;
+        background-image: linear-gradient(to top, #9890e3 0%, #b1f4cf 100%);
+    }
+
+     #loginform{
+
+         position: relative;
+         background: rgba(255,255,255,0.3);
+         width:600px;
+         margin:160px auto;
+         padding: 40px;
+         border-radius: 10px;
+         box-shadow: 1px 1px 10px #dae4ff;
+         opacity: 1;
+         /*动画名称*/
+         animation-name:YU;
+         /*变换时间*/
+         animation-duration:6s;
+         /*动画开始时间*/
+         /*animation-delay:1s;*/
+         /*下一周期循环播放*/
+         /*animation-iteration-count:infinite;*/
+         /*动画开始运行*/
+         animation-play-state:running;
+     }
+     #loginform h1{
+         text-align: center;
+     }

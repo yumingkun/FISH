@@ -87,7 +87,7 @@
                 <%}else{%>
                 <li><img alt="" src="../../img/notlogin.jpg" class="file_icon"></li>
                 <%};%>
-                <li><a href="<%=request.getContextPath()%>/show/write.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
+                <li><a href="<%=request.getContextPath()%>/show/toWrite.do"><span class="glyphicon glyphicon-edit"></span> 写文章</a></li>
             </ul>
         </div>
     </div>

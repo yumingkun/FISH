@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editUser.do"})
+@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editUser.do","/show/toRegister","/show/user.do"})
 public class UserServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private UserService userService;
@@ -53,18 +53,17 @@ public class UserServlet extends HttpServlet {
 
 
             User user=userService.login(username,password);//成功则返回一个用户实体
-//            System.out.printf(user.toString());
             if (user!=null){
-                System.out.printf("doPost成功------------------------");
                 req.getSession().setAttribute("user",user);//登录成功，把用户信息放到会话里
                 req.getRequestDispatcher("/show/message.do").forward(req,resp);
             }else {
-                System.out.printf("登录失败-------------------------------------");//继续登录
                 req.setAttribute("msg_l","Fail");
-                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
             }
         //注册处理
-        }else if("/show/register.do".equals(req.getServletPath())){
+        }else if ("/show/toRegister".equals(req.getServletPath())){
+            req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req,resp);
+        } else if("/show/register.do".equals(req.getServletPath())){
 
             //获取前端传来的数据
             String username=req.getParameter("username");
@@ -80,17 +79,30 @@ public class UserServlet extends HttpServlet {
                 if(userService.addUser(user)){//添加用户成功后返回true
                     System.out.printf("注册成功--------");
                     req.setAttribute("msg_r","Success");
-                    req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+                    req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
                 }
             }else{
                 System.out.printf("注册失败======================================");
                 req.setAttribute("msg_r","Fail");
-                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
+            }
+        //登出
+        }else if ("/show/quit.do".equals(req.getServletPath())) {
+            req.getSession().setAttribute("user", "");
+            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
+        // 个人中心
+        }else if ("/show/user.do".equals(req.getServletPath())){
+            User user=(User)req.getSession().getAttribute("user");
+            int  id=user.getId();
+            User  myself=userService.getUser(id);
+            if (myself!=null){
+                req.setAttribute("user",myself);
+                req.getRequestDispatcher("/WEB-INF/views/user.jsp").forward(req,resp);
+            }else {
+                System.out.println("个人中心的servlet错误===============================================");
+                req.getRequestDispatcher("/WEB-INF/error/404.jsp").forward(req,resp);
             }
 
-        }else if ("/show/quit.do".equals(req.getServletPath())){
-            req.getSession().setAttribute("user","");
-            req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
         //修改用户信息
         }else if ("/show/editUser.do".equals(req.getServletPath())){
             int userid=Integer.parseInt(req.getParameter("userId"));
@@ -111,7 +123,7 @@ public class UserServlet extends HttpServlet {
                 // 更新会话信息
 //                User userSession=userService.login(username,password);//成功则返回一个用户实体
 //                req.getSession().setAttribute("user",userSession);//修改信息成功，更新会话
-                req.getRequestDispatcher("/WEB-INF/views/login_register.jsp").forward(req,resp);
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
             }
 
             req.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(req,resp);

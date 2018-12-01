@@ -264,27 +264,6 @@
                                 </div>
                             </a>
                         </c:forEach>
-
-                        <%--<div class="item">--%>
-                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="item">--%>
-                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="item">--%>
-                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="item">--%>
-                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
-                        <%--<div class="item">--%>
-                            <%--<div class="title">Lorem ipsum dolor sit amet, consectetur adipisicing</div>--%>
-                            <%--<div class="desc">15k阅读 1k评论</div>--%>
-                        <%--</div>--%>
                     </div>
                 </div>
             </div>
@@ -294,8 +273,11 @@
 </div>
 
 
+
+
 <%--页脚--%>
 <jsp:include page="../common/footer.jsp" />
+
 <%--页脚end--%>
 
 <%--1：回到顶部--%>
@@ -304,6 +286,7 @@
 </body>
 
 <script type="text/javascript">
+
     // 实现加载更多
     var clickNum = 0;//点击次数
     function page(){
@@ -372,7 +355,10 @@
         return false;//阻止默认事件
     });
 
+
+
 </script>
+
 
 
 </html>

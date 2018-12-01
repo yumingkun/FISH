@@ -1,10 +1,3 @@
-<%@ page import="com.fish.bean.User" %><%--
-  Created by IntelliJ IDEA.
-  User: mingkunyu
-  Date: 2018/9/25
-  Time: 下午4:04
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -64,7 +57,7 @@
             /*border: 1px solid red;*/
         }
         .container ul.myself li{
-            width: 60px;
+            width: 100px;
             height: 60px;
             line-height: 60px;
             /*border: 1px solid red;*/
@@ -274,10 +267,6 @@
 
     String path = request.getContextPath();
     String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-
-//    通过会话获得当前用户的头像和信息
-    User user =(User) request.getSession().getAttribute("user");
-
 %>
 
 <%--1:引入头部--%>
@@ -346,11 +335,11 @@
 
             <div class="row" >
                 <div class="col-md-2 commment_img">
-                    <c:if test="${user!=null}">
-                        <img src="<%=basePath+user.getHead()%>" >
+                    <c:if test="${sessionScope.user!=null}">
+                        <img src="<%=basePath%>${sessionScope.user.head}" >
                     </c:if>
 
-                    <c:if test="${user==null}">
+                    <c:if test="${sessionScope.user==null}">
                         <img src="../../img/notlogin.jpg">
                     </c:if>
                 </div>
@@ -448,8 +437,8 @@
         var str=`
                <div class="containts">
                    <div class="myHead">
-                       <img src="<%=basePath+user.getHead()%>">
-                       <div><span><%=user.getUsername()%></span> <span class="time">`+now+`</span></div>
+                       <img src="<%=basePath%>${sessionScope.user.head}">
+                       <div><span>${sessionScope.user.username}</span> <span class="time">`+now+`</span></div>
                    </div>
                    <div class="myBody">
                             `+text_send+`

@@ -145,10 +145,6 @@
                         <li class="list-group-item">我的评论</li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
-                        <%--判断是不是超级管理员2，是的话就显示--%>
-                        <c:if test="${user.power eq 2}">
-                            <a href="<%=request.getContextPath()%>/show/toCarousel.do"><li class="list-group-item" onclick="show()"><span class="glyphicon glyphicon-picture"></span> 轮播图</li></a>
-                        </c:if>
                     </ul>
 
 
