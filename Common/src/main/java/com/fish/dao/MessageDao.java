@@ -12,7 +12,7 @@ import java.util.List;
 
 public class MessageDao {
     /**
-     * 前台分页查询全部留言
+     * 前台分页查询全部文章
      * @param start 从第一个到点击数*10个
      * @param count 每页记录数
      * @return
@@ -28,7 +28,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by create_time desc limit ?,?";
+            String sql="select message.id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where trash=0 and message.category_id=category.id and message.user_id=users.id order by create_time desc limit ?,?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, start );
             stmt.setInt(2, count);
@@ -70,7 +70,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where user_id=? and trash=0 and message.category_id=category.id  order by create_time desc;";
+            String sql="select message.id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where user_id=? and trash=0 and message.category_id=category.id and message.user_id=users.id order by create_time desc";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -107,7 +107,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where user_id=? and trash=1 and message.category_id=category.id  order by create_time desc ";
+            String sql="select message.id,user_id,users.username as username ,title,content,create_time,laud,category.id cid,gname from message,category,users  where user_id=? and trash=1 and message.category_id=category.id and message.user_id=users.id order by create_time desc";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id);
             rs = stmt.executeQuery();
@@ -168,14 +168,13 @@ public class MessageDao {
         PreparedStatement pstmt = null;
         int result;
         try {
-            String sql = "insert into message(user_id,category_id,username,title,content,create_time) values(?,?,?,?,?,?)";
+            String sql = "insert into message(user_id,category_id,title,content,create_time) values(?,?,?,?,?)";
             pstmt = conn.prepareStatement(sql);
             pstmt.setLong(1, message.getUserId());
             pstmt.setInt(2,category_id);
-            pstmt.setString(3, message.getUserName());
-            pstmt.setString(4, message.getTitle());
-            pstmt.setString(5, message.getContent());
-            pstmt.setTimestamp(6, new Timestamp(message.getCreateTime().getTime()));
+            pstmt.setString(3, message.getTitle());
+            pstmt.setString(4, message.getContent());
+            pstmt.setTimestamp(5, new Timestamp(message.getCreateTime().getTime()));
             result =pstmt.executeUpdate();
             return  result;
 
@@ -203,7 +202,7 @@ public class MessageDao {
         Message message=null;
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where  category_id=category.id  and  message.id=? and trash=0";
+            String sql="select message.id,message.category_id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where  category_id=category.id and message.user_id=users.id and  message.id=? and trash=0";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, messageid);
             rs = stmt.executeQuery();
@@ -238,7 +237,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,message.category_id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where 1=1 and category_id=category.id   and trash=0";
+            String sql="select message.id,message.category_id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where 1=1 and category_id=category.id and message.user_id=users.id   and trash=0";
 
             if(search!= null){//按照游戏名称查询
                 sql+=" and title like '%"+search+"%' ";
@@ -369,7 +368,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and   category_id=category.id  and  category.id =?  order by create_time desc ";
+            String sql="select message.id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where trash=0 and   category_id=category.id and message.user_id=user_id and  category.id =?  order by create_time desc ";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id );
             rs = stmt.executeQuery();
@@ -437,7 +436,7 @@ public class MessageDao {
         List<ChartVo> chartVos = new ArrayList<ChartVo>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select username,COUNT(*) as num from message GROUP BY username ORDER BY count(*) desc limit 0,6;";
+            String sql="select users.username as username ,count(username) as num from message,users where message.user_id=users.id GROUP BY username ORDER BY count(username) desc";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -524,7 +523,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,username,title,content,create_time,laud,category.id cid,gname from message,category  where trash=0 and message.category_id=category.id  order by laud desc limit 0,6";
+            String sql="select message.id,user_id,users.username as username ,title,content,create_time,laud,category.id cid,gname from message,category,users where trash=0 and message.category_id=category.id and message.user_id=users.id order by laud desc limit 0,6";
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {

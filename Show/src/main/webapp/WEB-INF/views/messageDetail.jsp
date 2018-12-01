@@ -57,7 +57,7 @@
             /*border: 1px solid red;*/
         }
         .container ul.myself li{
-            width: 100px;
+            width:92px;
             height: 60px;
             line-height: 60px;
             /*border: 1px solid red;*/
@@ -232,6 +232,7 @@
             margin-top: 10px;
            border-bottom: 1px solid #f7f6ff;
             padding-bottom: 10px;
+
         }
         .allComment .containts .myHead{
             width: 100%;
@@ -253,7 +254,9 @@
             margin-left: 300px;
         }
         .allComment .containts .myBody{
+            margin-top: 20px;
             margin-left: 50px;
+
         }
 
 
@@ -366,7 +369,7 @@
                        <div class="containts">
                            <div class="myHead">
                                <img src="<%=basePath%>${comment.user.head}">
-                               <div><span>${comment.user.username}</span> <span class="time">${comment.create_time}</span></div>
+                               <div><span >${comment.user.username}</span> <span class="time">${comment.create_time}</span></div>
                            </div>
                            <div class="myBody">
                                    ${comment.contrent}
@@ -438,7 +441,7 @@
                <div class="containts">
                    <div class="myHead">
                        <img src="<%=basePath%>${sessionScope.user.head}">
-                       <div><span>${sessionScope.user.username}</span> <span class="time">`+now+`</span></div>
+                       <div><span >${sessionScope.user.username}</span> <span class="time">`+now+`</span></div>
                    </div>
                    <div class="myBody">
                             `+text_send+`
@@ -468,6 +471,7 @@
         $(".text_send").val("");
     }
 
+    // 添加喜欢
     var num=${message.laud};
     function addLuad() {
         $.ajax({
@@ -477,7 +481,12 @@
             success:function(){
                 num++;
                 $("#myLaudNum").text(num);
-
+                // $("#like").css({
+                //
+                //         "color":"white",
+                //         "background-color":"coral",
+                //         "border":"1px solid white"
+                // });
             },
             error:function( XMLHttpRequest, textStatus, errorThrown){
                 // $(".allComment").append("失败");

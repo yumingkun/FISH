@@ -284,7 +284,6 @@ public class MessageServlet extends HttpServlet {
                     if (title.length()>3 && content.length()>50){
                         Message message=new Message();
                         message.setUserId(user.getId());
-                        message.setUserName(user.getUsername());
                         message.setTitle(title);
                         message.setContent(content);
                         int  result=messageService.addMessage(message,categoryId);//进行数据保存数据库
