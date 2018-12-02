@@ -1,10 +1,4 @@
-<%@ page import="com.fish.bean.User" %><%--
-  Created by IntelliJ IDEA.
-  User: mingkunyu
-  Date: 2018/10/20
-  Time: 下午4:48
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -141,10 +135,12 @@
             <div id="right" class="myLeaf">
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
-                        <li class="list-group-item">个人中心</li>
+                        <li class="list-group-item"><a href="<%=request.getContextPath()%>/show/user.do">个人中心</a></li>
                         <li class="list-group-item">我的评论</li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
+                        <li class="list-group-item"><a href="<%=request.getContextPath()%>/show/toUploadDoc.do">我的文件</a></li>
+
                     </ul>
 
 
@@ -160,45 +156,45 @@
         </div>
 
 
-            <div id="left" class="container col-md-8 panel panel-default" style="max-height: 600px"  >
-                <h3 id="right-h3" class="panel-heading">个人中心</h3>
-                <div id="right-row-1" class="row" style="margin: 0px;">
-                    <div id="right-left" class="col-md-3">
-                        <div class="thumbnail" style="margin: 5px;">
-                            <c:if test="${user!=null}">
-                                <img alt="" src="<%=basePath%>${user.head}">
-                            </c:if>
+        <div id="left" class="container col-md-8 panel panel-default" style="max-height: 600px"  >
+            <h3 id="right-h3" class="panel-heading">个人中心</h3>
+            <div id="right-row-1" class="row" style="margin: 0px;">
+                <div id="right-left" class="col-md-3">
+                    <div class="thumbnail" style="margin: 5px;">
+                        <c:if test="${user!=null}">
+                            <img alt="" src="<%=basePath%>${user.head}">
+                        </c:if>
 
-                            <c:if test="${user==null}">
-                                <<img src="../../img/notlogin.jpg" class="img-circle">
-                            </c:if>
-
-
-                            <center><button style="margin: 0px;width: 100%;" class="btn btn-default"  data-toggle="modal" data-target="#myModal">修改头像</button></center>
-                        </div>
+                        <c:if test="${user==null}">
+                            <<img src="../../img/notlogin.jpg" class="img-circle">
+                        </c:if>
 
 
-
+                        <center><button style="margin: 0px;width: 100%;" class="btn btn-default"  data-toggle="modal" data-target="#myModal">修改头像</button></center>
                     </div>
-                    <div id="right-right-1" class="col-md-9" style="padding: 15px;">
-                        <div>
-                            <%--修改用户信息--%>
-                            <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
-                            <p>关注</p><p>粉丝</p>
 
-                        </div>
-                        <hr>
-                        <div>
-                            <p>用户名：${user.username}</p>
-                            <p>邮箱：${user.email}</p>
-                        </div>
-                    </div>
+
 
                 </div>
+                <div id="right-right-1" class="col-md-9" style="padding: 15px;">
+                    <div>
+                        <%--修改用户信息--%>
+                        <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
+                        <p>关注</p><p>粉丝</p>
 
+                    </div>
+                    <hr>
+                    <div>
+                        <p>用户名：${user.username}</p>
+                        <p>邮箱：${user.email}</p>
+                    </div>
+                </div>
 
             </div>
-            <%--右边整体end--%>
+
+
+        </div>
+        <%--右边整体end--%>
 
 
         </div>

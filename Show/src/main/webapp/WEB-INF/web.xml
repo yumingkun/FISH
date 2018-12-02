@@ -5,20 +5,6 @@
          version="3.1">
 
 
-  <!--前台配置中文过滤-->
-  <filter>
-    <filter-name>CharsetEncodingFilter</filter-name>
-    <filter-class>com.fish.filter.CharsetEncodingFilter</filter-class>
-    <init-param>
-      <param-name>encoding</param-name>
-      <param-value>UTF-8</param-value>
-    </init-param>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>CharsetEncodingFilter</filter-name>
-    <url-pattern>*.do</url-pattern>
-  </filter-mapping>
 
 
 </web-app>

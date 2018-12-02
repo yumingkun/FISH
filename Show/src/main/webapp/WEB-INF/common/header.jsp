@@ -69,6 +69,9 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a href="<%=request.getContextPath()%>/show/user.do"><span class="glyphicon glyphicon-user"></span> 个人中心</a> </li>
+                                        <li><a href="<%=request.getContextPath()%>/show/toUploadDoc.do"><span class="glyphicon glyphicon-folder-open"></span> 文件上传</a> </li>
+
+
                                         <li class="divider"></li>
                                         <li><a href="<%=request.getContextPath()%>/show/quit.do"><span class="glyphicon glyphicon-log-out"></span> 退出</a></li>
                                     </ul>
