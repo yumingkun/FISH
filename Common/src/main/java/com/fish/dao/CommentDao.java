@@ -4,6 +4,7 @@ import com.fish.bean.Comment;
 import com.fish.bean.Message;
 import com.fish.bean.User;
 import com.fish.utils.ConnectUtil;
+import com.fish.vo.CommentVo;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -109,4 +110,42 @@ public class CommentDao {
         }
         return comments;
     }
+
+
+    /**
+     * 查询当前用户的所有文章评论
+     * @return
+     */
+    public List<CommentVo> getUserComment(int userId){
+        Connection conn=null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        List<CommentVo> commentVos = new ArrayList<CommentVo>();
+        try {
+            conn=ConnectUtil.getConnection();
+            String sql="select users.id as userId,`comment`.id as commentId, users.username as username ,message.title as title, `comment`.content as content,`comment`.create_time as `time` from `comment`,message,users  where users.id=`comment`.user_id  and `comment`.message_id=message.id and message.user_id=? and trash=0 ORDER BY `comment`.create_time DESC";
+
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                CommentVo commentVo=new CommentVo();
+                commentVo.setUserId(rs.getInt("userId"));
+                commentVo.setCommentId(rs.getInt("commentId"));
+                commentVo.setUsername(rs.getString("username"));
+                commentVo.setTitle(rs.getString("title"));
+                commentVo.setContent(rs.getString("content"));
+                commentVo.setTime(rs.getTimestamp("time"));
+                commentVos.add(commentVo);
+            }
+            return commentVos;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return commentVos;
+    }
+
 }

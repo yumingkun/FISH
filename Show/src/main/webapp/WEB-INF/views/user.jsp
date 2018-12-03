@@ -136,7 +136,7 @@
                 <div class="row">
                     <ul class="nav nav-pills nav-stacked list-group col-md-12 col-xs-6 ">
                         <li class="list-group-item"><a href="<%=request.getContextPath()%>/show/user.do">个人中心</a></li>
-                        <li class="list-group-item">我的评论</li>
+                        <li class="list-group-item"><a href="<%=request.getContextPath()%>/show/toUserComment.do">我的评论</a></li>
                         <li class="list-group-item">我的关注</li>
                         <li class="list-group-item">我的粉丝</li>
                         <li class="list-group-item"><a href="<%=request.getContextPath()%>/show/toUploadDoc.do">我的文件</a></li>

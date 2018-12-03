@@ -3,6 +3,7 @@ package com.show.controller;
 import com.fish.bean.Comment;
 import com.fish.bean.User;
 import com.fish.service.CommentService;
+import com.fish.vo.CommentVo;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
@@ -15,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/show/addComment.do"})
+@WebServlet({"/show/addComment.do","/show/toUserComment.do"})
 public class CommentsServlet extends HttpServlet {
     private CommentService commentService;
 
@@ -34,7 +35,7 @@ public class CommentsServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse resp) throws ServletException, IOException {
-        super.doPost(request, resp);
+        User user = (User) request.getSession().getAttribute("user");
 
         //（写评论）添加文章的评论，只有登录的时候才能写评论
         if ("/show/addComment.do".equals(request.getServletPath())){
@@ -42,7 +43,6 @@ public class CommentsServlet extends HttpServlet {
             int messageId=Integer.parseInt(request.getParameter("messageId"));
 //            logger.info(messageId);
 //            获取当前评论人的user_id
-            User user = (User) request.getSession().getAttribute("user");
             int userid = user.getId();
 //            获取ajax传来的content(评论内容)
             String content=request.getParameter("content");
@@ -67,6 +67,12 @@ public class CommentsServlet extends HttpServlet {
             }
 
 
+        //得到当前用户所有的评论
+        }else  if ("/show/toUserComment.do".equals(request.getServletPath())){
+            List<CommentVo> commentVos =commentService.getUserComment(user.getId());
+            request.setAttribute("commentVos",commentVos);
+            System.out.printf("获取用户评论=========================");
+            request.getRequestDispatcher("/WEB-INF/views/userComment.jsp").forward(request,resp);
         }
     }
 }

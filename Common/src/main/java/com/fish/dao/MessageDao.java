@@ -333,22 +333,39 @@ public class MessageDao {
         Connection conn=null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        int num;
+        int num1;
+        int num2;
         try {
             conn=ConnectUtil.getConnection();
-            String sql="delete from  message  where  trash=1 and id=?";
-            pstmt = conn.prepareStatement(sql);
+            conn.setAutoCommit(false);
+
+            String sql1="delete from  message  where  trash=1 and id=?";
+            pstmt = conn.prepareStatement(sql1);
             pstmt.setInt(1, id);
-            num=pstmt.executeUpdate();
-            if (num>0) {
+            num1=pstmt.executeUpdate();
+
+            String sql2="delete from  comment  where  message_id=?";
+            pstmt = conn.prepareStatement(sql2);
+            pstmt.setInt(1, id);
+            num2=pstmt.executeUpdate();
+
+            conn.commit();
+
+            if (num1>0 && num2>0) {
                 return true;
             }
 
         } catch (Exception e) {
+            try {
+                conn.rollback();
+            } catch (SQLException e1) {
+                e1.printStackTrace();
+            }
             e.printStackTrace();
         } finally {
             ConnectUtil.release(rs,pstmt, conn);
         }
+
         return false;
 
     }

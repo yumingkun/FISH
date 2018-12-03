@@ -2,6 +2,7 @@ package com.fish.service;
 
 import com.fish.bean.Comment;
 import com.fish.dao.CommentDao;
+import com.fish.vo.CommentVo;
 
 import java.util.Date;
 import java.util.List;
@@ -43,5 +44,14 @@ public class CommentService {
      */
     public List<Comment> getCommentByMessageId(int messageId){
         return commentDao.getCommentByMessageId(messageId);
+    }
+
+
+    /**
+     * 查询当前用户的所有文章评论
+     * @return
+     */
+    public List<CommentVo> getUserComment(int userId){
+        return commentDao.getUserComment(userId);
     }
 }
