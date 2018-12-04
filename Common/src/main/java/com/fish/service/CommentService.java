@@ -54,4 +54,13 @@ public class CommentService {
     public List<CommentVo> getUserComment(int userId){
         return commentDao.getUserComment(userId);
     }
+
+    /**
+     * 根据评论id删除评论
+     * @param commentId
+     * @return
+     */
+    public int deleteCommentById(int commentId){
+        return commentDao.deleteCommentById(commentId);
+    }
 }

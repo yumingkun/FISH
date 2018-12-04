@@ -16,7 +16,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet({"/show/addComment.do","/show/toUserComment.do"})
+@WebServlet({"/show/addComment.do","/show/toUserComment.do","/show/deleteComment.do"})
 public class CommentsServlet extends HttpServlet {
     private CommentService commentService;
 
@@ -71,8 +71,17 @@ public class CommentsServlet extends HttpServlet {
         }else  if ("/show/toUserComment.do".equals(request.getServletPath())){
             List<CommentVo> commentVos =commentService.getUserComment(user.getId());
             request.setAttribute("commentVos",commentVos);
-            System.out.printf("获取用户评论=========================");
+//            System.out.printf("获取用户评论=========================");
             request.getRequestDispatcher("/WEB-INF/views/userComment.jsp").forward(request,resp);
+         //删除指定评论
+        }else if ("/show/deleteComment.do".equals(request.getServletPath())){
+            int commentId=Integer.parseInt(request.getParameter("commentId"));
+            int result=commentService.deleteCommentById(commentId);
+            if (result>0){
+                resp.getWriter().write("删除成功");
+            }else {
+                resp.getWriter().write("删除失败");
+            }
         }
     }
 }

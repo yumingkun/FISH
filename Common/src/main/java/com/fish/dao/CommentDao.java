@@ -123,13 +123,14 @@ public class CommentDao {
         List<CommentVo> commentVos = new ArrayList<CommentVo>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select users.id as userId,`comment`.id as commentId, users.username as username ,message.title as title, `comment`.content as content,`comment`.create_time as `time` from `comment`,message,users  where users.id=`comment`.user_id  and `comment`.message_id=message.id and message.user_id=? and trash=0 ORDER BY `comment`.create_time DESC";
+            String sql="select comment.id as id,users.id as userId,`comment`.id as commentId, users.username as username ,message.title as title, `comment`.content as content,`comment`.create_time as `time` from `comment`,message,users  where users.id=`comment`.user_id  and `comment`.message_id=message.id and message.user_id=? and trash=0 ORDER BY `comment`.create_time DESC";
 
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, userId);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 CommentVo commentVo=new CommentVo();
+                commentVo.setId(rs.getInt("id"));
                 commentVo.setUserId(rs.getInt("userId"));
                 commentVo.setCommentId(rs.getInt("commentId"));
                 commentVo.setUsername(rs.getString("username"));
@@ -146,6 +147,32 @@ public class CommentDao {
             ConnectUtil.release(rs, stmt, conn);
         }
         return commentVos;
+    }
+
+    /**
+     * 根据评论id删除评论
+     * @param commentId
+     * @return
+     */
+    public int deleteCommentById(int commentId){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num=0;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "delete from  comment  where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, commentId);
+            num = pstmt.executeUpdate();
+            return num;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return num;
     }
 
 }

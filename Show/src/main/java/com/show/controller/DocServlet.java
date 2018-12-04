@@ -43,7 +43,7 @@ public class DocServlet extends HttpServlet {
     	 if ("/show/toUploadDoc.do".equals(request.getServletPath())) {//去上传文件那个页面
 			 List<Doc> docs=docService.getDocListByUsername(user.getUsername());
 			 request.setAttribute("docs", docs);
-             request.getRequestDispatcher("/WEB-INF/views/upload.jsp").forward(request, response);
+             request.getRequestDispatcher("/WEB-INF/views/userDocUpload.jsp").forward(request, response);
              
 		}else if ("/show/uploadDoc.do".equals(request.getServletPath())) {//form 表单上传文件提交
 

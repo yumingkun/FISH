@@ -26,6 +26,8 @@ public class MessageServlet extends HttpServlet {
     private CarouseService carouseService;
     private UserService userService;
     private CommentService commentService;
+    private FollowService followService;
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -34,6 +36,7 @@ public class MessageServlet extends HttpServlet {
         carouseService=new CarouseService();
         userService=new UserService();
         commentService=new CommentService();
+        followService=new FollowService();
 
 
     }
@@ -91,20 +94,26 @@ public class MessageServlet extends HttpServlet {
             response.getWriter().write(str);
         //文章详情展示
         }else if ("/show/detail.do".equals(request.getServletPath())){
+            // 获取当前用户的id
+            User user = (User) request.getSession().getAttribute("user");
             if (request.getSession().getAttribute("user")==null ||  ("".equals(request.getParameter("user")) )) {//判断是否已经登录
                 request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request, response);
             }else {
+
                 int id=Integer.valueOf(request.getParameter("id"));//获取前端传来的文章id
-                int userId=Integer.valueOf(request.getParameter("userId"));//获取每个文章的用户ID
+                int userId=Integer.valueOf(request.getParameter("userId"));//获取每个文章的作者ID
+
+                Follow follow=followService.getFollow(user.getId(),userId);//获取关注
                 Message message=messageService.getMessageById(id);
-                User user=userService.getUser(userId);
+                User zuozhe=userService.getUser(userId);
                 int countComment=commentService.countComment(id);//根据文章ID查询此文章的评论的个数
                 List<Comment> comments=commentService.getCommentByMessageId(id);//根据文章的id查询comment和user（评论人）表
                 if (message!=null && user!=null){
                     request.setAttribute("message",message);//文章详细信息
-                    request.setAttribute("user",user);//此文章作者信息
+                    request.setAttribute("user",zuozhe);//此文章作者信息
                     request.setAttribute("countComment",countComment);//评论个数
                     request.setAttribute("allComment",comments);//所有的评论
+                    request.setAttribute("follow",follow);//关注
                     request.getRequestDispatcher("/WEB-INF/views/messageDetail.jsp").forward(request,response);
                 }else {
                     request.getRequestDispatcher("/WEB-INF/views/error/404.jsp").forward(request,response);
@@ -153,7 +162,7 @@ public class MessageServlet extends HttpServlet {
             }
             request.setAttribute("trashMessage", messageSrcsTrash);
             request.setAttribute("id", id);
-            request.getRequestDispatcher("/WEB-INF/views/trashMessage.jsp").forward(request, response);//回收站页面
+            request.getRequestDispatcher("/WEB-INF/views/userTrash.jsp").forward(request, response);//回收站页面
 
 
         //导航条模糊查询

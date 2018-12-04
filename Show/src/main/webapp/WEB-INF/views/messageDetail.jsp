@@ -57,7 +57,7 @@
             /*border: 1px solid red;*/
         }
         .container ul.myself li{
-            width:92px;
+            width:120px;
             height: 60px;
             line-height: 60px;
             /*border: 1px solid red;*/
@@ -261,6 +261,13 @@
 
 
 
+        /*已关注样式*/
+        .follow{
+            padding: 5px;
+            border-radius:5px;
+            background-color: #c9e5ff;
+        }
+
 
     </style>
 
@@ -285,8 +292,19 @@
         <ul class="myself">
                 <%--作者信息--%>
                 <c:if test="${user!=null}">
-                    <li><img alt="" src="<%=basePath%>${user.head}"></li>
-                    <li><span class="username"><span class="glyphicon glyphicon-user" style="color: #b6bfd9"> </span> ${user.username}</span></li>
+                    <li>
+                        <img alt="" src="<%=basePath%>${user.head}">
+                        <c:choose>
+                            <c:when test="${follow.status eq '1'}">
+                                <span  class="follow">已关注</span>
+                            </c:when>
+                            <c:otherwise>
+                                <span onclick="addFollow()" class="follow">关注</span>
+                            </c:otherwise>
+                        </c:choose>
+                    </li>
+                    <li><span class="username"><span class="glyphicon glyphicon-user" style="color: #b6bfd9"> </span> ${user.username}</span> </li>
+
                 </c:if>
 
                 <c:if test="${user==null}">
@@ -481,15 +499,69 @@
             success:function(){
                 num++;
                 $("#myLaudNum").text(num);
-                // $("#like").css({
-                //
-                //         "color":"white",
-                //         "background-color":"coral",
-                //         "border":"1px solid white"
-                // });
+                $("#like").attr("onclick"," ");
+
             },
             error:function( XMLHttpRequest, textStatus, errorThrown){
                 // $(".allComment").append("失败");
+            },
+
+
+        });
+    }
+
+
+    <%--//再次关注update--%>
+    <%--function addFollowTwo() {--%>
+        <%--$.ajax({--%>
+            <%--type:"post",--%>
+            <%--async: true,--%>
+            <%--url:"<%=request.getContextPath()%>/show/addFollowTwo.do?followId="+${user.id},--%>
+            <%--success:function(data){--%>
+                <%--$(".follow").text("已关注");--%>
+                <%--$(".follow").attr("onclick","deleteFollow()");--%>
+            <%--},--%>
+            <%--error:function( XMLHttpRequest, textStatus, errorThrown){--%>
+                <%--alert("失败")--%>
+            <%--},--%>
+
+
+        <%--});--%>
+
+    <%--}--%>
+
+    <%--// 取消关注--%>
+    <%--function deleteFollow() {--%>
+        <%--$.ajax({--%>
+            <%--type:"post",--%>
+            <%--async: true,--%>
+            <%--url:"<%=request.getContextPath()%>/show/updateFollow.do?followId="+${user.id},--%>
+            <%--success:function(data){--%>
+                <%--$(".follow").text("关注");--%>
+                <%--$(".follow").attr("onclick","addFollowTwo()")--%>
+            <%--},--%>
+            <%--error:function( XMLHttpRequest, textStatus, errorThrown){--%>
+                <%--alert("失败")--%>
+            <%--},--%>
+
+
+        <%--});--%>
+
+
+    <%--}--%>
+
+    //添加关注insert
+    function addFollow() {
+        $.ajax({
+            type:"post",
+            async: true,
+            url:"<%=request.getContextPath()%>/show/addFollow.do?followId="+${user.id},
+            success:function(data){
+                $(".follow").text("已关注");
+                $(".follow").attr("onclick","")
+            },
+            error:function( XMLHttpRequest, textStatus, errorThrown){
+                 alert("失败")
             },
 
 

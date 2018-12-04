@@ -110,12 +110,14 @@
             color: #898bd0;
         }
         .myComment2 p{
-             margin-left: 15px;
+            margin-left: 15px;
         }
-        #deleteComment{
-            color: rosybrown;
-            float: right;
-            margin-right: 15px;
+
+        /*我的关注的头像*/
+        #myFollow img{
+            height: 120px;
+            width: 120px;
+            border-radius: 10px;
         }
 
 
@@ -123,6 +125,12 @@
 
 </head>
 <body>
+<%
+
+    String path = request.getContextPath();
+    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+
 
 <!-- 导航 -->
 <%--1:引入头部--%>
@@ -162,25 +170,23 @@
 
         <%--右边--%>
         <div id="left" class="col-md-10 panel panel-default"   >
-            <h3 id="right-h3" class="panel-heading">我的评论</h3>
+            <h3 id="right-h3" class="panel-heading">我的粉丝</h3>
             <div class="container-fluid">
-                <c:forEach items="${commentVos}" var="commentVo" varStatus="status">
-                    <div class="row" id="${commentVo.id}">
-                        <div class="panel ">
-                            <!-- Default panel contents -->
-                            <div class="panel-heading">
-                                <p class="myComment1">
-                                    <span>${commentVo.username} <span class="com"> 评论了您的文章 </span> ${commentVo.title}</span>
-                                    <a role="button"  data-toggle="collapse" href="#${status.index}" aria-expanded="false" aria-controls="${status.index}"><span>${fn:substring(commentVo.time,0 ,10 )}</span>  <span class="glyphicon glyphicon-menu-down"></span></a>
-                                </p>
-                            </div>
-                            <div class="collapse myComment2"  id="${status.index}">
-                                <p>${commentVo.content} <span class="glyphicon glyphicon-trash" id="deleteComment" role="button" onclick="deleteComment('${commentVo.id}')"></span></p>
-                            </div>
 
+                <div class="row">
+                    <c:forEach items="${userfans}" var="userfans">
+                        <div class="col-md-2">
+                            <div class="thumbnail" id="myFollow">
+                                <img src="<%=basePath%>${userfans.head}" alt="...">
+                                <div class="caption">
+                                    <p>${userfans.username}</p>
+                                    <p>${userfans.email}</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </c:forEach>
+                    </c:forEach>
+                </div>
+
 
             </div>
 
@@ -191,28 +197,11 @@
 
 
 
-<%--页脚--%>
-<jsp:include page="../common/footer.jsp" />
-<%--页脚end--%>
+    <%--页脚--%>
+    <jsp:include page="../common/footer.jsp" />
+    <%--页脚end--%>
 
 </body>
 
-<script>
-    function deleteComment(commentId) {
-        // alert(commentId);
-        $.ajax({
-            type:"post",
-            dataType:"text",
-            url:"<%=request.getContextPath()%>/show/deleteComment.do?commentId="+commentId,
-            success:function(data){
-                $("#"+commentId).hide(1500);
-            },
-            error:function( XMLHttpRequest, textStatus, errorThrown){
-                alert("删除失败")
-            },
-
-        });
-    }
-</script>
 
 </html>

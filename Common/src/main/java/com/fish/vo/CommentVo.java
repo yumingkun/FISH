@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class CommentVo {
 //    select users.id 评论者id,`comment`.id 评论的id, users.username 评论的人 ,message.title 评论的文章, `comment`.content 评论内容,`comment`.create_time from 	`comment`,message,users  where users.id=`comment`.user_id  and `comment`.message_id=message.id and message.user_id=8 ORDER BY `comment`.create_time DESC
+
+    private int id;//评论id
     private  int userId;//评论者的ID
     private  int commentId;//评论的ID
     private String username;//评论的人
@@ -69,5 +71,13 @@ public class CommentVo {
 
     public void setTime(Date time) {
         this.time = time;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
