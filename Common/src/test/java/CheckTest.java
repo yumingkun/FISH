@@ -1,12 +1,11 @@
-import com.fish.dao.FollowDao;
 import com.fish.service.FollowService;
 import org.junit.Test;
 
-public class FollowTest {
+public class CheckTest {
 
     @Test
-    public int test(){
+    public void test(){
         FollowService followService=new FollowService();
-        return followService.checkFollow(8,7);
+         int num=followService.checkFollow(8,7);
     }
 }

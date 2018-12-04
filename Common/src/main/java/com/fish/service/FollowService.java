@@ -71,4 +71,14 @@ public class FollowService {
     public List<User> getFans(int follow_user_id) {
         return followDao.getFans(follow_user_id);
     }
+
+    /**
+     * 判断用户之前是否关注过，如果是关注过是update status=1 而不是再插入一条关注
+     * @param userId
+     * @param followId
+     * @return
+     */
+    public int checkFollow(int userId, int followId) {
+        return followDao.checkFollow(userId,followId);
+    }
 }

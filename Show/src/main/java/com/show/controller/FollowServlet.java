@@ -29,12 +29,29 @@ public class FollowServlet extends HttpServlet {
         //添加关注insert
         if ("/show/addFollow.do".equals(request.getServletPath())){
             int followId=Integer.parseInt(request.getParameter("followId"));
-            int result=followService.addFollow(user.getId(),followId);
-            if (result>0){
-               response.getWriter().write("已关注");
-            }else {
 
+            //判断是第一次关注（insert）还是第二次关注(update )
+            int check=followService.checkFollow(user.getId(),followId);
+            logger.info(user.getId());
+            logger.info(followId);
+            logger.info(check);
+            if (check>0){ //第二次关注//update
+                int result=followService.addFollowTwo(user.getId(),followId);
+                if (result>0){
+                    response.getWriter().write("已关注");
+                }else {
+                    response.getWriter().write("关注失败");
+                }
+            }else { //第一次关注 insert
+                int result=followService.addFollow(user.getId(),followId);
+                if (result>0){
+                    response.getWriter().write("已关注");
+                }else {
+                    response.getWriter().write("关注失败");
+                }
             }
+
+
          //取消关注
         }else if ("/show/updateFollow.do".equals(request.getServletPath())){
             int followId=Integer.parseInt(request.getParameter("followId"));

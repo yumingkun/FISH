@@ -204,6 +204,38 @@ public class FollowDao {
         return users;
     }
 
+    /**
+     * 判断用户之前是否关注过，如果是关注过是update status=1 而不是再插入一条关注
+     * @param userId
+     * @param followId
+     * @return
+     */
+    public int checkFollow(int userId, int followId) {
+        Connection conn = ConnectUtil.getConnection();
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int num =0;
+        try {
+            String sql = "select  count(*) as num from  follow where user_id=? and follow_user_id=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, followId);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                num=rs.getInt("num");
+            }
+            return num;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return num;
+    }
+
+
 
 }
 
