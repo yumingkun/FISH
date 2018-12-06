@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //后台分页获取的users
-@WebServlet({"/manage/login.do","/manage/toLogin.do","/manage/getUsers.do","/manage/delete.do"})
+@WebServlet({"/manage/login.do","/manage/toLogin.do","/manage/getUsers.do","/manage/delete.do","/manage/quit.do","/manage/updatePower.do"})
 public class UsersServlet extends HttpServlet {
     private UserService userService;
     private MessageService messageService;
@@ -40,12 +40,23 @@ public class UsersServlet extends HttpServlet {
         if ("/manage/login.do".equals(req.getServletPath())) {//登录请求
             String username = req.getParameter("username");
             String password = req.getParameter("password");
-            if ("root".equals(username) && "root".equals(password)) {
-                req.getSession().setAttribute("username", username);//把登录的后台管理员储存在回话里（为了进行是否登录状态的判断）
 
+            User manageUser=userService.login(username,password);
+            String power=manageUser.getPower();
+            if (manageUser!=null && manageUser.getUsername().length()>=6 ){
+                if ("1".equals(power) || "2".equals(power)){
+                    req.getSession().setAttribute("manageUser",manageUser);
+                    req.getRequestDispatcher("/admin/views/index.jsp").forward(req,resp);//重定向到后台主页面
+                }else if ("0".equals(power)){
+                    req.setAttribute("result","权限不足");
+                    req.getRequestDispatcher("/manage/toLogin.do").forward(req, resp);
+                }else {
+                    req.setAttribute("result","信息错误");
+                    req.getRequestDispatcher("/manage/toLogin.do").forward(req, resp);
+                }
 
-                req.getRequestDispatcher("/admin/views/index.jsp").forward(req,resp);//重定向到后台主页面
             } else {
+                req.setAttribute("result","信息错误");
                 req.getRequestDispatcher("/manage/toLogin.do").forward(req, resp);
             }
         } else if ("/manage/toLogin.do".equals(req.getServletPath())) {//过滤器判断为未登录时，自动跳转到登录页面
@@ -81,6 +92,16 @@ public class UsersServlet extends HttpServlet {
 
             }
 
+        }else if ("/manage/quit.do".equals(req.getServletPath())){
+            req.getSession().setAttribute("manageUser",null);
+            req.getRequestDispatcher("/manage/toLogin.do").forward(req, resp);
+        }else if("/manage/updatePower.do".equals(req.getServletPath())){
+            int userId=Integer.parseInt(req.getParameter("userId"));
+            int result=userService.updatePower(userId);
+            if (result>0){
+                req.setAttribute("updatePower",1);
+                req.getRequestDispatcher("/manage/getUsers.do").forward(req, resp);
+            }
         }
     }
 }

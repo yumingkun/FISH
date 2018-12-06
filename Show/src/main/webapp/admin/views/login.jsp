@@ -9,14 +9,15 @@
 	<body>
 
 		<form id="loginform" action="<%=request.getContextPath()%>/manage/login.do" method="post">
-			<h1>LOGIN</h1>
+			<h1>LOGIN${result}</h1>
+
 			<div class="form-group" >
 				<label for="Username">Username</label>
-				<input type="text" class="form-control" name="username" id="Username" placeholder="Username"  required pattern="^[a-zA-Z0-9\u4e00-\u9fa5]{4,10}$" title="4到10位">
+				<input type="text" class="form-control" name="username" id="Username" placeholder="Username"  required pattern="^[a-zA-Z0-9\u4e00-\u9fa5]{6,12}$" title="6到12位">
 			</div>
 			<div class="form-group">
 				<label for="exampleInputPassword1">Password</label>
-				<input type="password" class="form-control"  name="password" id="exampleInputPassword1" placeholder="Password" required pattern="^[a-zA-Z0-9]{4,10}" title="4到10位英文或数字">
+				<input type="password" class="form-control"  name="password" id="exampleInputPassword1" placeholder="Password" required pattern="^[a-zA-Z0-9]{4,12}" title="6到12位英文或数字">
 			</div>
 			<div class="form-group">
 				<div class="row">

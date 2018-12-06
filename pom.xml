@@ -10,9 +10,11 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>Common</module>
-        <module>Management</module>
         <module>Show</module>
     </modules>
+
+    <!--mvn clean package-->
+
 
 
 </project>

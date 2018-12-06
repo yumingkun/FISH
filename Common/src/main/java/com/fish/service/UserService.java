@@ -112,6 +112,11 @@ public class UserService {
         return userDao.updateUser(user);
 
     }
-
-
+    /**
+     * 更新用户权限
+     * @return
+     */
+    public  int updatePower(int userId) {
+        return userDao.updatePower(userId);
     }
+}

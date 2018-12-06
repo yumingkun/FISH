@@ -72,6 +72,12 @@
                         <strong>删除失败</strong>
                     </div>
                 </c:when>
+                <c:when test="${updatePower eq 1}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>撤销用户权限成功</strong>
+                    </div>
+                </c:when>
             </c:choose>
             <p class="theTitle">用户管理</p>
             <table class="table">
@@ -80,6 +86,7 @@
                     <th>ID</th>
                     <th>用户名</th>
                     <th>邮箱</th>
+                    <th>身份</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -89,9 +96,32 @@
                         <td>${user.id}</td>
                         <td>${user.username}</td>
                         <td>${user.email}</td>
+                        <c:choose>
+                            <c:when test="${user.power eq '0'}">
+                                <td>用户</td>
+                            </c:when>
+                            <c:when test="${user.power eq '1'}">
+                                <td>管理员</td>
+                            </c:when>
+                            <c:when test="${user.power eq '2'}">
+                                <td>系统管理员</td>
+                            </c:when>
+                        </c:choose>
                         <td>
-                            <button style="background-color: #d17660;color: white" class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="确定删除吗？" onclick="sub(${user.id})">删除</button>
+                            <c:choose>
+                                <c:when test="${user.power eq '0'}">
+                                     <button style="background-color: #d17660;color: white" class="btn btn-sm" data-toggle="tooltip" data-placement="top" title="确定删除吗？" onclick="sub(${user.id})">删除</button>
+                                 </c:when>
+                                <c:when test="${user.power eq '1'}">
+                                    <button class="btn btn-warning btn-sm" onclick="updatePower('${user.id}')">撤销</button>
+                                </c:when>
+                                <c:when test="${user.power eq '2'}">
+                                    <button class="btn"><span class="glyphicon glyphicon-ban-circle"></span></button>
+                                </c:when>
+                            </c:choose>
+
                         </td>
+
                     </tr>
                 </c:forEach>
                 </tbody>
@@ -160,6 +190,11 @@
         <input type="hidden" id="userId" name="userId" value="">
 </form>
 
+<form id="powerForm" action="<%=request.getContextPath()%>/manage/updatePower.do" method="post" style="display: none">
+    <input type="hidden" id="updatePower" name="userId" value="">
+</form>
+
+
 <script type="text/javascript">
     function doPage(n){
         document.getElementById("page").value=n;
@@ -171,6 +206,13 @@
         $("#manForm #userId").attr("value",id);
         // $("#manForm #userId").attr(name,id);
         $("#manForm").submit();
+    }
+
+    //撤销管理员
+    function updatePower(id){
+        $("#powerForm #updatePower").attr("value",id);
+        // $("#manForm #userId").attr(name,id);
+        $("#powerForm").submit();
     }
 </script>
 

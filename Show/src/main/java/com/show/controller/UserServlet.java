@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet({"/show/login.do","/show/register.do","/show/quit.do","/show/editUser.do","/show/toRegister","/show/user.do"})
+@WebServlet({"/show/toLogin.do","/show/login.do","/show/register.do","/show/quit.do","/show/editUser.do","/show/toRegister","/show/user.do"})
 public class UserServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private UserService userService;
@@ -31,22 +31,22 @@ public class UserServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         //登录处理
-        if ("/show/login.do".equals(req.getServletPath())){
-            String username=req.getParameter("username");
-            String password=req.getParameter("password");
+        if ("/show/login.do".equals(req.getServletPath())) {
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
 
             getServletConfig();
 
             //接收form传来的记住我
-            String remember=req.getParameter("ok");
+            String remember = req.getParameter("ok");
             //创建一个cookie，存放制定值
             Cookie nameCookie = new Cookie("username", username);
             Cookie passwordCookie = new Cookie("password", password);
             //设置失效时间
-            if (null!=remember && "ok".equals(remember)){
-                nameCookie.setMaxAge(7*24*60*60);
-                passwordCookie.setMaxAge(7*24*60*60);
-            }else {
+            if (null != remember && "ok".equals(remember)) {
+                nameCookie.setMaxAge(7 * 24 * 60 * 60);
+                passwordCookie.setMaxAge(7 * 24 * 60 * 60);
+            } else {
                 nameCookie.setMaxAge(0);
                 passwordCookie.setMaxAge(0);
             }
@@ -55,14 +55,16 @@ public class UserServlet extends HttpServlet {
             resp.addCookie(passwordCookie);
 
 
-            User user=userService.login(username,password);//成功则返回一个用户实体
-            if (user!=null){
-                req.getSession().setAttribute("user",user);//登录成功，把用户信息放到会话里
-                req.getRequestDispatcher("/show/message.do").forward(req,resp);
-            }else {
-                req.setAttribute("msg_l","Fail");
-                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req,resp);
+            User user = userService.login(username, password);//成功则返回一个用户实体
+            if (user != null) {
+                req.getSession().setAttribute("user", user);//登录成功，把用户信息放到会话里
+                req.getRequestDispatcher("/show/message.do").forward(req, resp);
+            } else {
+                req.setAttribute("msg_l", "Fail");
+                req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
             }
+        }else if ("/show/toLogin.do".equals(req.getServletPath())){
+            req.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(req, resp);
         //注册处理
         }else if ("/show/toRegister".equals(req.getServletPath())){
             req.getRequestDispatcher("/WEB-INF/views/register.jsp").forward(req,resp);

@@ -153,7 +153,7 @@ public class UserDao {
             stmt = conn.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                users.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email")));
+                users.add(new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"),rs.getString("power")));
 
             }
 
@@ -199,7 +199,7 @@ public class UserDao {
     public List<User> searchUsers(int page,int recordPage){
         Connection conn =null;
         List<User> users=new ArrayList<User>();
-        String sql = "select id,username,password,email  from users "+SQLUtil.getLimit(page,recordPage);
+        String sql = "select id,username,password,email,power  from users "+SQLUtil.getLimit(page,recordPage);
         // select id,username,password,email  from users limit 0,5
         PreparedStatement stmt=null;
         ResultSet rs=null;
@@ -213,6 +213,7 @@ public class UserDao {
                 user.setUsername(rs.getString("username"));
                 user.setPassword(rs.getString("password"));
                 user.setEmail(rs.getString("email"));
+                user.setPower(rs.getString("power"));
                 users.add(user);
             }
         } catch (Exception e) {
@@ -281,6 +282,32 @@ public class UserDao {
             ConnectUtil.release(rs, pstmt, conn);
         }
         return false;
+    }
+
+    /**
+     * 更新用户权限
+     * @return
+     */
+    public  int updatePower(int userId){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num=0;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "update users set power=0  where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1,userId);
+
+            num = pstmt.executeUpdate();
+            return num;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return num;
     }
 
 }
