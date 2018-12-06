@@ -3,6 +3,7 @@ package com.fish.service;
 
 import com.fish.bean.Category;
 import com.fish.dao.CategoryDao;
+import com.fish.vo.CategoryVo;
 
 import java.util.List;
 
@@ -31,5 +32,32 @@ public class CategoryService {
      */
     public Boolean addCategory(String gname){
         return categoryDao.addCategory(gname);
+    }
+
+
+    /**
+     * 删除专题的同时把文章类别设置成0：无
+     * @param id
+     * @return
+     */
+    public int deleteCategory(int id){
+        return categoryDao.deleteCategory(id);
+    }
+
+    /**
+     * 修改专题名称
+     * @param
+     * @return
+     */
+    public int upldateCategory(Category category){
+        return categoryDao.upldateCategory(category);
+    }
+
+    /**
+     * 获取每个专题对应的文章个数
+     * @return
+     */
+    public List<CategoryVo> getCategoryVo(){
+        return categoryDao.getCategoryVo();
     }
 }

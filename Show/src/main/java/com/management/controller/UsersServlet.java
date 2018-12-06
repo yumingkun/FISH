@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 //后台分页获取的users
-@WebServlet({"/manage/login.do","/manage/toLogin.do","/manage/toShowChart.do","/manage/getUsers.do","/manage/delete.do"})
+@WebServlet({"/manage/login.do","/manage/toLogin.do","/manage/getUsers.do","/manage/delete.do"})
 public class UsersServlet extends HttpServlet {
     private UserService userService;
     private MessageService messageService;
@@ -42,39 +42,14 @@ public class UsersServlet extends HttpServlet {
             String password = req.getParameter("password");
             if ("root".equals(username) && "root".equals(password)) {
                 req.getSession().setAttribute("username", username);//把登录的后台管理员储存在回话里（为了进行是否登录状态的判断）
-                List<ChartVo> chartVos=messageService.getMessageShowChart();
-
-                List<String> usernameList=new ArrayList<>();
-                List<Integer> numList=new ArrayList<>();
 
 
-                for (ChartVo chartVo:chartVos)  {
-                    usernameList.add('"'+chartVo.getUsername()+'"');
-                    numList.add(chartVo.getNum());
-                }
-                req.setAttribute("usernameList",usernameList.toString());
-                req.setAttribute("numList",numList);
-
-                req.getRequestDispatcher("/admin/views/management.jsp").forward(req,resp);//重定向到后台主页面
+                req.getRequestDispatcher("/admin/views/index.jsp").forward(req,resp);//重定向到后台主页面
             } else {
                 req.getRequestDispatcher("/manage/toLogin.do").forward(req, resp);
             }
         } else if ("/manage/toLogin.do".equals(req.getServletPath())) {//过滤器判断为未登录时，自动跳转到登录页面
             req.getRequestDispatcher("/admin/views/login.jsp").forward(req, resp);
-        }else if ("/manage/toShowChart.do".equals(req.getServletPath())){
-
-            List<ChartVo> chartVos=messageService.getMessageShowChart();
-            List<String> usernameList=new ArrayList<>();
-            List<Integer> numList=new ArrayList<>();
-
-
-            for (ChartVo chartVo:chartVos)  {
-                usernameList.add('"'+chartVo.getUsername()+'"');
-                numList.add(chartVo.getNum());
-            }
-            req.setAttribute("usernameList",usernameList);
-            req.setAttribute("numList",numList);
-            req.getRequestDispatcher("/admin/views/management.jsp").forward(req,resp);//重定向到后台主页面
 
         }else if ("/manage/getUsers.do".equals(req.getServletPath())){
             //1 获取请求参数-分页
@@ -98,7 +73,12 @@ public class UsersServlet extends HttpServlet {
             int userId=Integer.parseInt(req.getParameter("userId"));
             Boolean delete=userService.deleteUserById(userId);
             if (delete){
+                req.setAttribute("delete",1);
                 req.getRequestDispatcher("getUsers.do").forward(req, resp);
+            }else {
+                req.setAttribute("delete",0);
+                req.getRequestDispatcher("getUsers.do").forward(req, resp);
+
             }
 
         }

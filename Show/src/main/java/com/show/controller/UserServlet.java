@@ -4,6 +4,7 @@ import com.fish.bean.User;
 import com.fish.service.UserService;
 import org.apache.log4j.Logger;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -33,6 +34,8 @@ public class UserServlet extends HttpServlet {
         if ("/show/login.do".equals(req.getServletPath())){
             String username=req.getParameter("username");
             String password=req.getParameter("password");
+
+            getServletConfig();
 
             //接收form传来的记住我
             String remember=req.getParameter("ok");

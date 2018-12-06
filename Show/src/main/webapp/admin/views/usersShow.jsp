@@ -57,8 +57,22 @@
             </div>
         </div>
         <div class="col-lg-1" ></div>
-        <div class="col-lg-7" >
+        <div class="col-lg-7">
             <%--右侧表格--%>
+            <c:choose>
+                <c:when test="${delete eq 1}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>删除成功</strong>
+                    </div>
+                </c:when>
+                <c:when test="${delete eq 0}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>删除失败</strong>
+                    </div>
+                </c:when>
+            </c:choose>
             <p class="theTitle">用户管理</p>
             <table class="table">
                 <thead>

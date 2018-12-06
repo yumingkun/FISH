@@ -1,19 +1,33 @@
-<%--这是后台主页--%>
-<%--这是后台主页--%>
-<%--这是后台主页--%>
+<%--
+  Created by IntelliJ IDEA.
+  User: mingkunyu
+  Date: 2018/11/7
+  Time: 6:22 PM
+  To change this template use File | Settings | File Templates.
+--%>
+
+<%--这是后--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
-    <title>后台首页(欢迎页)</title>
+    <title>专题管理</title>
     <%--引入需要的js css--%>
-
     <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/reset.css">
     <script src="<%=request.getContextPath()%>/admin/js/jquery.js"></script>
     <script src="<%=request.getContextPath()%>/admin/js/Chart.min.js"></script>
     <script src="<%=request.getContextPath()%>/admin/js/bootstrap.js"></script>
     <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/bootstrap.css">
+    <style>
+        .theTitle{
+            font-family: "Wawati SC";
+            text-align: center;
+            font-size: 50px;
+            font-weight: 800;
+            color: gray;
+        }
+    </style>
 </head>
 <body>
 
@@ -25,39 +39,43 @@
     <div class="row">
         <div class="col-lg-2" >
             <div class="row">
-            <%--引入搜索--%>
-            <jsp:include page="common/search.jsp"></jsp:include>
-        </div>
+                <%--引入搜索--%>
+                <jsp:include page="common/search.jsp"></jsp:include>
+            </div>
             <div class="row">
                 <%--引入侧边栏--%>
                 <jsp:include page="common/side.jsp"></jsp:include>
             </div>
-         </div>
-
-        <div class="col-lg-9" >
-
-            <%--<button class="btn btn-default" onclick="getChart()">获取</button>--%>
-            <canvas id="myChart" width="100" height="60"></canvas>
-
-
-            <%--<canvas id="c1" width="100px" height="60px"></canvas>--%>
         </div>
-        <div class="col-lg-1" ></div>
+
+        <div class="col-lg-7 col-lg-offset-1">
+            <canvas id="myChart" width="100" height="50"></canvas>
+
+
+        </div>
     </div>
 </div>
 
 
-</body>
 
-<script type="text/javascript">
+
+</body>
+<script>
+    function updateCategory(id,gname) {
+        $("#gname").attr("value",gname);
+        $("#gid").attr("value",id);
+    }
+    function sub() {
+        $("#updateCategoryFrom").submit();
+    }
 
     var ctx = document.getElementById("myChart").getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels:${usernameList},
+            labels:${gnameList},
             datasets: [{
-                label: ' FISH',
+                label: ' 专题数 ',
                 data:${numList},
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
@@ -88,6 +106,6 @@
             }
         }
     });
-</script>
 
+</script>
 </html>

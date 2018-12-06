@@ -18,12 +18,15 @@
         margin-top: 0px;
         /*border: 1px solid red;*/
     }
+
+
 </style>
 
 <nav class="navbar">
     <div class="container-fluid">
         <div class="navbar-header">
-                <a href="<%=request.getContextPath()%>/manage/toShowChart.do"><img alt="Brand" src="../../img/logo.png"></a>
+                <a href="<%=request.getContextPath()%>/show/message.do"><img alt="Brand" src="../../img/logo.png"></a>
         </div>
+
     </div>
 </nav>

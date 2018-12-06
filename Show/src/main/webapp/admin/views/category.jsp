@@ -14,10 +14,11 @@
 <head>
     <title>专题管理</title>
     <%--引入需要的js css--%>
-    <link rel="stylesheet" href="../css/reset.css">
-    <script src="../js/jquery.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <link rel="stylesheet" href="../..//css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/reset.css">
+    <script src="<%=request.getContextPath()%>/admin/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/admin/js/Chart.min.js"></script>
+    <script src="<%=request.getContextPath()%>/admin/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/bootstrap.css">
     <style>
         .theTitle{
             font-family: "Wawati SC";
@@ -48,8 +49,21 @@
         </div>
         <div class="col-lg-1" ></div>
         <div class="col-lg-7">
-
             <p class="theTitle">专题管理</p>
+            <c:choose>
+                <c:when test="${result eq 1}">
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>删除成功</strong>
+                    </div>
+                </c:when>
+                <c:when test="${update eq 1}">
+                    <div class="alert alert-info alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>更新成功</strong>
+                    </div>
+                </c:when>
+            </c:choose>
 
             <div >
                 <div class="panel panel-warning">
@@ -60,13 +74,12 @@
                                 <div class="col-sm-8 ">
                                     <input type="text" name="gname" class="form-control" placeholder="输入你想要的专题">
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-8 ">
+
+                                <div class="col-sm-2">
                                     <input type="submit" class="btn btn-default" value="提交"/>
                                 </div>
-
                             </div>
+
                         </form>
                     </div>
                 </div>
@@ -83,13 +96,21 @@
                                     <tr>
                                         <th>专题编号</th>
                                         <th>专题名称</th>
+                                        <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach items="${categorys}" var="category">
+                                    <c:forEach items="${categorys}" var="category" varStatus="status">
                                     <tr>
-                                        <td>${category.id}</td>
+                                        <td>${status.index }</td>
                                         <td>${category.gname} </td>
+                                        <td>
+                                            <c:if test="${category.id  ne  '0'}">
+                                                <a  href="<%=request.getContextPath()%>/manage/deleteById.do?id=${category.id}" class="btn btn-default btn-sm">删除</a>
+                                                <a  href="#" class="btn btn-default btn-sm" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" onclick="updateCategory('${category.id}','${category.gname}')">修改</a>
+                                            </c:if>
+
+                                        </td>
                                     </tr>
                                     </c:forEach>
                                 </tbody>
@@ -108,8 +129,78 @@
 </div>
 
 
-
-
+<%--模态框--%>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">修改专题</h4>
+            </div>
+            <div class="modal-body">
+                <form method="post" action="<%=request.getContextPath()%>/manage/updateById.do" id="updateCategoryFrom">
+                    <div class="form-group">
+                        <label for="gname" class="control-label">专题名:</label>
+                        <input type="hidden" name="gid" id="gid" >
+                        <input type="text" class="form-control" id="gname" name="gname" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-info" onclick="sub()" >提交</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
+<script>
+    function updateCategory(id,gname) {
+        $("#gname").attr("value",gname);
+        $("#gid").attr("value",id);
+    }
+    function sub() {
+        $("#updateCategoryFrom").submit();
+    }
+
+    var ctx = document.getElementById("myChart").getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels:${gnameList},
+            datasets: [{
+                label: ' 专题数 ',
+                data:${numList},
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(255, 206, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(255, 159, 64, 0.2)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:true
+                    }
+                }]
+            }
+        }
+    });
+
+</script>
 </html>

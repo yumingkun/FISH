@@ -311,7 +311,6 @@
         var file=this.files[0] ;  // 获取input上传的图片数据;
 
         var url=window.URL.createObjectURL(file);  // 得到bolb对象路径，可当成普通的文件路径一样使用，赋值给src;
-
         document.getElementById("myImg").innerHTML="<img src='"+url+"' class='img-circle'/>";
     };
 

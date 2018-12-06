@@ -385,7 +385,7 @@ public class MessageDao {
         List<Message> messages = new ArrayList<Message>();
         try {
             conn=ConnectUtil.getConnection();
-            String sql="select message.id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where trash=0 and   category_id=category.id and message.user_id=user_id and  category.id =?  order by create_time desc ";
+            String sql="select message.id,user_id,users.username as username,title,content,create_time,laud,category.id cid,gname from message,category,users  where trash=0 and   message.category_id=category.id and message.user_id=users.id and  category.id =?  order by create_time desc";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, id );
             rs = stmt.executeQuery();

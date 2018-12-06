@@ -12,11 +12,11 @@
 <head>
     <title>轮播管理</title>
     <%--引入需要的js css--%>
-    <link rel="stylesheet" href="../css/reset.css">
-    <script src="../js/jquery.js"></script>
-    <script src="../js/Chart.min.js"></script>
-    <script src="../js/bootstrap.js"></script>
-    <link rel="stylesheet" href="../..//css/bootstrap.css">
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/reset.css">
+    <script src="<%=request.getContextPath()%>/admin/js/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/admin/js/Chart.min.js"></script>
+    <script src="<%=request.getContextPath()%>/admin/js/bootstrap.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/admin/css/bootstrap.css">
 
     <style>
         /*轮播预览样式*/
