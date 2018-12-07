@@ -6,6 +6,7 @@ import com.fish.service.UserService;
 import com.jspsmart.upload.*;
 import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
+import org.apache.log4j.Logger;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import java.util.Date;
 @WebServlet("/show/upload.do")
 public class UploadHeadServlet extends HttpServlet {
 
+    private static Logger logger = Logger.getLogger(UploadHeadServlet.class);
     private UserService userService;
 
 
@@ -65,10 +67,13 @@ public class UploadHeadServlet extends HttpServlet {
 
 
         //11:上传到服务器的根目录下
-        String uploadPath =servletConfig.getServletContext().getRealPath("/");
-        String filePath=uploadPath+mainFile+"."+extFile;
+//        String uploadPath =servletConfig.getServletContext().getRealPath("/");
+        String  uploadPath="/Users/mingkunyu/upload/";
+        String filePath=uploadPath +mainFile+"."+extFile;
 
 
+
+        logger.info(filePath);
 
         try{
             file.saveAs(filePath); //上传文件另存到tomcat部署的项目文件夹中，
@@ -84,11 +89,11 @@ public class UploadHeadServlet extends HttpServlet {
 //        上传文件名到数据库
         User user=(User)request.getSession().getAttribute("user");
         int  id=user.getId();
-        String name=mainFile+"."+extFile;
-        if ( userService.addHead(name,id)){
+        String url="upload/"+mainFile+"."+extFile;
+        if ( userService.addHead(url,id)){
             System.out.printf("上传头像成功====================");
 //          上传头像之后更新session中的头像地址
-            user.setHead(mainFile+"."+extFile);
+            user.setHead(url);
             request.getSession().setAttribute("user",user);
             request.getRequestDispatcher("/show/user.do").forward(request,response);
 //            request.getSession().setAttribute("src",mainFile+"."+extFile);

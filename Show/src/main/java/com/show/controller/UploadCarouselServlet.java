@@ -41,6 +41,7 @@ public class UploadCarouselServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         //去轮播图那个页面
         if ("/show/toCarousel.do".equals(request.getServletPath())){
             List<Carousel> carouselList =carouseService.getCarouselList();
@@ -82,19 +83,21 @@ public class UploadCarouselServlet extends HttpServlet {
 //           服务器的根目录下 /Users/mingkunyu/tool/apache-tomcat-8.5.32/wtpwebapps/Yuu/
 
 //           使用相对路径
-            String saveUrl="carousel/";//此目录需要新建
-            String filePath=saveUrl+mainFile+"."+extFile;
+
+            String path="/Users/mingkunyu/upload/";//文件映射地址
+            String filePath=path+mainFile+"."+extFile;///Users/mingkunyu/upload/随机文件名
+            String saveUrl="upload/"+mainFile+"."+extFile;
 //           服务器的upload目录下  /Users/mingkunyu/tool/apache-tomcat-8.5.32/wtpwebapps/Yuu/upload/1540285990824.jpg
 
 
 //           eclipse重新部署之后，项目状态就会被清空(你的上传图片文件夹就会被删除)，但是如果不是重新部署，只是重启服务器的话，你的图片目录还会在。
-            String uploadPath =servletConfig.getServletContext().getRealPath("/")+saveUrl;
-//            /Users/mingkunyu/tool/apache-tomcat-8.5.32/wtpwebapps/Yuu/upload/
-            java.io.File f=new java.io.File(uploadPath);
-            if (!f.exists()) {//没有此目录就新建一个目录
-                f.mkdirs();
-            }
-
+//            String uploadPath =servletConfig.getServletContext().getRealPath("/")+saveUrl;
+////            /Users/mingkunyu/tool/apache-tomcat-8.5.32/wtpwebapps/Yuu/upload/
+//            java.io.File f=new java.io.File(uploadPath);
+//            if (!f.exists()) {//没有此目录就新建一个目录
+//                f.mkdirs();
+//            }
+//
 
             try{
                 file.saveAs(filePath); //文件另存到tomcat部署的项目文件夹中，不是当前项目物理位置
@@ -106,7 +109,7 @@ public class UploadCarouselServlet extends HttpServlet {
 
 //            logger.info(uploadPath);
 //          数据库储存文件路径和文件名
-            int resultNum=carouseService.addCarousel(filePath);
+            int resultNum=carouseService.addCarousel(saveUrl);//upload/文件名
             if (resultNum>0){
                 request.getRequestDispatcher("/show/toCarousel.do").forward(request,response);
                 return;

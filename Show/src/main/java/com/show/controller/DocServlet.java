@@ -39,6 +39,7 @@ public class DocServlet extends HttpServlet {
 		this.doPost(request, response);
 	}
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    	 String path="/Users/mingkunyu/upload/";//文件映射地址
 		 User user=(User) request.getSession().getAttribute("user");
     	 if ("/show/toUploadDoc.do".equals(request.getServletPath())) {//去上传文件那个页面
 			 List<Doc> docs=docService.getDocListByUsername(user.getUsername());
@@ -76,21 +77,15 @@ public class DocServlet extends HttpServlet {
 			File file=files.getFile(0);
 			String extFile=file.getFileExt();
 			String mainFile=file.getFileName();
-			String savePath="upload/"+mainFile;
+			String savePath=path+mainFile;//  /Users/mingkunyu/upload/文件原名
 
-	//           eclipse重新部署之后，项目状态就会被清空(你的上传文件夹就会被删除)，但是如果不是重新部署，只是重启服务器的话，你的图片目录还会在。
-			 String uploadPath =servletconfig.getServletContext().getRealPath("/")+"upload/";
-	//            /Users/mingkunyu/tool/apache-tomcat-8.5.32/wtpwebapps/Yuu/upload/
-			 java.io.File f=new java.io.File(uploadPath);
-			 if (!f.exists()) {//没有此目录就新建一个目录
-				 f.mkdirs();
-			 }
-			
+			 System.out.printf(savePath+"文件上传地址");
+
 			//6封装数据
 			//filename,savepath,filesize,catalog,filetype,memo,isshare,username,uploaddate
 			Doc doc=new Doc();
 			doc.setFilename(file.getFileName());
-			doc.setSavepath(savePath);
+			doc.setSavepath("upload/"+mainFile);//数据库储存的文件地址 upload/文件名
 			doc.setFilesize(file.getSize());
 			doc.setFiletype(file.getFileExt());
 			doc.setMemo(myRequest.getParameter("memo"));
@@ -104,7 +99,7 @@ public class DocServlet extends HttpServlet {
 			doc.setUploaddate(format);
 			//end
  
-			int saveResult=docService.save(doc);
+			int saveResult=docService.save(doc);//上传文件
 			if (saveResult>0) {
 		           request.setAttribute("doc",1);//上传成功
 				   request.getRequestDispatcher("/show/toUploadDoc.do").forward(request, response);
@@ -133,11 +128,11 @@ public class DocServlet extends HttpServlet {
 			 SmartUpload su=new SmartUpload();
 			 String savepath=request.getParameter("savepath");
 			 docService.addDownNum(savepath);
-			 System.out.println("保存路径"+savepath);
+//			 System.out.println("保存路径"+savepath);
 			 su.initialize(servletconfig,request,response);
 			 su.setContentDisposition(null);
 			 try {
-				 su.downloadFile("/"+savepath);
+				 su.downloadFile("/Users/mingkunyu/"+savepath);
 //				 request.getRequestDispatcher("/show/toUploadDoc.do").forward(request, response);
 
 			 } catch (SmartUploadException e) {

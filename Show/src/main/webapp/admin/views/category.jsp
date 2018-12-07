@@ -140,67 +140,33 @@
             <div class="modal-body">
                 <form method="post" action="<%=request.getContextPath()%>/manage/updateById.do" id="updateCategoryFrom">
                     <div class="form-group">
-                        <label for="gname" class="control-label">专题名:</label>
-                        <input type="hidden" name="gid" id="gid" >
-                        <input type="text" class="form-control" id="gname" name="gname" >
+                        <label for="gname2" class="control-label">专题名:</label>
+                        <input type="hidden" name="gid" id="gid2" value="" >
+                        <input type="text" class="form-control" id="gname2" name="gname" value="">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-info" onclick="sub()" >提交</button>
+                <button type="button" class="btn btn-info" onclick="sub2()" >提交</button>
             </div>
         </div>
     </div>
 </div>
 
 </body>
-<script>
+
+<script type="text/javascript">
     function updateCategory(id,gname) {
-        $("#gname").attr("value",gname);
-        $("#gid").attr("value",id);
+        $("#gname2").attr("value",gname);
+        $("#gid2").attr("value",id);
     }
-    function sub() {
+    function sub2() {
         $("#updateCategoryFrom").submit();
     }
 
-    var ctx = document.getElementById("myChart").getContext('2d');
-    var myChart = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels:${gnameList},
-            datasets: [{
-                label: ' 专题数 ',
-                data:${numList},
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
-            }
-        }
-    });
+
+
 
 </script>
 </html>
