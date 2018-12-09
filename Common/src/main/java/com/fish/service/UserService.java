@@ -119,4 +119,13 @@ public class UserService {
     public  int updatePower(int userId) {
         return userDao.updatePower(userId);
     }
+
+
+    /**
+     * 得到文章数排行前五的作者信息
+     * @return
+     */
+    public  List<User> getUserLimit(){
+        return userDao.getUserLimit();
+    }
 }

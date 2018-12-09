@@ -92,11 +92,12 @@
 
 <div class="container">
     <div class="row">
+
         <div class="col-md-3">
             <div class="thumbnail" style="box-shadow: 2px 2px 5px silver">
-                <img src="<%=basePath%>${user.head}" alt="..." style="border-radius: 50%;border: 4px solid #ffd2be">
+                <img src="<%=basePath%>${user.head}" alt="..." style="border-radius: 50%;border: 4px solid #dcf7ff">
                 <div class="caption" style="text-align: center">
-                    <h4>我的关注：${user.username}</h4>
+                    <h4>作者：${user.username}</h4>
                     <!--<p>...</p>
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>-->
                 </div>
@@ -107,7 +108,7 @@
                 <c:forEach items="${messages}" var="message">
                     <div class="new-list-item clearfix">
                         <div class="col-xs-3 .text-center" >
-                                <img src="${message.src}" class="thumbnail">
+                            <img src="${message.src}" class="thumbnail">
                         </div>
                         <div class="col-xs-7">
 
@@ -131,8 +132,9 @@
                 </c:forEach>
                 <%--加载更多数据显示位置   --%>
             </div>
-
         </div>
+
+
     </div>
 </div>
 

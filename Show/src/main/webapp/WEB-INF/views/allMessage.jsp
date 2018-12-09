@@ -104,6 +104,21 @@
         .info{
             margin-top: 40px;
         }
+
+        /*推荐作者*/
+        .author{
+            margin-top:5px;
+            padding: 5px;
+            transition: all 1s;
+        }
+        .author:hover{
+            box-shadow: 10px 10px 20px gainsboro ;
+        }
+        .author img{
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
     </style>
 
 
@@ -244,14 +259,27 @@
         <!-- 右边内容 -->
         <div class="col-sm-3">
             <div class="side-bar-card flag clearfix" style="margin-top: 0">
-                <div class="col-xs-5">
-                    <img src="../../img/tel.jpeg">
+                <div class="card-title">推荐作者</div>
+                <div class="container-fluid">
+                    <c:forEach items="${userlimit}" var="user">
+                        <a href="<%=request.getContextPath()%>/show/authorMessage.do?authorId=${user.id}">
+                            <div class="row author">
+                                <div class="col-xs-4">
+                                    <img src="<%=basePath%>${user.head}">
+                                </div>
+                                <div class="col-cs-6 " style="height: 40px;line-height: 40px">
+                                    <p>${user.username}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </c:forEach>
+
+
                 </div>
-                <div class="col-cs-7">
-                    <div class="text-lg">有害信息举报专区</div>
-                    <div>举报电话：110</div>
-                </div>
+
             </div>
+
+            <br>
             <div class="side-bar-card">
                 <div class="card-title">推荐文章</div>
                 <div class="card-body">

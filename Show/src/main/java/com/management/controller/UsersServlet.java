@@ -40,10 +40,12 @@ public class UsersServlet extends HttpServlet {
         if ("/manage/login.do".equals(req.getServletPath())) {//登录请求
             String username = req.getParameter("username");
             String password = req.getParameter("password");
+            System.out.printf(username);
+            System.out.printf(password);
 
             User manageUser=userService.login(username,password);
             String power=manageUser.getPower();
-            if (manageUser!=null && manageUser.getUsername().length()>=6 ){
+            if (manageUser!=null && manageUser.getUsername().length()>=4 ){
                 if ("1".equals(power) || "2".equals(power)){
                     req.getSession().setAttribute("manageUser",manageUser);
                     req.getRequestDispatcher("/admin/views/index.jsp").forward(req,resp);//重定向到后台主页面

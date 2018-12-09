@@ -93,9 +93,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="thumbnail">
-                <img src="<%=basePath%>${user.head}" alt="...">
-                <div class="caption">
+            <div class="thumbnail" style="box-shadow: 2px 2px 5px silver">
+                <img src="<%=basePath%>${user.head}" alt="..." style="border-radius: 50%;border: 4px solid #d1ffe6">
+                <div class="caption" style="text-align: center">
                     <h4>我的粉丝：${user.username}</h4>
                     <!--<p>...</p>
                     <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>-->

@@ -310,4 +310,35 @@ public class UserDao {
         return num;
     }
 
+    /**
+     * 得到文章数排行前五的作者信息
+     * @return
+     */
+    public  List<User> getUserLimit(){
+        Connection conn =null;
+        List<User> users=new ArrayList<User>();
+        String sql = "select  users.id as id,users.head as head,users.email as email ,users.username as username from message,users where users.id=message.user_id GROUP BY message.user_id ORDER BY count(*) desc LIMIT 0,5";
+        // select id,username,password,email  from users limit 0,5
+        PreparedStatement stmt=null;
+        ResultSet rs=null;
+        try {
+            conn=ConnectUtil.getConnection();
+            stmt = conn.prepareStatement(sql);
+            rs = stmt.executeQuery();
+            while (rs.next()) {
+                User user=new User();
+                user.setId(rs.getInt("id"));
+                user.setHead(rs.getString("head"));
+                user.setEmail(rs.getString("email"));
+                user.setUsername(rs.getString("username"));
+                users.add(user);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return users;
+    }
+
 }
