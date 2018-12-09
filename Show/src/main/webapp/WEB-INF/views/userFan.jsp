@@ -179,7 +179,7 @@
                             <div class="thumbnail" id="myFollow">
                                 <img src="<%=basePath%>${userfans.head}" alt="...">
                                 <div class="caption">
-                                    <p>${userfans.username}</p>
+                                    <p><a href="<%=request.getContextPath()%>/show/myFanMessage.do?fanId=${userfans.id}">${userfans.username}</a></p>
                                     <p>${userfans.email}</p>
                                 </div>
                             </div>

@@ -235,8 +235,65 @@ public class FollowDao {
         return num;
     }
 
+    /**
+     * 查询当前用户的关注数
+     * @param userId
+     * @return
+     */
+    public  int getFollowNum(int userId){
+        Connection conn = ConnectUtil.getConnection();
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int num =0;
+        try {
+            String sql = "select count(*) as num from follow where `status`=1 and  user_id=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                num=rs.getInt("num");
+            }
+            return num;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return num;
+    }
 
 
+
+    /**
+     * 查询当前用户的粉丝数
+     * @param userId
+     * @return
+     */
+    public  int getFanNum(int userId){
+        Connection conn = ConnectUtil.getConnection();
+
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        int num =0;
+        try {
+            String sql = "select count(*) as num from follow where `status`=1 and follow_user_id=?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, userId);
+            rs = stmt.executeQuery();
+            if (rs.next()){
+                num=rs.getInt("num");
+            }
+            return num;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, stmt, conn);
+        }
+        return num;
+    }
 }
 
 

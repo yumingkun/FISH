@@ -28,7 +28,7 @@ public class DocService {
      *
      * @return
      */
-    public List<Doc> getDocList(String username) {
+    public List<Doc> getDocList() {
         return docDao.getDocList();
     }
 

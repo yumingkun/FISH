@@ -27,7 +27,7 @@ import com.jspsmart.upload.SmartUpload;
 import com.jspsmart.upload.SmartUploadException;
 
 
-@WebServlet({"/show/toUploadDoc.do","/show/uploadDoc.do","/show/deleteDoc.do","/show/downDoc.do","/show/isShare"})
+@WebServlet({"/show/toUploadDoc.do","/show/uploadDoc.do","/show/deleteDoc.do","/show/downDoc.do","/show/isShare","/show/allUploadDoc.do"})
 public class DocServlet extends HttpServlet {
 	private DocService docService=new DocService();
     ServletConfig servletconfig;
@@ -144,6 +144,11 @@ public class DocServlet extends HttpServlet {
 
     	 	int result=docService.uploadShare(share,docId);
 			request.getRequestDispatcher("/show/toUploadDoc.do").forward(request, response);
+		//查看全部已经分享的的文件和上传者
+		 }else if ("/show/allUploadDoc.do".equals(request.getServletPath())){
+				List<Doc> docs=docService.getDocList();
+				request.setAttribute("docs",docs);
+				request.getRequestDispatcher("/WEB-INF/views/allDoc.jsp").forward(request,response);
 		 }
     	
 		 

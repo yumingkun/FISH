@@ -3,7 +3,9 @@ package com.fish.service;
 import com.fish.bean.Follow;
 import com.fish.bean.User;
 import com.fish.dao.FollowDao;
+import com.fish.utils.ConnectUtil;
 
+import java.sql.Connection;
 import java.util.List;
 
 public class FollowService {
@@ -81,4 +83,24 @@ public class FollowService {
     public int checkFollow(int userId, int followId) {
         return followDao.checkFollow(userId,followId);
     }
+
+
+    /**
+     * 查询当前用户的关注数
+     * @param userId
+     * @return
+     */
+    public  int getFollowNum(int userId){
+        return followDao.getFollowNum(userId);
+    }
+
+    /**
+     * 查询当前用户的粉丝数
+     * @param userId
+     * @return
+     */
+    public  int getFanNum(int userId){
+        return followDao.getFanNum(userId);
+    }
+
 }

@@ -313,6 +313,7 @@
     // 创建富文本
     var E = window.wangEditor;
     var editor = new E('#div1', '#div2');
+    editor.customConfig.uploadImgShowBase64 = true ;  // 使用 base64 保存图片
     editor.create();
 
 

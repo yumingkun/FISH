@@ -121,6 +121,7 @@
         '#f9963b',
         '#ffffff'
     ];
+    editor1.customConfig.uploadImgShowBase64 = true ;  // 使用 base64 保存图片
     editor1.create();
     $("#sub").click(function(){
          var html= editor1.txt.html();

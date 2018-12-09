@@ -18,7 +18,7 @@ public class Message {
 //    分类
     private Category category;
 
-    public Message(int id, int userId, String userName, String title, String content, Date createTime,int laud, Category category) {
+    public Message(int id, int userId, String userName,  String title, String content, Date createTime,int laud, Category category) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
@@ -42,12 +42,13 @@ public class Message {
         this.content = content;
     }
 
-    public Message(int id, int userId, String userName, String title, String content, Date createTime) {
+    public Message(int id, int userId, String userName,String title, String content, Date createTime) {
         this.id = id;
         this.userId = userId;
         this.userName = userName;
         this.title = title;
         this.content = content;
+
         this.createTime = createTime;
     }
 
@@ -134,4 +135,5 @@ public class Message {
 
         return laud;
     }
+
 }

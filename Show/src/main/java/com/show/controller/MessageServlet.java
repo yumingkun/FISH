@@ -18,7 +18,7 @@ import java.util.List;
 import net.sf.json.JSONArray;
 import org.apache.log4j.Logger;
 
-@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do","/show/updateMessage.do","/show/addLaud.do","/show/detail.do","/show/toWrite.do","/show/addMessage.do","/show/toAddMessage.do"})
+@WebServlet({"/show/message.do","/show/myMessage.do","/show/more.do","/show/search.do","/show/trash.do","/show/showTrashMessage.do","/show/restore.do","/show/myDelete.do","/show/getMessageId.do","/show/updateMessage.do","/show/addLaud.do","/show/detail.do","/show/toWrite.do","/show/addMessage.do","/show/toAddMessage.do","/show/myFollowMessage.do","/show/myFanMessage.do"})
 public class MessageServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private MessageService messageService;
@@ -318,9 +318,40 @@ public class MessageServlet extends HttpServlet {
                     }
 
                 }
+         //通过关注者的id获取关注者的所有文章
+        }else if ("/show/myFollowMessage.do".equals(request.getServletPath())){
+            int followId=Integer.parseInt(request.getParameter("followId"));
+            List<Message> messages=messageService.getUserMessageList(followId);
+            User user=userService.getUser(followId);
 
 
+            //当前用户文章列表提取每篇文章的第一个src
+            List<Message> messageSrcs = new ArrayList<>();
+            for (Message message : messages) {
+                message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                messageSrcs.add(message);
+            }
+            request.setAttribute("messages",messageSrcs);
+            request.setAttribute("user",user);
+            request.getRequestDispatcher("/WEB-INF/views/myFollowMessage.jsp").forward(request, response);
 
+
+        //我的粉丝所有的文章
+        }else if ("/show/myFanMessage.do".equals(request.getServletPath())){
+            int fanId=Integer.parseInt(request.getParameter("fanId"));
+            List<Message> messages=messageService.getUserMessageList(fanId);
+            User user=userService.getUser(fanId);
+
+
+            //当前用户文章列表提取每篇文章的第一个src
+            List<Message> messageSrcs = new ArrayList<>();
+            for (Message message : messages) {
+                message.setSrc(GetImgStr.getImgStr(message.getContent()));
+                messageSrcs.add(message);
+            }
+            request.setAttribute("messages",messageSrcs);
+            request.setAttribute("user",user);
+            request.getRequestDispatcher("/WEB-INF/views/myFanMessage.jsp").forward(request, response);
         }
     }
 

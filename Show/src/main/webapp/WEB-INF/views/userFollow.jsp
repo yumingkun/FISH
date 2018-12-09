@@ -179,7 +179,7 @@
                             <div class="thumbnail" id="myFollow">
                                 <img src="<%=basePath%>${userfollow.head}" alt="...">
                                 <div class="caption">
-                                    <p>${userfollow.username}</p>
+                                    <p><a href="<%=request.getContextPath()%>/show/myFollowMessage.do?followId=${userfollow.id}">${userfollow.username}</a></p>
                                     <p> <a href="#" class="btn btn-default" role="button" onclick="deleteFollow('${userfollow.id}')">取消关注</a></p>
                                 </div>
                             </div>

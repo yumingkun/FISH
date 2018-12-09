@@ -180,7 +180,8 @@
                     <div>
                         <%--修改用户信息--%>
                         <p class="text-muted">ID:${user.id}<a  href="#" style="float: right"><span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#myModa2" style="font-size: 20px"></span></a></p>
-                        <p>关注</p><p>粉丝</p>
+                        <p>关注:${followNum}</p>
+                        <p>粉丝:${fanNum}</p>
 
                     </div>
                     <hr>

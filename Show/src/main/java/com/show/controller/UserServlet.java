@@ -1,6 +1,7 @@
 package com.show.controller;
 
 import com.fish.bean.User;
+import com.fish.service.FollowService;
 import com.fish.service.UserService;
 import org.apache.log4j.Logger;
 
@@ -17,10 +18,12 @@ import java.io.IOException;
 public class UserServlet extends HttpServlet {
     private static Logger logger = Logger.getLogger(MessageServlet.class);
     private UserService userService;
+    private FollowService followService;
     @Override
     public void init() throws ServletException {
         super.init();
         userService=new UserService();
+        followService=new FollowService();
     }
 
     @Override
@@ -100,8 +103,12 @@ public class UserServlet extends HttpServlet {
             User user=(User)req.getSession().getAttribute("user");
             int  id=user.getId();
             User  myself=userService.getUser(id);
+            int fanNum=followService.getFanNum(id);//当前用户粉丝数
+            int followNum=followService.getFollowNum(id);//当前用户关注数
             if (myself!=null){
                 req.setAttribute("user",myself);
+                req.setAttribute("fanNum",fanNum);
+                req.setAttribute("followNum",followNum);
                 req.getRequestDispatcher("/WEB-INF/views/user.jsp").forward(req,resp);
             }else {
                 System.out.println("个人中心的servlet错误===============================================");
