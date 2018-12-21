@@ -128,8 +128,11 @@ public class MessageServlet extends HttpServlet {
             // 获取当前用户的id
             User user = (User) request.getSession().getAttribute("user");
             int id = user.getId();
-            //查找文章不在回收站的
-            List<Message> myMessages = messageService.getUserMessageList(id);
+
+            List<Message> myMessages = messageService.getUserMessageListAuditing(id);
+            for (Message m:myMessages) {
+                logger.info(m.getAuditing());
+            }
             //得到所有的分类
             List<Category> categories = categoryService.getCategoryList();
 

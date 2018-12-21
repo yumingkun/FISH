@@ -5,9 +5,11 @@ package com.show.controller;
 import com.fish.bean.Carousel;
 import com.fish.bean.Category;
 import com.fish.bean.Message;
+import com.fish.bean.User;
 import com.fish.service.CarouseService;
 import com.fish.service.CategoryService;
 import com.fish.service.MessageService;
+import com.fish.service.UserService;
 import com.fish.utils.GetImgStr;
 import org.apache.log4j.Logger;
 
@@ -26,12 +28,14 @@ public class CategoryShowServlet extends HttpServlet {
     private CategoryService categoryService;
     private MessageService messageService;
     private CarouseService carouseService;
+    private UserService userService;
     @Override
     public void init() throws ServletException {
         super.init();
         categoryService = new CategoryService();
         messageService = new MessageService();
         carouseService=new CarouseService();
+        userService=new UserService();
     }
 
     @Override
@@ -45,6 +49,9 @@ public class CategoryShowServlet extends HttpServlet {
        if ("/show/oneCategory.do".equals(request.getServletPath())){
           int cid=Integer.parseInt(request.getParameter("cid"));//获取前端的分类id
            List<Message> messages=messageService.getMessagesByCategoryId(cid);
+
+           //获得文章数前五的作者信息
+           List<User> users = userService.getUserLimit();
 
            //提取每篇文章的第一个src
            List<Message> messageSrcs=new ArrayList<>();
@@ -67,6 +74,7 @@ public class CategoryShowServlet extends HttpServlet {
                request.setAttribute("count",messages.size());
                request.setAttribute("carousels",carousels);
                request.setAttribute("messagesLauds",messagesLauds);
+               request.setAttribute("userlimit", users);
                request.setAttribute("show",1);
                request.getRequestDispatcher("/WEB-INF/views/allMessage.jsp").forward(request,response);
            }

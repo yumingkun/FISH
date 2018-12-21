@@ -4,8 +4,10 @@ package com.fish.bean;
  * 分类 id gname
  */
 public class Category {
-    private int id;//分类编号
-    private String gname;//分类编号对应的分类名
+
+    //类型         类型名       类型解释
+    private int id;           //分类编号
+    private String gname;     //分类编号对应的分类名
 
     public Category() {
     }

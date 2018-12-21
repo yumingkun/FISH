@@ -5,14 +5,18 @@ import java.util.Date;
 //评论
 public class Comment {
     // id user_id message_id content laud create_time
-    private int id;
-    private int userId;
-    private int messageId;
-    private String contrent;
-    private int laud;//赞
-    private Date create_time;
 
-    private User user;//此文章评论者的信息
+
+    //类型         类型名       类型解释
+    private int id;            //id
+    private int userId;        //评论者id
+    private int messageId;     //文章ID
+    private String contrent;   //评论内容
+    private int laud;          //赞
+    private Date create_time;  //评论时间
+    private User user;         //此文章评论者的信息
+
+
 
     public void setUser(User user) {
         this.user = user;

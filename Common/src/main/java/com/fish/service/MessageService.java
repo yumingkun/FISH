@@ -14,6 +14,13 @@ public class MessageService {
         messageDao=new MessageDao();
     }
 
+    /**
+     * 获取所有需要审核的文章
+     * @return
+     */
+    public List<Message> getAllMeaasgeAuditing()  {
+        return messageDao.getAllMeaasgeAuditing();
+    }
 
     /**
      * 查询部分文章
@@ -27,12 +34,22 @@ public class MessageService {
     }
 
     /**
-     * 查询用户所有的文章
+     * 查询用户所有的文章(全都审核通过)
      * @param id
      * @return
      */
     public List<Message> getUserMessageList(int id){
         return  messageDao.getUserMessageList(id);
+    }
+
+
+    /**
+     * 个人中心查询自己（已经审核和未审核的文章）的全部文章
+     * @param id 当前用户id
+     * @return
+     */
+    public List<Message> getUserMessageListAuditing(int id)  {
+        return  messageDao.getUserMessageListAuditing(id);
     }
 
 
@@ -159,5 +176,15 @@ public class MessageService {
      */
     public List<Message> getMessageLaud(){
         return messageDao.getMessageLaud();
+    }
+
+
+    /**
+     * 审核通过
+     * @param id
+     * @return
+     */
+    public  int  updateAuditing(int id) {
+        return messageDao.updateAuditing(id);
     }
 }

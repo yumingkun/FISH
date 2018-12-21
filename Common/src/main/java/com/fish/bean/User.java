@@ -2,12 +2,15 @@ package com.fish.bean;
 
 
 public class User {
-    private int id;
-    private String username;
-    private String password;
-    private String email;
-    private String head;
-    private String power;//权限 0用户 1管理员 2超级管理员
+
+
+    //类型         类型名       类型解释
+    private int id;           //用户id
+    private String username;  //用户名
+    private String password;  //用户密码
+    private String email;     //邮箱
+    private String head;      //头像路径
+    private String power;     //权限 0用户 1管理员 2超级管理员
 
 
 

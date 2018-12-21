@@ -27,6 +27,7 @@
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/getUsers.do">用户管理</a></p>
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/category.do">专题管理</a></p>
                     <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/toCarousel.do">轮播管理</a></p>
+                    <p class="myTwo"><a href="<%=request.getContextPath()%>/manage/toAuditing.do">文章管理</a></p>
                 </div>
             </div>
         </div>

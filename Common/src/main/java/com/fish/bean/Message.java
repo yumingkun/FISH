@@ -3,20 +3,19 @@ package com.fish.bean;
 import java.util.Date;
 
 public class Message {
-    private  int id;
-    private int userId;
-    private String userName;
-    private  String title;
-    private String content;
-    private Date createTime;
-    private int laud;//点赞数量
 
 
-
-    private String src;
-
-//    分类
-    private Category category;
+    //类型         类型名       类型解释
+    private  int id;           //id
+    private int userId;        //评论者ID
+    private  String title;     //标题
+    private String content;    //内容
+    private Date createTime;   //创建时间
+    private int laud;          //点赞数量
+    private String src;        //文章提取出的第一张图片
+    private Category category; //文章分类
+    private int auditing;      //审核状态
+    private String userName;   //
 
     public Message(int id, int userId, String userName,  String title, String content, Date createTime,int laud, Category category) {
         this.id = id;
@@ -29,12 +28,30 @@ public class Message {
         this.laud=laud;
     }
 
-
+    public Message(int id, int userId, String userName,  String title, String content, Date createTime,int laud, int auditing,Category category) {
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
+        this.title = title;
+        this.category = category;
+        this.content = content;
+        this.createTime = createTime;
+        this.auditing= auditing;
+        this.laud=laud;
+    }
 
 
     public Message() {
     }
 
+
+    public int getAuditing() {
+        return auditing;
+    }
+
+    public void setAuditing(int auditing) {
+        this.auditing = auditing;
+    }
     public Message(int userId, String userName, String title, String content) {
         this.userId = userId;
         this.userName = userName;

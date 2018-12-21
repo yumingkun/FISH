@@ -165,8 +165,21 @@
                                 </div>
                                 <div class="col-xs-6">
 
-                                    <a href="#" class="title">${message.title}</a>
-                                        <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
+                                    <c:choose>
+                                        <c:when test="${message.auditing eq 1}">
+                                            <a href="#" class="title">
+                                                    ${message.title}
+                                            </a>
+                                        </c:when>
+                                        <c:when test="${message.auditing eq 0}">
+                                            <a href="#"   class="title">
+                                                    ${message.title}
+                                                <button  class="btn btn-default btn-sm">未审核</button>
+                                            </a>
+                                        </c:when>
+                                    </c:choose>
+
+                                <%--<div class="content" style="text-overflow:ellipsis;white-space:nowrap;overflow:hidden;width:200px;height: 70px">--%>
                                         <%--<p>${message.content}</p>--%>
                                         <%--</div>--%>
                                     <div class="info" style="margin-top: 30px">

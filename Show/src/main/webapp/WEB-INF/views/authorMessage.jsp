@@ -93,16 +93,7 @@
 <div class="container">
     <div class="row">
 
-        <div class="col-md-3">
-            <div class="thumbnail" style="box-shadow: 2px 2px 5px silver">
-                <img src="<%=basePath%>${user.head}" alt="..." style="border-radius: 50%;border: 4px solid #dcf7ff">
-                <div class="caption" style="text-align: center">
-                    <h4>作者：${user.username}</h4>
-                    <!--<p>...</p>
-                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>-->
-                </div>
-            </div>
-        </div>
+
         <div class="col-md-8 col-lg-offset-1">
             <div class="mylist">
                 <c:forEach items="${messages}" var="message">
@@ -131,6 +122,17 @@
                     </div>
                 </c:forEach>
                 <%--加载更多数据显示位置   --%>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="thumbnail" style="box-shadow: 2px 2px 5px silver">
+                <img src="<%=basePath%>${user.head}" alt="..." style="border-radius: 50px;border: 4px solid #dcf7ff">
+                <div class="caption" style="text-align: center">
+                    <h4>作者：${user.username}</h4>
+                    <!--<p>...</p>
+                    <p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>-->
+                </div>
             </div>
         </div>
 

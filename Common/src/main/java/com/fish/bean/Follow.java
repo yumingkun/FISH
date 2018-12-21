@@ -4,10 +4,12 @@ package com.fish.bean;
  * 关注和粉丝表
  */
 public class Follow {
-    private int id;
-    private int userId;//粉丝
-    private int fllowUserId;//关注的用户id
-    private String status;//关注状态
+
+    //类型         类型名       类型解释
+    private int id;            //id
+    private int userId;        //粉丝id
+    private int fllowUserId;   //关注的用户id
+    private String status;     //关注状态
 
     public Follow(int id, int userId, int fllowUserId, String status) {
         this.id = id;

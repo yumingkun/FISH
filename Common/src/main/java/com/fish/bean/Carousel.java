@@ -6,10 +6,11 @@ import java.util.Date;
  * 轮播图实体
  */
 public class Carousel {
-    private int id;
-    private String imgLoc;
 
-    private Date createTime;
+    //类型         类型名       类型解释
+    private int id;            //id
+    private String imgLoc;     //图片上传路径
+    private Date createTime;   //上传时间
 
     public Carousel(int id, String imgLoc, Date createTime) {
         this.id = id;

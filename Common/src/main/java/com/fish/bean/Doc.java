@@ -3,17 +3,21 @@ package com.fish.bean;
 
 
 public class Doc {
+	//类型         类型名       类型解释
+	private int id;  		  //id
+	private String filename;  //文件名
+	private String savepath;  //保存路径
+	private long filesize;	  //文件大小
+	private String filetype;  //文件类型
+	private String memo;      //备注
+	private String isshare;   //是否分享
+	private String username;  //上传者
+	private String uploaddate;//上传日期
+	private int count;        //下载数量
 
-	private int id;
-	private String filename;
-	private String savepath;
-	private long filesize;
-	private String filetype;
-	private String memo;
-	private String isshare;
-	private String username;
-	private String uploaddate;
-	private int count;
+
+
+
 	public int getId() {
 		return id;
 	}
