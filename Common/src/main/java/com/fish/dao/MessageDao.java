@@ -501,7 +501,7 @@ public class MessageDao {
         int num;
         try {
             conn = ConnectUtil.getConnection();
-            String sql = "update message set title=?,content=?,category_id=?  where id=?";
+            String sql = "update message set title=?,content=?,category_id=?,auditing=0 where id=?";
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1,message.getTitle());
             pstmt.setString(2,message.getContent());
@@ -671,4 +671,33 @@ public class MessageDao {
         }
         return  num;
     }
+
+    /**
+     * 审核不通过
+     * @param id
+     * @return
+     */
+    public  int  stopAuditing(int id) {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int num=0;
+        try {
+            conn = ConnectUtil.getConnection();
+            String sql = "update message set auditing=-1 where id=?";
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, id);
+            num = pstmt.executeUpdate();
+            return num;
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            ConnectUtil.release(rs, pstmt, conn);
+        }
+        return num;
+    }
+
+
 }

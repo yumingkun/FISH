@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet({"/manage/toAuditing.do","/manage/getMessage.do","/manage/updateAuditing"})
+@WebServlet({"/manage/toAuditing.do","/manage/getMessage.do","/manage/updateAuditing","/manage/stopAuditing"})
 public class MessageServlet extends HttpServlet {
     private MessageService messageService=new MessageService();
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,6 +41,15 @@ public class MessageServlet extends HttpServlet {
 
             }
 
+        }else if ("/manage/stopAuditing".equals(request.getServletPath())){
+            int messageId=Integer.parseInt(request.getParameter("messageId"));
+            int result=messageService.stopAuditing(messageId);
+            if (result>0){
+                response.getWriter().write("禁止成功");
+            }else {
+                response.getWriter().write("禁止失败");
+
+            }
         }
 
     }

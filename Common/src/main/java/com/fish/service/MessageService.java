@@ -187,4 +187,13 @@ public class MessageService {
     public  int  updateAuditing(int id) {
         return messageDao.updateAuditing(id);
     }
+
+    /**
+     * 审核不通过
+     * @param id
+     * @return
+     */
+    public  int  stopAuditing(int id) {
+        return messageDao.stopAuditing(id);
+    }
 }

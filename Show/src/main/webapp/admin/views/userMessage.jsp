@@ -104,9 +104,8 @@
                             <a type="button" class="btn btn-default btn-sm"  data-toggle="modal" data-target=".bs-example-modal-lg" onclick='skim("${message.title}","${message.id}")'>
                                预览
                             </a>
-
-
-                            <button class="btn btn-info btn-sm" onclick="updateAuditing('${message.id}')">通过</button>
+                            <button class="btn btn-info btn-sm" onclick="updateAuditing('${message.id}')">允</button>
+                            <button class="btn btn-danger btn-sm" onclick="stopAuditing('${message.id}')">禁</button>
 
                         </td>
                     </tr>
@@ -169,8 +168,20 @@
             error:function( XMLHttpRequest, textStatus, errorThrown){
                 alert("审核失败")
             },
+        });
+    }
 
-
+    function stopAuditing(id) {
+        $.ajax({
+            type:"post",
+            url:"${pageContext.request.contextPath}/manage/stopAuditing?messageId="+id,
+            success:function(data){
+                alert(data);
+                $("#"+id).hide(1000);
+            },
+            error:function( XMLHttpRequest, textStatus, errorThrown){
+                alert("失败")
+            },
         });
     }
 

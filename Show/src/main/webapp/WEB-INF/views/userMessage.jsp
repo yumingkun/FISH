@@ -207,7 +207,13 @@
                                             <c:when test="${message.auditing eq 0}">
                                                 <a href="#"   class="title">
                                                         ${message.title}
-                                                        <button  class="btn btn-default btn-sm">未审核</button>
+                                                        <button  class="btn btn-default btn-sm">待审核</button>
+                                                </a>
+                                            </c:when>
+                                            <c:when test="${message.auditing eq -1}">
+                                                <a href="#"   class="title">
+                                                        ${message.title}
+                                                    <button  class="btn btn-danger btn-sm">未通过</button>
                                                 </a>
                                             </c:when>
                                         </c:choose>
@@ -382,10 +388,12 @@
     // 切换侧边栏
     $("#myShowAllBtn").click(function() {
         if ($("#showLeft").hasClass("col-md-6")) {
-            $("#showLeft").removeClass("col-md-6").hide(0);
-            $("#showRight").addClass("col-md-12").removeClass("col-md-6");
+            $("#showLeft").hide(500).removeClass("col-md-6");
+            $("#showRight").addClass("col-md-12").delay(2000);
+            $("#showRight").removeClass("col-md-6");
+
         }else {
-            $("#showLeft").addClass("col-md-6").show(0);
+            $("#showLeft").addClass("col-md-6").show(500);
             $("#showRight").addClass("col-md-6").removeClass("col-md-12");
         }
 

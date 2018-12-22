@@ -134,10 +134,10 @@
 
             <%--中间地带--%>
             <div class="panel-body form-inline" style="background-color: #f0bebd;height: 80px">
-                <form style="float: left;margin-top: 10px" >
-                    <input class="form-control" type="text" name="" placeholder="请输入搜索关键字">
-                    <input class="form-control" type="submit" value="搜索">
-                </form>
+                <%--<form style="float: left;margin-top: 10px" >--%>
+                    <%--<input class="form-control" type="text" name="" placeholder="请输入搜索关键字">--%>
+                    <%--<input class="form-control" type="submit" value="搜索">--%>
+                <%--</form>--%>
 
                 <%--放入提示--%>
                 <div id="tishi">
@@ -175,6 +175,12 @@
                                             <a href="#"   class="title">
                                                     ${message.title}
                                                 <button  class="btn btn-default btn-sm">未审核</button>
+                                            </a>
+                                        </c:when>
+                                        <c:when test="${message.auditing eq -1}">
+                                            <a href="#"   class="title">
+                                                    ${message.title}
+                                                <button  class="btn btn-danger btn-sm">未通过</button>
                                             </a>
                                         </c:when>
                                     </c:choose>
