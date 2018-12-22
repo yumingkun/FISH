@@ -129,7 +129,7 @@
         }
         .text {
             /*border: 1px solid #ccc;*/
-            height: 600px;
+            height: 500px;
         }
 
         .show .left {
@@ -149,15 +149,18 @@
 <jsp:include page="../common/header.jsp" />
 
 
-<div class="container-fluid ">
+<div class="container-fluid " id="size">
+    <div class="row text-center" >
+        <a class="btn btn-default" id="myShowAllBtn" ><span class="glyphicon glyphicon-resize-horizontal"></span></a>
+    </div>
     <div class="row">
         <form action="<%=request.getContextPath()%>/show/myMessage.do" METHOD="post" id="refishTrash" style="display: none"></form>
 
-        <div class="col-md-6" id="showLeft">
+        <div class="col-md-6" id="showLeft" >
 
             <div id="left" class="  panel panel-group">
 
-                <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">我的博客</h1>
+                <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: #b4d3c2">我的博客</h1>
 
 
                 <%--中间地带--%>
@@ -178,59 +181,63 @@
 
 
                 <%--右边选项--%>
-                <div id="article" class="panel-body"  >
+                <div id="article" class="panel-body" >
 
                     <%--选项卡--%>
                     <div id="myTabContent" class="tab-content">
 
 
                         <%--文章列表--%>
-                        <div class="new-list tab-pane fade in active"  id="thehome">
-                            <c:forEach items="${myMessages}" var="message">
-                                <%--标记jq要删除的节点--%>
-                                <div class="new-list-item clearfix row" id="${message.id}">
-                                    <div class="col-xs-3 theUserImg" >
-                                        <c:if test="${message.src==null or message.src==''}">
-                                            <img src="../../img/nullsrc.png" id="nullImg" >
-                                        </c:if>
-                                        <c:if test="${message.src!=null and message.src!=''}">
-                                            <img src="${message.src}">
-                                        </c:if>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        <c:choose>
-                                            <c:when test="${message.auditing eq 1}">
-                                                <a href="<%=request.getContextPath()%>/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">
-                                                        ${message.title}
-                                                </a>
-                                            </c:when>
-                                            <c:when test="${message.auditing eq 0}">
-                                                <a href="#"   class="title">
-                                                        ${message.title}
-                                                        <button  class="btn btn-default btn-sm">待审核</button>
-                                                </a>
-                                            </c:when>
-                                            <c:when test="${message.auditing eq -1}">
-                                                <a href="#"   class="title">
-                                                        ${message.title}
-                                                    <button  class="btn btn-danger btn-sm">未通过</button>
-                                                </a>
-                                            </c:when>
-                                        </c:choose>
-
-
-                                        <div class="info" style="margin-top: 30px">
-                                            <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
-                                            <span>${message.category.gname}</span>
+                        <div class="new-list tab-pane fade in active"  id="thehome" >
+                            <%--滑块e--%>
+                            <div  style="height: 652px;overflow: auto">
+                                <c:forEach items="${myMessages}" var="message">
+                                    <%--标记jq要删除的节点--%>
+                                    <div class="new-list-item clearfix row" id="${message.id}">
+                                        <div class="col-xs-3 theUserImg" >
+                                            <c:if test="${message.src==null or message.src==''}">
+                                                <img src="../../img/nullsrc.png" id="nullImg" >
+                                            </c:if>
+                                            <c:if test="${message.src!=null and message.src!=''}">
+                                                <img src="${message.src}">
+                                            </c:if>
                                         </div>
+                                        <div class="col-xs-6">
+                                            <c:choose>
+                                                <c:when test="${message.auditing eq 1}">
+                                                    <a href="<%=request.getContextPath()%>/show/detail.do?id=${message.id}&userId=${message.userId}" class="title">
+                                                            ${message.title}
+                                                    </a>
+                                                </c:when>
+                                                <c:when test="${message.auditing eq 0}">
+                                                    <a href="#"   class="title">
+                                                            ${message.title}
+                                                        <button  class="btn btn-default btn-sm">待审核</button>
+                                                    </a>
+                                                </c:when>
+                                                <c:when test="${message.auditing eq -1}">
+                                                    <a href="#"   class="title">
+                                                            ${message.title}
+                                                        <button  class="btn btn-danger btn-sm">未通过</button>
+                                                    </a>
+                                                </c:when>
+                                            </c:choose>
 
+
+                                            <div class="info" style="margin-top: 30px">
+                                                <span class="glyphicon glyphicon-tag" style="color: #6c7fd1"></span>
+                                                <span>${message.category.gname}</span>
+                                            </div>
+
+                                        </div>
+                                            <%--修改--%>
+                                        <div class="col-xs-1 "> <span class="glyphicon glyphicon-edit" onclick="getTheMessage('${message.id}')"></span></div>
+                                            <%--放入回收站--%>
+                                        <div class="col-xs-1"><span class="glyphicon glyphicon-trash" style="color: firebrick" id="trash" onclick="trash(${message.id})"></span></div>
                                     </div>
-                                        <%--修改--%>
-                                    <div class="col-xs-1 "> <span class="glyphicon glyphicon-edit" onclick="getTheMessage('${message.id}')"></span></div>
-                                        <%--放入回收站--%>
-                                    <div class="col-xs-1"><span class="glyphicon glyphicon-trash" style="color: firebrick" id="trash" onclick="trash(${message.id})"></span></div>
-                                </div>
-                            </c:forEach>
+                                </c:forEach>
+                            </div>
+                            <%--滑块end--%>
                             <a href="<%=request.getContextPath()%>/show/user.do"><button class="btn btn-default   btn-lg" style="margin-top: 10px;"><span class="glyphicon glyphicon-backward"></span></button></a>
                         </div>
                     </div>
@@ -242,7 +249,7 @@
 
         <%--右边修改文章--%>
         <div class="col-md-6" id="showRight" style="z-index: 1; border: 3px solid rgba(83, 85, 136, 0.1);padding: 0;margin: 0">
-            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: gray">修改文章</h1>
+            <h1 style="text-align: center;font-family: 'Wawati SC';font-weight: bold;color: #b0c8e2">修改文章</h1>
 
 
             <%--操作提示--%>
@@ -305,7 +312,7 @@
 
                 <div class="form-group">
                     <div class=" col-sm-2">
-                        <a class="btn btn-default" id="myShowAllBtn" >全屏/半屏</a>
+                        <%--<a class="btn btn-default" id="myShowAllBtn" >全屏/半屏</a>--%>
                     </div>
                     <div class=" col-sm-2 col-sm-offset-8">
                        <button class="btn btn-default" onclick="return update()">保存修改</button>
@@ -388,11 +395,12 @@
     // 切换侧边栏
     $("#myShowAllBtn").click(function() {
         if ($("#showLeft").hasClass("col-md-6")) {
-            $("#showLeft").hide(500).removeClass("col-md-6");
-            $("#showRight").addClass("col-md-12").delay(2000);
-            $("#showRight").removeClass("col-md-6");
+            $("#showLeft").slideUp(500).removeClass("col-md-6");
+            $("#size").removeClass("container-fluid").addClass("container");
+            $("#showRight").addClass("col-md-12").removeClass("col-md-6");
 
         }else {
+            $("#size").addClass("container-fluid").removeClass("container");
             $("#showLeft").addClass("col-md-6").show(500);
             $("#showRight").addClass("col-md-6").removeClass("col-md-12");
         }
